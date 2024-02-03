@@ -23,5 +23,6 @@ public class TextSprite : ISprite
     {
         spriteBatch.DrawString(font, text, position, color);
         spriteBatch.DrawString(font, text, position, color);
+        spriteBatch.DrawString(font, text, position, color);
     }
 }
