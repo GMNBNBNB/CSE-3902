@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/myfont.spritefont</File>
-    <File>C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/sheet.png</File>
+    <File>C:/Users/12658/Source/Repos/GMNBNBNB/CSE-3902/Sprint0/Content/myfont.spritefont</File>
+    <File>C:/Users/12658/Source/Repos/GMNBNBNB/CSE-3902/Sprint0/Content/sheet.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
