@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/myfont.spritefont","C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/bin/DesktopGL/Content/myfont.xnb","FontDescriptionProcessor","SpriteFontContent",2065,21535,0.1471775
+"C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/sheet.png","C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Sprint0/Content/bin/DesktopGL/Content/sheet.xnb","TextureProcessor","Texture2DContent",21087,822937,0.0916716
