@@ -9,13 +9,11 @@ namespace Sprint0
     {
         Texture2D texture;
         Vector2 position;
-        Vector2 textPosition;
+        Vector2 EnemyPosition;
 
         ISprite sprite;
-        ISprite textSprite;
         List<object> controllerList;
 
-        SpriteFont spriteFont;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -38,7 +36,7 @@ namespace Sprint0
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            textPosition = new Vector2(_graphics.PreferredBackBufferWidth /9, _graphics.PreferredBackBufferHeight / 4*3);
+            EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 100);
             controllerList = new List<object>();
             base.Initialize();
         }
@@ -48,13 +46,9 @@ namespace Sprint0
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             texture = Content.Load<Texture2D>("sheet");
-            spriteFont = Content.Load<SpriteFont>("myfont"); 
+            sprite = new Enemy1(texture, EnemyPosition);
 
-            sprite = new StaticSprite(texture, position);
-            textSprite = new TextSprite(textPosition,spriteFont);
-
-            controllerList.Add(new GamepadController(this, texture, position));
-            controllerList.Add(new KeyboardController(this, texture, position));
+            controllerList.Add(new KeyboardController(this, texture, position, EnemyPosition));
         }
 
         protected override void Update(GameTime gameTime)
@@ -77,7 +71,6 @@ namespace Sprint0
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             _spriteBatch.Begin();
-            textSprite.Draw(_spriteBatch);
             sprite.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);

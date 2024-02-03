@@ -2,8 +2,8 @@
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/Program Files/source/sprint2/Sprint0/Content/myfont.spritefont</SourceFile>
   <SourceTime>2024-02-04T20:23:15.6129656-05:00</SourceTime>
-  <DestFile>D:/Program Files/source/sprint2/Sprint0/Content/bin/DesktopGL/Content/myfont.xnb</DestFile>
-  <DestTime>2024-02-04T20:23:35.2185836-05:00</DestTime>
+  <DestFile>D:/Program Files/source/sprint2/Sprint0/Content/bin/DesktopGL/myfont.xnb</DestFile>
+  <DestTime>2024-02-04T21:16:03.2038889-05:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

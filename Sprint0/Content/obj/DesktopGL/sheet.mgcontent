@@ -2,8 +2,8 @@
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/Program Files/source/sprint2/Sprint0/Content/mario.gif</SourceFile>
   <SourceTime>2024-02-04T21:15:02.911154-05:00</SourceTime>
-  <DestFile>D:/Program Files/source/sprint2/Sprint0/Content/bin/DesktopGL/Content/sheet.xnb</DestFile>
-  <DestTime>2024-02-04T21:16:07.0614987-05:00</DestTime>
+  <DestFile>D:/Program Files/source/sprint2/Sprint0/Content/bin/DesktopGL/sheet.xnb</DestFile>
+  <DestTime>2024-02-04T21:16:03.1375783-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
