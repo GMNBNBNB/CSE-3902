@@ -11,8 +11,9 @@ public class KeyboardController : IController
     private Vector2 position;
     private Vector2 EnemyPosition;
     private Rectangle screenBounds;
+    private int enemy = 0;
 
-    public KeyboardController(Game1 game, Texture2D texture, Vector2 position,Vector2 EnemyPosition)
+    public KeyboardController(Game1 game, Texture2D texture, Vector2 position, Vector2 EnemyPosition)
     {
         this.game = game;
         this.texture = texture;
@@ -25,18 +26,25 @@ public class KeyboardController : IController
     {
         KeyboardState state = Keyboard.GetState();
 
-            if (state.IsKeyDown(Keys.D0))
-            {
-                Environment.Exit(0);
-            }
-            if (state.IsKeyDown(Keys.N))
-            {
+        if (state.IsKeyDown(Keys.N))
+        {
+            enemy++;
+        }
+        else if (state.IsKeyDown(Keys.M))
+        {
+            enemy--;
+        }
+        switch (enemy)
+        {
+            case 1:
                 game.ChangeSprite(new Enemy1(texture, EnemyPosition));
-            }
-            if (state.IsKeyDown(Keys.M))
-            {
+                break;
+
+            case 2:
                 game.ChangeSprite(new Enemy2(texture, EnemyPosition, screenBounds));
-            }
+                break;
+        }
     }
 }
+
 

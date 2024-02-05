@@ -40,7 +40,7 @@ public class Enemy2 : ISprite
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
 
-        if (nextX < screenBounds.Left)
+        if (nextX < screenBounds.Left + 300)
         {
             velocity = -velocity;
             frames = rightFrames;
