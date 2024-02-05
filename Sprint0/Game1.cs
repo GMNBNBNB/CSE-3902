@@ -8,6 +8,7 @@ namespace Sprint0
     public class Game1 : Game
     {
         Texture2D texture;
+        Texture2D enemyAttack;
         Vector2 position;
         Vector2 EnemyPosition;
 
@@ -46,9 +47,11 @@ namespace Sprint0
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             texture = Content.Load<Texture2D>("sheet");
+            enemyAttack = Content.Load<Texture2D>("EnemyAttack");
             sprite = new Enemy1(texture, EnemyPosition);
 
-            controllerList.Add(new KeyboardController(this, texture, position, EnemyPosition));
+            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, EnemyPosition));
+
         }
 
         protected override void Update(GameTime gameTime)

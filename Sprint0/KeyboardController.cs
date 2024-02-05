@@ -3,23 +3,32 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Sprint0;
+using System.Collections.Generic;
 
 public class KeyboardController : IController
 {
     private Game1 game;
     private Texture2D texture;
+    private Texture2D enemyAttack;
     private Vector2 position;
     private Vector2 EnemyPosition;
     private Rectangle screenBounds;
-    private int enemy = 0;
+    private int currentEnemyIndex = 0;
+    private List<ISprite> enemies = new List<ISprite>();
 
-    public KeyboardController(Game1 game, Texture2D texture, Vector2 position, Vector2 EnemyPosition)
+    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, Vector2 EnemyPosition)
     {
         this.game = game;
         this.texture = texture;
+        this.enemyAttack = enemyAttack;
         this.position = position;
         this.EnemyPosition = EnemyPosition;
         this.screenBounds = game.GetScreenBounds();
+
+        enemies.Add(new Enemy1(texture, EnemyPosition));
+        enemies.Add(new Enemy2(texture, EnemyPosition, screenBounds));
+        enemies.Add(new Enemy3(enemyAttack, EnemyPosition, screenBounds));
+
     }
 
     public void Update(GameTime gameTime)
@@ -28,22 +37,17 @@ public class KeyboardController : IController
 
         if (state.IsKeyDown(Keys.N))
         {
-            enemy++;
+            currentEnemyIndex = (currentEnemyIndex + 1) % enemies.Count;
+            game.ChangeSprite(enemies[currentEnemyIndex]);
+            System.Threading.Thread.Sleep(50);
         }
         else if (state.IsKeyDown(Keys.M))
         {
-            enemy--;
+            currentEnemyIndex = (currentEnemyIndex - 1 + enemies.Count) % enemies.Count;
+            game.ChangeSprite(enemies[currentEnemyIndex]);
+            System.Threading.Thread.Sleep(50);
         }
-        switch (enemy)
-        {
-            case 1:
-                game.ChangeSprite(new Enemy1(texture, EnemyPosition));
-                break;
 
-            case 2:
-                game.ChangeSprite(new Enemy2(texture, EnemyPosition, screenBounds));
-                break;
-        }
     }
 }
 

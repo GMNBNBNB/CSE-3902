@@ -53,7 +53,6 @@ C:\Users\12658\Source\Repos\GMNBNBNB\CSE-3902\Sprint0\obj\Debug\net6.0\refint\Sp
 C:\Users\12658\Source\Repos\GMNBNBNB\CSE-3902\Sprint0\obj\Debug\net6.0\Sprint0.pdb
 C:\Users\12658\Source\Repos\GMNBNBNB\CSE-3902\Sprint0\obj\Debug\net6.0\Sprint0.genruntimeconfig.cache
 C:\Users\12658\Source\Repos\GMNBNBNB\CSE-3902\Sprint0\obj\Debug\net6.0\ref\Sprint0.dll
-D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Content\myfont.xnb
 D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Content\sheet.xnb
 D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Sprint0.exe
 D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Sprint0.deps.json
@@ -81,3 +80,5 @@ D:\Program Files\source\sprint2\Sprint0\obj\Debug\net6.0\refint\Sprint0.dll
 D:\Program Files\source\sprint2\Sprint0\obj\Debug\net6.0\Sprint0.pdb
 D:\Program Files\source\sprint2\Sprint0\obj\Debug\net6.0\Sprint0.genruntimeconfig.cache
 D:\Program Files\source\sprint2\Sprint0\obj\Debug\net6.0\ref\Sprint0.dll
+D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Content\EmenyAttack.xnb
+D:\Program Files\source\sprint2\Sprint0\bin\Debug\net6.0\Content\EnemyAttack.xnb

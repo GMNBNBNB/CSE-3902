@@ -4,11 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/Program Files/source/sprint2/Sprint0/Content/EnemyAttack.png</File>
     <File>D:/Program Files/source/sprint2/Sprint0/Content/mario.gif</File>
-    <File>D:/Program Files/source/sprint2/Sprint0/Content/myfont.spritefont</File>
   </SourceFiles>
   <DestFiles>
-    <File>sheet.gif</File>
     <File xsi:nil="true" />
+    <File>sheet.gif</File>
   </DestFiles>
 </SourceFileCollection>
