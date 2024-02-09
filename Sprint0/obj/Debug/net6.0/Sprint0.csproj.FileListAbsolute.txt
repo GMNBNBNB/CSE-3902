@@ -19,6 +19,7 @@ C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.Gen
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.AssemblyInfoInputs.cache
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.AssemblyInfo.cs
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.csproj.CoreCompileInputs.cache
+C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.sourcelink.json
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.csproj.CopyComplete
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\Sprint0.dll
 C:\Users\kou29\Desktop\3902\Sprint0\Sprint0\Sprint0\obj\Debug\net6.0\refint\Sprint0.dll

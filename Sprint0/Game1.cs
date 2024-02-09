@@ -14,6 +14,7 @@ namespace Sprint0
         ISprite sprite;
         ISprite textSprite;
         List<object> controllerList;
+        IPlayer player;
 
         SpriteFont spriteFont;
 
@@ -40,6 +41,7 @@ namespace Sprint0
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             textPosition = new Vector2(_graphics.PreferredBackBufferWidth /9, _graphics.PreferredBackBufferHeight / 4*3);
             controllerList = new List<object>();
+
             base.Initialize();
         }
 
@@ -52,13 +54,12 @@ namespace Sprint0
 
             sprite = new StaticSprite(texture, position);
             textSprite = new TextSprite(textPosition,spriteFont);
+            player = new PlayerSprite(texture, position, GetScreenBounds());
 
-            controllerList.Add(new GamepadController(this, texture, position));
             controllerList.Add(new KeyboardController(this, texture, position));
         }
 
-        protected override void Update(GameTime gameTime)
-        {
+        protected override void Update(GameTime gameTime){
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -67,7 +68,7 @@ namespace Sprint0
                 controller.Update(gameTime);
             }
 
-            sprite.Update(gameTime);
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -77,10 +78,24 @@ namespace Sprint0
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            textSprite.Draw(_spriteBatch);
-            sprite.Draw(_spriteBatch);
+            player.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void takeDamage()
+        {
+            player.damaged();
+        }
+
+        public void shotFireBall()
+        {
+            player.fireball();
+        }
+
+        public void shotMissile()
+        {
+            player.missile();
         }
     }
 }
