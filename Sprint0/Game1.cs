@@ -14,6 +14,7 @@ namespace Sprint0
 
         ISprite sprite;
         List<object> controllerList;
+        IPlayer player;
 
 
         private GraphicsDeviceManager _graphics;
@@ -39,6 +40,7 @@ namespace Sprint0
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
             EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 100);
             controllerList = new List<object>();
+
             base.Initialize();
         }
 
@@ -49,13 +51,12 @@ namespace Sprint0
             texture = Content.Load<Texture2D>("sheet");
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
             sprite = new Enemy1(texture, EnemyPosition);
-
+            player = new PlayerSprite(texture, position, GetScreenBounds());
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, EnemyPosition));
 
         }
 
-        protected override void Update(GameTime gameTime)
-        {
+        protected override void Update(GameTime gameTime){
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -64,6 +65,7 @@ namespace Sprint0
                 controller.Update(gameTime);
             }
 
+            player.Update(gameTime);
             sprite.Update(gameTime);
 
             base.Update(gameTime);
@@ -74,9 +76,25 @@ namespace Sprint0
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
             _spriteBatch.Begin();
+            player.Draw(_spriteBatch);
             sprite.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void takeDamage()
+        {
+            player.damaged();
+        }
+
+        public void shotFireBall()
+        {
+            player.fireball();
+        }
+
+        public void shotMissile()
+        {
+            player.missile();
         }
     }
 }

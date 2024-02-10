@@ -15,6 +15,7 @@ public class KeyboardController : IController
     private Rectangle screenBounds;
     private int currentEnemyIndex = 0;
     private List<ISprite> enemies = new List<ISprite>();
+    private KeyboardState previousKeyboardState;
 
     public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, Vector2 EnemyPosition)
     {
@@ -48,7 +49,20 @@ public class KeyboardController : IController
             System.Threading.Thread.Sleep(50);
         }
 
+        if (state.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
+        {
+            game.takeDamage();
+        }
+        if (state.IsKeyDown(Keys.D1) && !previousKeyboardState.IsKeyDown(Keys.D1))
+        {
+            game.shotFireBall();
+        }
+        if (state.IsKeyDown(Keys.D2) && !previousKeyboardState.IsKeyDown(Keys.D2))
+        {
+            game.shotMissile();
+        }
+
+        previousKeyboardState = state;
     }
 }
-
 
