@@ -108,11 +108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\Sprint0\\Sprint0.csproj",
+      "projectUniqueName": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\Sprint0.csproj",
       "projectName": "Sprint0",
-      "projectPath": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\Sprint0\\Sprint0.csproj",
+      "projectPath": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\Sprint0.csproj",
       "packagesPath": "C:\\Users\\kou29\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\Sprint0\\obj\\",
+      "outputPath": "C:\\Users\\kou29\\Desktop\\3902\\Sprint0\\Sprint0\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

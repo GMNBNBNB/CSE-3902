@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<<<<<<< HEAD:Content/obj/DesktopGL/net6.0/Content/sheet.mgcontent
   <SourceFile>C:/Users/kou29/Desktop/3902/Sprint0/Content/sheet.png</SourceFile>
   <SourceTime>2024-01-19T23:56:04-05:00</SourceTime>
   <DestFile>C:/Users/kou29/Desktop/3902/Sprint0/Content/bin/DesktopGL/Content/sheet.xnb</DestFile>
   <DestTime>2024-02-10T12:22:57.7657459-05:00</DestTime>
+=======
+  <SourceFile>D:/Program Files/source/sprint2/CSE-3902/Sprint0/Content/mario.gif</SourceFile>
+  <SourceTime>2024-02-10T11:34:13.6685692-05:00</SourceTime>
+  <DestFile>D:/Program Files/source/sprint2/CSE-3902/Sprint0/Content/bin/DesktopGL/Content/sheet.xnb</DestFile>
+  <DestTime>2024-02-10T11:40:17.1007157-05:00</DestTime>
+>>>>>>> 614c19769be4eb2a545417386fa2f66f09fc14aa:Sprint0/Content/obj/DesktopGL/net6.0/Content/sheet.mgcontent
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

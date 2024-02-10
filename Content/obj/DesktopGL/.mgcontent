@@ -4,12 +4,10 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/kou29/Desktop/3902/Sprint0/Content/EnemyAttack.png</File>
-    <File>C:/Users/kou29/Desktop/3902/Sprint0/Content/mario.png</File>
-    <File>C:/Users/kou29/Desktop/3902/Sprint0/Content/myfont.spritefont</File>
+    <File>C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Content/EnemyAttack.png</File>
+    <File>C:/Users/kou29/Desktop/3902/Sprint0/Sprint0/Content/mario.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
