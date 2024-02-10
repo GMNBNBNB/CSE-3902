@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Program Files/source/sprint2/CSE-3902/Sprint0/Content/EnemyAttack.png</File>
-    <File>D:/Program Files/source/sprint2/CSE-3902/Sprint0/Content/mario.gif</File>
+    <File>D:/Program Files/source/2/CSE-3902/Sprint0/Content/EnemyAttack.png</File>
+    <File>D:/Program Files/source/2/CSE-3902/Sprint0/Content/mario.gif</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
