@@ -1,9 +1,7 @@
 ﻿
-/Sprint 0/obj
-/Sprint 0/.config
-/Sprint 0/.git
-/Sprint 0/bin
+/Sprint0/obj
+/Sprint0/.config
+/Sprint0/bin
 
 .vs
 *.vsidx
-.git
