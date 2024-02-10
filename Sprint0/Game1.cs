@@ -8,15 +8,14 @@ namespace Sprint0
     public class Game1 : Game
     {
         Texture2D texture;
+        Texture2D enemyAttack;
         Vector2 position;
-        Vector2 textPosition;
+        Vector2 EnemyPosition;
 
         ISprite sprite;
-        ISprite textSprite;
         List<object> controllerList;
         IPlayer player;
 
-        SpriteFont spriteFont;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -39,7 +38,7 @@ namespace Sprint0
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            textPosition = new Vector2(_graphics.PreferredBackBufferWidth /9, _graphics.PreferredBackBufferHeight / 4*3);
+            EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 100);
             controllerList = new List<object>();
 
             base.Initialize();
@@ -50,13 +49,11 @@ namespace Sprint0
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             texture = Content.Load<Texture2D>("sheet");
-            spriteFont = Content.Load<SpriteFont>("myfont"); 
-
-            sprite = new StaticSprite(texture, position);
-            textSprite = new TextSprite(textPosition,spriteFont);
+            enemyAttack = Content.Load<Texture2D>("EnemyAttack");
+            sprite = new Enemy1(texture, EnemyPosition);
             player = new PlayerSprite(texture, position, GetScreenBounds());
+            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, EnemyPosition));
 
-            controllerList.Add(new KeyboardController(this, texture, position));
         }
 
         protected override void Update(GameTime gameTime){
@@ -69,6 +66,7 @@ namespace Sprint0
             }
 
             player.Update(gameTime);
+            sprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -76,9 +74,10 @@ namespace Sprint0
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             _spriteBatch.Begin();
             player.Draw(_spriteBatch);
+            sprite.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
