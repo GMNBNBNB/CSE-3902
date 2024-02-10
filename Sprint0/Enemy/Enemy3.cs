@@ -6,15 +6,18 @@ public class Enemy3 : ISprite
 {
     private Texture2D enemyAttack;
     private Vector2 position;
-    private float fireBallPosition = 400;
+    private Vector2 fireBallPosition;
     private int currentFrame;
     private double timeSinceLastFrame;
     private Rectangle[] fireBall;
     private Rectangle[] frames;
+    private Rectangle Fireframes;
     private Rectangle[] leftFrames;
     private Rectangle[] rightFrames;
     float velocity;
     private Rectangle screenBounds;
+    private bool IsActive;
+    private float FireSpeed = 300f;
     public Enemy3(Texture2D enemyAttack, Vector2 position, Rectangle screenBounds)
     {
         this.enemyAttack = enemyAttack;
@@ -22,6 +25,7 @@ public class Enemy3 : ISprite
         fireBall = new Rectangle[2];
         fireBall[0] = new Rectangle(130, 252, 25, 8);
         fireBall[1] = new Rectangle(190, 252, 25, 8);
+
         leftFrames = new Rectangle[4];
         rightFrames = new Rectangle[4];
         leftFrames[0] = new Rectangle(120, 210, 34, 33);
@@ -37,25 +41,38 @@ public class Enemy3 : ISprite
         timeSinceLastFrame = 0;
         this.velocity = 100f;
         this.screenBounds = screenBounds;
+        fireBallPosition = this.position;
     }
 
     public void Update(GameTime gameTime)
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        fireBallPosition = fireBallPosition + 3*velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        fireBallPosition.X = fireBallPosition.X - FireSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+        if (fireBallPosition.X < screenBounds.Left || fireBallPosition.X > screenBounds.Right - 40)
+        {
+            IsActive = false;
+        }
 
         if (nextX < screenBounds.Left + 300)
         {
             velocity = -velocity;
             frames = rightFrames;
+            IsActive = true;
+            FireSpeed = -FireSpeed;
+            Fireframes = fireBall[0];
+            fireBallPosition = position;
         }
         else if (nextX > screenBounds.Right - 200)
         {
             velocity = -velocity;
             nextX = screenBounds.Right - 200;
             frames = leftFrames;
+            IsActive = true;
+            FireSpeed = -FireSpeed;
+            Fireframes = fireBall[1];
+            fireBallPosition = position;
         }
         if (timeSinceLastFrame >= 200.0)
         {
@@ -65,15 +82,15 @@ public class Enemy3 : ISprite
 
             timeSinceLastFrame = 0;
         }
-
-
         position.X = nextX;
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(enemyAttack, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-        spriteBatch.Draw(enemyAttack,  new Vector2(fireBallPosition, 375), fireBall[0], Color.White);
-        spriteBatch.Draw(enemyAttack, new Vector2(fireBallPosition+50, 375), fireBall[0], Color.White);
+        if (IsActive)
+        {
+            spriteBatch.Draw(enemyAttack, fireBallPosition, Fireframes, Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+        }
     }
 }
