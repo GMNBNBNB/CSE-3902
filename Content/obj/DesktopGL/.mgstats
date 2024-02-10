@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/kou29/Desktop/3902/Sprint0/Content/EnemyAttack.png","C:/Users/kou29/Desktop/3902/Sprint0/Content/bin/DesktopGL/EnemyAttack.xnb","TextureProcessor","Texture2DContent",8295,455269,0.1522736
+"C:/Users/kou29/Desktop/3902/Sprint0/Content/mario.png","C:/Users/kou29/Desktop/3902/Sprint0/Content/bin/DesktopGL/mario.xnb","TextureProcessor","Texture2DContent",21087,822937,0.0128517
+"C:/Users/kou29/Desktop/3902/Sprint0/Content/myfont.spritefont","C:/Users/kou29/Desktop/3902/Sprint0/Content/bin/DesktopGL/myfont.xnb","FontDescriptionProcessor","SpriteFontContent",2065,21535,0.0680646
