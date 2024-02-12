@@ -58,20 +58,18 @@ public class KeyboardController : IController
     {
         KeyboardState state = Keyboard.GetState();
 
-        if (state.IsKeyDown(Keys.N))
+        if (state.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
         {
             currentEnemyIndex = (currentEnemyIndex + 1) % enemies.Count;
             game.ChangeSprite(enemies[currentEnemyIndex]);
-            System.Threading.Thread.Sleep(50);
         }
-        else if (state.IsKeyDown(Keys.M))
+        else if (state.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M))
         {
             currentEnemyIndex = (currentEnemyIndex - 1 + enemies.Count) % enemies.Count;
             game.ChangeSprite(enemies[currentEnemyIndex]);
-            System.Threading.Thread.Sleep(50);
         }
 
-        if (state.IsKeyDown(Keys.I))
+        if (state.IsKeyDown(Keys.I) && !previousKeyboardState.IsKeyDown(Keys.I))
         {
             currentItemIndex++;
             if (currentItemIndex == items.Count)
@@ -79,9 +77,8 @@ public class KeyboardController : IController
                 currentItemIndex = 0;
             }
             game.ChangeItem(items[currentItemIndex]);
-            System.Threading.Thread.Sleep(50);
         }
-        else if (state.IsKeyDown(Keys.U))
+        else if (state.IsKeyDown(Keys.U) && !previousKeyboardState.IsKeyDown(Keys.U))
         {
             currentItemIndex--;
             if (currentItemIndex < 0)
@@ -89,19 +86,16 @@ public class KeyboardController : IController
                 currentItemIndex = items.Count - 1;
             }
             game.ChangeItem(items[currentItemIndex]);
-            System.Threading.Thread.Sleep(50);
         }
-        if (state.IsKeyDown(Keys.T))
+        if (state.IsKeyDown(Keys.T) && !previousKeyboardState.IsKeyDown(Keys.T))
         {
             currentBlockIndex = (currentBlockIndex - 1 + 20) % 20;
             game.changeBlock(currentBlockIndex);
-            System.Threading.Thread.Sleep(50);
         }
-        else if (state.IsKeyDown(Keys.Y))
+        else if (state.IsKeyDown(Keys.Y) && !previousKeyboardState.IsKeyDown(Keys.Y))
         {
             currentBlockIndex = (currentBlockIndex + 1) % 20;
             game.changeBlock(currentBlockIndex);
-            System.Threading.Thread.Sleep(50);
         }
 
         if (state.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))

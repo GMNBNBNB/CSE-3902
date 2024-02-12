@@ -4,10 +4,10 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/blocks.png</File>
-    <File>C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/EnemyAttack.png</File>
-    <File>C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/items.png</File>
-    <File>C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/mario.gif</File>
+    <File>C:/Users/kou29/Desktop/3902/CSE-3902-c/Sprint0/Content/blocks.png</File>
+    <File>C:/Users/kou29/Desktop/3902/CSE-3902-c/Sprint0/Content/EnemyAttack.png</File>
+    <File>C:/Users/kou29/Desktop/3902/CSE-3902-c/Sprint0/Content/items.png</File>
+    <File>C:/Users/kou29/Desktop/3902/CSE-3902-c/Sprint0/Content/mario.gif</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
