@@ -4,5 +4,8 @@
 /Sprint0/bin
 /Sprint0/.vs
 
+/Sprint0/Content/bin
+/Sprint0/Content/obj
+
 .vs
 *.vsidx
