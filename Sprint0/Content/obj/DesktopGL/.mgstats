@@ -1,5 +1,0 @@
-Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/blocks.png","C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/bin/DesktopGL/blocks.xnb","TextureProcessor","Texture2DContent",4125,94293,0.1441358
-"C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/EnemyAttack.png","C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/bin/DesktopGL/EnemyAttack.xnb","TextureProcessor","Texture2DContent",8295,455269,0.0098004
-"C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/items.png","C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/bin/DesktopGL/items.xnb","TextureProcessor","Texture2DContent",1882,118645,0.0037354
-"C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/mario.gif","C:/Users/Jinjin/source/repos/CSE-3902-character/Sprint0/Content/bin/DesktopGL/sheet.xnb","TextureProcessor","Texture2DContent",23602,822937,0.0241437
