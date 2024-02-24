@@ -1,0 +1,14 @@
+author: Bowei Kou
+Date: Feb 18
+Sprint 2
+.cs file: PlayerSprite.cs
+.cs author: Yuhang Huang, Bowei Kou
+Quality: 
+	each function and variable has a reasonable name, and can easily be understood.
+	all the functions used in the interface and interface identification are clear.
+	some duplicate code can be optimized.
+	accomplish all the player's needed functions.
+Hypothetical change:
+	Need to accomplish the jump physical move in the future and can be easily made changed by changing the jump function with the position change.
+	Need to add projectile collision which can be easily implemented by adding collision function in the projectile interface.
+	Need to have a Mario be damaged animation and action, and can be easily implemented by changing Mario's state.

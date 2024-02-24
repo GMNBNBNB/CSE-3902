@@ -1,0 +1,17 @@
+
+Meng Gao
+2/10
+Sprint 2
+Item1-10.cs in item folder, keyboardController in controller folder.
+Jinjin Zhang
+30 min
+Here's a more concise way to adjust different items using a list to store all the items and modifying each item based on user input. Additionally, for the switch operation, it will check the upper and lower limits and return to the first item when the item reaches the last one.
+
+
+Meng Gao
+2/17
+Sprint 2
+Item1-10.cs in item folder, keyboardController in controller folder.
+Jinjin Zhang
+30 min
+Everything else is fine, but please avoid using item {1-10} for file and code naming. Instead, directly name them after the item's name. This will improve readability and make it easier for future reference.

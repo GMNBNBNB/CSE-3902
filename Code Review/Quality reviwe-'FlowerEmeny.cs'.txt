@@ -1,0 +1,7 @@
+Author: Chengxi Zhang
+Date: 2/19/2024
+Sprint number: Sprint 2
+Name of the .cs file: FlowerEmeny
+Author of the .cs file: Meng Gao
+Time(minutes): 10
+	Becasue author Meng,Gao use the specific position index of each frame of Flower enemy in the code. It is kind hard to maintaning the code, because if some one trying to use an other enemy from a different source picture, they need to locate the 4 index(x,y,width,height) of each frame.

@@ -1,0 +1,7 @@
+Author: Yuhang Huang
+Date: 2/18
+Sprint number: Sprint 2
+Name of the .cs file: PlayerSprite
+Author of the .cs file: Bowei Kou&Yuhang Huang
+Time(minutes): 20
+Character skills and character movement after the merger there is a conflict; I began to use the set and get method, which makes my function and the Mario character to play skills function can to be well merged, then changed to the current version so that the character movement and release skills can be a good blend of.

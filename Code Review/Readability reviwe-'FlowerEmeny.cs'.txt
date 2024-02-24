@@ -1,0 +1,7 @@
+Author: Chengxi Zhang
+Date: 2/19/2024
+Sprint number: Sprint 2
+Name of the .cs file: FlowerEmeny
+Author of the .cs file: Meng Gao
+Time(minutes): 10
+	Code in this file is trying to get each frame from the source picture file and draw it on the screen with designed speed. Code in this file is easy to understand. There isn’t any over complexed part. 

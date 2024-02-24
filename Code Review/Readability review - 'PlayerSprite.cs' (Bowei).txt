@@ -1,0 +1,8 @@
+author: Bowei Kou
+Date: Feb 12
+.cs file: PlayerSprite.cs
+.cs author: Yuhang Huang, Bowei Kou
+time: 45 minutes
+readable: each action has a specific function name, and the variable name is also reasonable.
+not readable: each variable cannot be initialized in the same file, but use {get; set;} in another file, which is hard to read and realize.
+		     Didn't use the IPlayer interface and keyboard controller, which makes code hard to read.

@@ -1,0 +1,11 @@
+Author: Yuhang Huang
+Date: 2/18
+Sprint number: Sprint 2
+Name of the .cs file: PlayerSprite
+Author of the .cs file: Bowei Kou&Yuhang Huang
+Time(minutes): 20
+Quality: 
+	each function and variable has a reasonable name, and can easily be understood.
+	all the functions used in the interface and interface identification are clear.
+	some duplicate code can be optimized.
+	accomplish all the player's needed functions.
