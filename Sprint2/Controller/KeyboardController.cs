@@ -129,16 +129,11 @@ public class KeyboardController : IController
         }
 
         // W for jump
-        if (state.IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W))
+        if ((state.IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W)) || (state.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up)))
         {
             game.jump();
         }
-
-        //up for move up
-        if (state.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up))
-        {
-            game.jump();
-        }
+        
 
         // S for crouch
         if (previousKeyboardState.IsKeyDown(Keys.S) || previousKeyboardState.IsKeyDown(Keys.Down))

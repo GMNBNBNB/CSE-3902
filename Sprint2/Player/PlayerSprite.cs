@@ -34,6 +34,8 @@ public class PlayerSprite : IPlayer
     private bool facingRight;
 
     private double moveVelocity = 10;
+    float jumpSpeed;
+    float gravity = 0.8f;
     private enum MarioState
     {
         Big,
@@ -218,6 +220,7 @@ public class PlayerSprite : IPlayer
     {
         if (currentState != MarioState.Dead)
         {
+            jumpSpeed = -15;
             if (frames == leftFrames)
             {
                 frames = leftJumpFrames;
@@ -410,19 +413,30 @@ public class PlayerSprite : IPlayer
                 timeSinceLastFrame = 0;
             }
         }
-    
+
+        if (jumpSpeed != 0 || position.Y < screenBounds.Height - 100)
+        {
+            jumpSpeed += gravity;
+            position.Y += jumpSpeed;
+
+            if (position.Y >= screenBounds.Height - 100)
+            {
+                position.Y = screenBounds.Height - 100;
+                jumpSpeed = 0;
+            }
+        }
 
 
         foreach (IProjectiles pro in projectiles)
         {
             pro.Update(gameTime);
         }
-    
+
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
         foreach (IProjectiles pro in projectiles)
         {
             pro.Draw(spriteBatch);
