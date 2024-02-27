@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 public class PlayerSprite : IPlayer
@@ -34,6 +35,8 @@ public class PlayerSprite : IPlayer
     private bool facingRight;
 
     private double moveVelocity = 10;
+    float gravity = 0.8f;
+    float jumpSpeed;
     private enum MarioState
     {
         Big,
@@ -216,8 +219,9 @@ public class PlayerSprite : IPlayer
 
     public void jump()
     {
-        if (currentState != MarioState.Dead)
-        {
+        if (currentState != MarioState.Dead && jumpSpeed == 0)
+        {   
+            jumpSpeed = -15;
             if (frames == leftFrames)
             {
                 frames = leftJumpFrames;
@@ -402,16 +406,26 @@ public class PlayerSprite : IPlayer
                 position.X = nextX;
             }
             if (timeSinceLastFrame >= 100.0)
-            {
                 currentFrame++;
+            {
                 if (currentFrame >= frames.Length)
                     currentFrame = 0;
 
                 timeSinceLastFrame = 0;
             }
         }
-    
 
+        if (jumpSpeed != 0 || position.Y < screenBounds.Height - 100)
+        {
+            jumpSpeed += gravity; 
+            position.Y += jumpSpeed;
+
+            if (position.Y >= screenBounds.Height - 100)
+            {
+                position.Y = screenBounds.Height - 100; 
+                jumpSpeed = 0; 
+            }
+        }
 
         foreach (IProjectiles pro in projectiles)
         {
@@ -422,7 +436,7 @@ public class PlayerSprite : IPlayer
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
         foreach (IProjectiles pro in projectiles)
         {
             pro.Draw(spriteBatch);
