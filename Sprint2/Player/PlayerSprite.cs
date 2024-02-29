@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 public class PlayerSprite : IPlayer
@@ -405,8 +406,8 @@ public class PlayerSprite : IPlayer
                 position.X = nextX;
             }
             if (timeSinceLastFrame >= 100.0)
-            {
                 currentFrame++;
+            {
                 if (currentFrame >= frames.Length)
                     currentFrame = 0;
 
@@ -426,6 +427,12 @@ public class PlayerSprite : IPlayer
             }
         }
 
+            if (position.Y >= screenBounds.Height - 100)
+            {
+                position.Y = screenBounds.Height - 100; 
+                jumpSpeed = 0; 
+            }
+        }
 
         foreach (IProjectiles pro in projectiles)
         {
