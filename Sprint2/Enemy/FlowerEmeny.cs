@@ -43,4 +43,18 @@ public class FlowerEmeny : ISprite
     {
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
     }
+    public Rectangle Bounds
+    {
+        get
+        {
+            Rectangle bounds = new Rectangle(
+                (int)position.X,
+                (int)position.Y,
+                frames[currentFrame].Width,
+                frames[currentFrame].Height
+            );
+
+            return bounds;
+        }
+    }
 }
