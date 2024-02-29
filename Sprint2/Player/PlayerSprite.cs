@@ -34,8 +34,8 @@ public class PlayerSprite : IPlayer
     private bool facingRight;
 
     private double moveVelocity = 10;
-    float jumpSpeed;
     float gravity = 0.8f;
+    float jumpSpeed;
     private enum MarioState
     {
         Big,
@@ -218,7 +218,7 @@ public class PlayerSprite : IPlayer
 
     public void jump()
     {
-        if (currentState != MarioState.Dead)
+        if (currentState != MarioState.Dead && jumpSpeed == 0)
         {
             jumpSpeed = -15;
             if (frames == leftFrames)
@@ -413,7 +413,6 @@ public class PlayerSprite : IPlayer
                 timeSinceLastFrame = 0;
             }
         }
-
         if (jumpSpeed != 0 || position.Y < screenBounds.Height - 100)
         {
             jumpSpeed += gravity;
@@ -425,7 +424,6 @@ public class PlayerSprite : IPlayer
                 jumpSpeed = 0;
             }
         }
-
 
         foreach (IProjectiles pro in projectiles)
         {
