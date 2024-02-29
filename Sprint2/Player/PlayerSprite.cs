@@ -96,9 +96,9 @@ public class PlayerSprite : IPlayer
         bigLeftCrouchFrames[0] = new Rectangle(219, 9, 18, 25);
         bigLeftCrouchFrames[1] = new Rectangle(219, 9, 18, 25);
 
-        bigLeftWalkFrames[0] = new Rectangle(165, 0, 18, 33);
+        bigLeftWalkFrames[0] = new Rectangle(201, 0, 18, 33);
         bigLeftWalkFrames[1] = new Rectangle(183, 0, 16, 35);
-        bigLeftWalkFrames[2] = new Rectangle(201, 0, 17, 35);
+        bigLeftWalkFrames[2] = new Rectangle(165, 0, 17, 35);
 
         bigRightJumpFrames[0] = new Rectangle(369, 0, 18, 36);
         bigRightJumpFrames[1] = new Rectangle(369, 0, 18, 36);
