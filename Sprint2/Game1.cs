@@ -88,7 +88,7 @@ namespace Sprint0
                 controller.Update(gameTime);
             }
 
-            if (CollisionDetector.DetectCollision(player, sprite))
+            if (CollisionDetector.DetectCollision(player.Bounds, sprite.Bounds))
             {
                 if(health < 1)
                 {

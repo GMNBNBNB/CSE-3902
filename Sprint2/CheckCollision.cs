@@ -5,12 +5,9 @@ namespace Sprint0
 {
     public static class CollisionDetector
     {
-        public static bool DetectCollision(IPlayer A, ISprite B)
+        public static bool DetectCollision(Rectangle A, Rectangle B)
         {
-            Rectangle bounds1 = A.Bounds;
-            Rectangle bounds2 = B.Bounds;
-
-            return bounds1.Intersects(bounds2);
+            return A.Intersects(B);
         }
     }
 }
