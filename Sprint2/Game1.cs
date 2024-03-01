@@ -28,7 +28,7 @@ namespace Sprint0
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        static int health = 0;
+        static int health = 3;
 
         public Game1()
         {
@@ -90,15 +90,15 @@ namespace Sprint0
 
             if (CollisionDetector.DetectCollision(player.Bounds, sprite.Bounds))
             {
-                if(health < 1)
+                if(health >= 0)
                 {
                     player.damaged();
-                    player.reset();
-                    health++;
+                    health--;
                 }
                 else
                 {
-                    Exit();
+                    player.reset();
+                    health = 3;
                 } 
 
             }
@@ -154,8 +154,6 @@ namespace Sprint0
         {
             player.crouchStop();
         }
-
-
         public void moveLeft()
         {
             player.moveLeft();

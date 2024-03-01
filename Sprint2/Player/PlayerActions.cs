@@ -169,19 +169,22 @@ namespace Player
                 case MarioState.Big:
                     currentState = MarioState.Small;
                     frames = facingRight ? rightFrames : leftFrames;
+                    position = new Vector2(screenBounds.Width / 2 -100, screenBounds.Height / 2);
                     break;
                 case MarioState.Small:
                     currentState = MarioState.Dead;
                     damagedAnimationTime = 500;
+                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
                     break;
                 case MarioState.Dead:
                     frames = facingRight ? bigRightFrames : bigLeftFrames;
+                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
                     break;
             }
         }
         public void reset()
         {
-            //currentState = MarioState.Big;
+            currentState = MarioState.Big;
             position = new Vector2(screenBounds.Width / 2, screenBounds.Height / 2);
             frames = bigLeftFrames;
             currentFrame = 0;

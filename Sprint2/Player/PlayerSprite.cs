@@ -130,8 +130,8 @@ namespace Player
                 Rectangle bounds = new Rectangle(
                     (int)position.X,
                     (int)position.Y,
-                    frames[currentFrame].Width,
-                    frames[currentFrame].Height
+                    frames[currentFrame].Width*2,
+                    frames[currentFrame].Height*2
                 );
 
                 return bounds;
