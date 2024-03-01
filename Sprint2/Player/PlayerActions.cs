@@ -181,7 +181,7 @@ namespace Player
         }
         public void reset()
         {
-            currentState = MarioState.Big;
+            //currentState = MarioState.Big;
             position = new Vector2(screenBounds.Width / 2, screenBounds.Height / 2);
             frames = bigLeftFrames;
             currentFrame = 0;

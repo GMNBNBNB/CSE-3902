@@ -28,6 +28,8 @@ namespace Sprint0
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        static int health = 0;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -85,9 +87,20 @@ namespace Sprint0
             {
                 controller.Update(gameTime);
             }
+
             if (CollisionDetector.DetectCollision(player, sprite))
             {
-                player.reset();
+                if(health < 1)
+                {
+                    player.damaged();
+                    player.reset();
+                    health++;
+                }
+                else
+                {
+                    Exit();
+                } 
+
             }
 
             player.Update(gameTime);
