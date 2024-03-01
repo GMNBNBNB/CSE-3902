@@ -6,6 +6,7 @@ public interface IPlayer
 {
     void Update(GameTime gameTime);
     void Draw(SpriteBatch spirtBatch);
+    Rectangle Bounds { get; }
     void fireball();
     void damaged();
     void missile();

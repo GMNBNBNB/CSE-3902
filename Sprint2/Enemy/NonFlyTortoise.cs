@@ -66,4 +66,18 @@ public class NonFlyTortoise : ISprite
     {
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
     }
+    public Rectangle Bounds
+    {
+        get
+        {
+            Rectangle bounds = new Rectangle(
+                (int)position.X,
+                (int)position.Y,
+                frames[currentFrame].Width * 3,
+                frames[currentFrame].Height * 3
+            );
+
+            return bounds;
+        }
+    }
 }

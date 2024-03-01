@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 
-namespace Sprint2
+namespace Player
 {
     public partial class PlayerSprite : IPlayer
     {
@@ -121,6 +121,20 @@ namespace Sprint2
             damagedAnimationTime = 0;
             facingRight = false;
             projectiles = new List<object>();
+        }
+        public Rectangle Bounds
+        {
+            get
+            {
+                Rectangle bounds = new Rectangle(
+                    (int)position.X,
+                    (int)position.Y,
+                    frames[currentFrame].Width,
+                    frames[currentFrame].Height
+                );
+
+                return bounds;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

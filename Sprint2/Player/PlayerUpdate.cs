@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint2
+namespace Player
 {
     public partial class PlayerSprite : IPlayer
     {
@@ -129,7 +129,6 @@ namespace Sprint2
             {
                 pro.Update(gameTime);
             }
-
         }
     }
     }

@@ -46,4 +46,18 @@ public class Coin : ISprite
         Rectangle destinationRectangle = new Rectangle(600, 150, 20, 38);
         spriteBatch.Draw(texture, destinationRectangle, frames[currentFrame], Color.White);
     }
+    public Rectangle Bounds
+    {
+        get
+        {
+            Rectangle bounds = new Rectangle(
+                (int)position.X,
+                (int)position.Y,
+                frames[currentFrame].Width,
+                frames[currentFrame].Height
+            );
+
+            return bounds;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using Sprint2;
+using Player;
 
 namespace Sprint0
 {
@@ -85,11 +85,16 @@ namespace Sprint0
             {
                 controller.Update(gameTime);
             }
+            if (CollisionDetector.DetectCollision(player, sprite))
+            {
+                player.reset();
+            }
 
             player.Update(gameTime);
             sprite.Update(gameTime);
             spriteI.Update(gameTime);
             currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
+
 
             base.Update(gameTime);
         }
