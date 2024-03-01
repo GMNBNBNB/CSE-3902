@@ -4,32 +4,42 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Sprint0;
 
-public class Fireball : IProjectiles
+public class EnemyFireball : IProjectiles
 {
     private Vector2 Position;
     private Vector2 Velocity;
     private bool IsActive;
     private Rectangle screenBounds;
     private Rectangle[] frames;
+    private Rectangle[] leftFrames;
+    private Rectangle[] rightFrames;
     private Texture2D texture;
     private int currentFrame;
     private double timeSinceLastFrame;
-    private FireballCollision fireballCollision;
+    private EnemyFireballCollision enemyFireballCollision;
 
-    public Fireball(Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
+    public EnemyFireball(Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
     {
         Position = position;
         Velocity = velocity;
         IsActive = true;
         this.screenBounds = screenBounds;
-        frames = new Rectangle[4];
-        frames[0] = new Rectangle(25, 149, 10, 10);
-        frames[1] = new Rectangle(40, 149, 10, 10);
-        frames[2] = new Rectangle(25, 163, 10, 10);
-        frames[3] = new Rectangle(40, 164, 10, 10);
+        leftFrames = new Rectangle[2];
+        rightFrames = new Rectangle[2];
+        leftFrames[0] = new Rectangle(100, 252, 24, 9);
+        leftFrames[1] = new Rectangle(130, 252, 25, 8);
+        rightFrames[0] = new Rectangle(160, 252, 26, 10);
+        rightFrames[1] = new Rectangle(190, 252, 25, 8);
         currentFrame = 0;
+        if (Velocity.X<0) {
+            frames = leftFrames;
+        }
+        else
+        {
+            frames = rightFrames;
+        }
         this.texture = texture;
-        fireballCollision = new FireballCollision(this);
+        enemyFireballCollision = new EnemyFireballCollision(this);
     }
 
     public Rectangle Bounds
@@ -47,26 +57,16 @@ public class Fireball : IProjectiles
         }
     }
 
-        
+
 
     public void Update(GameTime gameTime, Queue<ISprite> enemies, IPlayer player)
     {
         Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-        if (enemies.Count > 0)
+
+        if (enemyFireballCollision.EnemyFireballHitMario(player))
         {
-
-            if (!IsActive)
-            {
-                return;
-            }
-
-            if (fireballCollision.FireballHitEnemy(enemies.Peek()))
-            {
-                IsActive = false;
-                enemies.Dequeue();
-                return;
-            }
+            player.damaged(gameTime);
         }
 
         if (Position.X < screenBounds.Left || Position.X > screenBounds.Right - 40)

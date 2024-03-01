@@ -2,14 +2,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-
+using System;
 
 namespace Player
 {
     public partial class PlayerSprite : IPlayer
     {
         private Texture2D texture;
+        private Texture2D texturePro;
         private Vector2 position;
         private int currentFrame;
         private double timeSinceLastFrame;
@@ -34,7 +34,6 @@ namespace Player
         float velocity;
         private Rectangle screenBounds;
         private double damagedAnimationTime;
-        private List<object> projectiles;
         private bool facingRight;
 
         private double moveVelocity = 10;
@@ -48,12 +47,19 @@ namespace Player
             Crouch
         }
         private MarioState currentState;
-        public PlayerSprite(Texture2D texture, Vector2 position, Rectangle screenBounds)
+        private TimeSpan lastDamagedTime;
+        private TimeSpan invincibleDuration = TimeSpan.FromMilliseconds(500);
+        private bool isInvincible = false;
+
+
+
+        public PlayerSprite(Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds)
         {
             this.texture = texture;
+            this.texturePro = texturePro;
             this.position = position;
-            leftFrames = new Rectangle[2];
-            rightFrames = new Rectangle[2];
+            leftFrames = new Rectangle[3];
+            rightFrames = new Rectangle[3];
             leftJumpFrames = new Rectangle[3];
             rightJumpFrames = new Rectangle[3];
             leftWalkFrames = new Rectangle[3];
@@ -82,12 +88,12 @@ namespace Player
             rightWalkFrames[1] = new Rectangle(320, 43, 16, 16);
             rightWalkFrames[2] = new Rectangle(290, 43, 16, 16);
 
-            bigLeftFrames = new Rectangle[2];
-            bigRightFrames = new Rectangle[2];
-            bigLeftJumpFrames = new Rectangle[2];
-            bigRightJumpFrames = new Rectangle[2];
-            bigLeftCrouchFrames = new Rectangle[2];
-            bigRightCrouchFrames = new Rectangle[2];
+            bigLeftFrames = new Rectangle[3];
+            bigRightFrames = new Rectangle[3];
+            bigLeftJumpFrames = new Rectangle[3];
+            bigRightJumpFrames = new Rectangle[3];
+            bigLeftCrouchFrames = new Rectangle[3];
+            bigRightCrouchFrames = new Rectangle[3];
             bigLeftWalkFrames = new Rectangle[3];
             bigRightWalkFrames = new Rectangle[3];
 
@@ -121,7 +127,6 @@ namespace Player
             this.screenBounds = screenBounds;
             damagedAnimationTime = 0;
             facingRight = false;
-            projectiles = new List<object>();
         }
         public Rectangle Bounds
         {
@@ -141,10 +146,6 @@ namespace Player
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            foreach (IProjectiles pro in projectiles)
-            {
-                pro.Draw(spriteBatch);
-            }
         }
     }
 }

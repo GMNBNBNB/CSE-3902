@@ -16,6 +16,9 @@ namespace Sprint0
         ISprite sprite;
         List<object> controllerList;
         IPlayer player;
+        List<object> projectiles;
+        Queue<ISprite> enemies;
+        Queue<ISprite> allEnemies;
 
         ISprite spriteI;
         Texture2D textureI;
@@ -28,7 +31,7 @@ namespace Sprint0
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        static int health = 3;
+        static int health = 2;
 
         public Game1()
         {
@@ -60,6 +63,8 @@ namespace Sprint0
             positionI = new Vector2(400, 300);
             controllerList = new List<object>();
             currentBlockIndex = 0;
+            projectiles = new List<object>();
+            enemies = new Queue<ISprite>();
 
             base.Initialize();
         }
@@ -72,11 +77,15 @@ namespace Sprint0
             textureI = Content.Load<Texture2D>("items");
             textureB = Content.Load<Texture2D>("blocks");
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
-            sprite = new FlowerEmeny(texture, EnemyPosition);
             spriteI = new Spring(textureI, positionI);
-            player = new PlayerSprite(texture, position, GetScreenBounds());
-            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, EnemyPosition, textureI, positionI, textureB));
-
+            player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds()); 
+            enemies.Enqueue(new FlowerEmeny(texture, EnemyPosition));
+            enemies.Enqueue(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
+            enemies.Enqueue(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
+            enemies.Enqueue(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
+            enemies.Enqueue(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
+            allEnemies = new Queue<ISprite>(enemies);
+            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
         }
 
         protected override void Update(GameTime gameTime){
@@ -88,23 +97,30 @@ namespace Sprint0
                 controller.Update(gameTime);
             }
 
-            if (CollisionDetector.DetectCollision(player.Bounds, sprite.Bounds))
+            foreach (IProjectiles pro in projectiles)
             {
-                if(health >= 0)
-                {
-                    player.damaged();
-                    health--;
-                }
-                else
-                {
-                    player.reset();
-                    health = 3;
-                } 
-
+                pro.Update(gameTime, enemies, player);
             }
+            if (enemies.Count>0) {
 
+                if (CollisionDetector.DetectCollision(player.Bounds, enemies.Peek().Bounds))
+                {
+                    if (health > 0)
+                    {
+                        player.damaged(gameTime);
+                        health--;
+                    }
+                    else
+                    {
+                        player.damaged(gameTime);
+                        health = 2;
+                    }
+
+                }
+
+                enemies.Peek().Update(gameTime);
+            }
             player.Update(gameTime);
-            sprite.Update(gameTime);
             spriteI.Update(gameTime);
             currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
 
@@ -118,26 +134,28 @@ namespace Sprint0
             
             _spriteBatch.Begin();
             player.Draw(_spriteBatch);
-            sprite.Draw(_spriteBatch);
+            if (enemies.Count > 0)
+            {
+                enemies.Peek().Draw(_spriteBatch);
+            }
             spriteI.Draw(_spriteBatch);
+            foreach (IProjectiles pro in projectiles)
+            {
+                pro.Draw(_spriteBatch);
+            }
             _spriteBatch.Draw(textureB, new Vector2(300, 150), currentBlockRect, Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
 
-        public void takeDamage()
+        public void takeDamage(GameTime gameTime)
         {
-            player.damaged();
+            player.damaged(gameTime);
         }
 
         public void shotFireBall()
         {
-            player.fireball();
-        }
-
-        public void shotMissile()
-        {
-            player.missile();
+            projectiles.Add(player.fireball());
         }
 
         public void jump()
@@ -154,6 +172,7 @@ namespace Sprint0
         {
             player.crouchStop();
         }
+
         public void moveLeft()
         {
             player.moveLeft();
@@ -177,6 +196,13 @@ namespace Sprint0
         public void reset()
         {
             player.reset();
+            enemies.Clear();
+            enemies.Enqueue(new FlowerEmeny(texture, EnemyPosition));
+            enemies.Enqueue(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
+            enemies.Enqueue(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
+            enemies.Enqueue(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
+            enemies.Enqueue(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
+            projectiles.Clear();
         }
 
     }

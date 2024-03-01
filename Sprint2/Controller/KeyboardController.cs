@@ -5,16 +5,16 @@ using System;
 using Sprint0;
 using System.Collections.Generic;
 
+
 public class KeyboardController : IController
 {
     private Game1 game;
     private Texture2D texture;
     private Texture2D enemyAttack;
     private Vector2 position;
-    private Vector2 EnemyPosition;
     private Rectangle screenBounds;
-    private int currentEnemyIndex = 0;
-    private List<ISprite> enemies = new List<ISprite>();
+    private Queue<ISprite> enemies;
+    private ISprite sprite;
     private KeyboardState previousKeyboardState;
 
     private Texture2D textureI;
@@ -25,20 +25,15 @@ public class KeyboardController : IController
     private Texture2D textureB;
     private int currentBlockIndex = 0;
 
-    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, Vector2 EnemyPosition, Texture2D textureI, Vector2 positionI, Texture2D textureB)
+    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, Queue<ISprite> enemies, Texture2D textureI, Vector2 positionI, Texture2D textureB)
     {
         this.game = game;
         this.texture = texture;
         this.enemyAttack = enemyAttack;
+        this.enemies = enemies;
         this.position = position;
-        this.EnemyPosition = EnemyPosition;
         this.screenBounds = game.GetScreenBounds();
 
-        enemies.Add(new FlowerEmeny(texture, EnemyPosition));
-        enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, screenBounds));
-        enemies.Add(new TortoiseEnemy(enemyAttack, EnemyPosition, screenBounds));
-        enemies.Add(new Goomba(enemyAttack, EnemyPosition, screenBounds));
-        enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, screenBounds));
 
         this.textureI = textureI;
         this.positionI = positionI;
@@ -68,8 +63,6 @@ public class KeyboardController : IController
         {
             currentItemIndex = 0;
             currentBlockIndex = 0;
-            currentEnemyIndex = 0;
-            game.ChangeSprite(enemies[currentEnemyIndex]);
             game.ChangeItem(items[currentItemIndex]);
             game.changeBlock(currentBlockIndex);
             game.reset();
@@ -77,13 +70,22 @@ public class KeyboardController : IController
 
         if (state.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
         {
-            currentEnemyIndex = (currentEnemyIndex + 1) % enemies.Count;
-            game.ChangeSprite(enemies[currentEnemyIndex]);
+            if (enemies.Count > 0)
+            {
+                sprite = enemies.Dequeue();
+                enemies.Enqueue(sprite);
+            }
         }
         else if (state.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
         {
-            currentEnemyIndex = (currentEnemyIndex - 1 + enemies.Count) % enemies.Count;
-            game.ChangeSprite(enemies[currentEnemyIndex]);
+            if (enemies.Count > 0)
+            {
+                for (int i = 0; i < enemies.Count - 1; i++)
+                {
+                    sprite = enemies.Dequeue();
+                    enemies.Enqueue(sprite);
+                }
+            }
         }
 
         if (state.IsKeyDown(Keys.I) && !previousKeyboardState.IsKeyDown(Keys.I))
@@ -117,15 +119,11 @@ public class KeyboardController : IController
 
         if (state.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E))
         {
-            game.takeDamage();
+            game.takeDamage(gameTime);
         }
         if (state.IsKeyDown(Keys.D1) && !previousKeyboardState.IsKeyDown(Keys.D1))
         {
             game.shotFireBall();
-        }
-        if (state.IsKeyDown(Keys.D2) && !previousKeyboardState.IsKeyDown(Keys.D2))
-        {
-            game.shotMissile();
         }
 
         // W for jump

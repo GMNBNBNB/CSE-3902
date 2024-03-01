@@ -67,38 +67,23 @@ namespace Player
             facingRight = true;
             currentFrame = 0;
         }
-        public void fireball()
+        public Fireball fireball()
         {
+            
+            Vector2 fireballVelocity;
+            if (facingRight)
             {
-                Vector2 fireballVelocity;
-                if (facingRight)
-                {
-                    fireballVelocity = new Vector2(300, 0);
-                }
-                else
-                {
-                    fireballVelocity = new Vector2(-300, 0);
-                }
-                Fireball newFireball = new Fireball(texture, position, fireballVelocity, screenBounds);
-                projectiles.Add(newFireball);
+                fireballVelocity = new Vector2(300, 0);
             }
-        }
-        public void missile()
-        {
+            else
             {
-                Vector2 missileVelocity;
-                if (facingRight)
-                {
-                    missileVelocity = new Vector2(600, 0);
-                }
-                else
-                {
-                    missileVelocity = new Vector2(-600, 0);
-                }
-                Missile newMissile = new Missile(texture, position, missileVelocity, screenBounds);
-                projectiles.Add(newMissile);
+                fireballVelocity = new Vector2(-300, 0);
             }
+            Fireball newFireball = new Fireball(texturePro, position, fireballVelocity, screenBounds);
+            return newFireball;
+            
         }
+
         public void jump()
         {
             if (currentState != MarioState.Dead && jumpSpeed == 0)
@@ -162,23 +147,29 @@ namespace Player
             timeSinceLastFrame = 0;
         }
 
-        public void damaged()
+        public void damaged(GameTime gameTime)
         {
+            // 如果处于无敌状态，则忽略伤害
+            if (isInvincible) return;
+
+            if (gameTime.TotalGameTime - lastDamagedTime < invincibleDuration)
+            {
+                return;
+            }
+            lastDamagedTime = gameTime.TotalGameTime;
+
             switch (currentState)
             {
                 case MarioState.Big:
                     currentState = MarioState.Small;
                     frames = facingRight ? rightFrames : leftFrames;
-                    position = new Vector2(screenBounds.Width / 2 -100, screenBounds.Height / 2);
+                    isInvincible = true;
                     break;
                 case MarioState.Small:
                     currentState = MarioState.Dead;
                     damagedAnimationTime = 500;
-                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
                     break;
                 case MarioState.Dead:
-                    frames = facingRight ? bigRightFrames : bigLeftFrames;
-                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
                     break;
             }
         }
@@ -191,7 +182,6 @@ namespace Player
             timeSinceLastFrame = 0;
             damagedAnimationTime = 0;
             facingRight = false;
-            projectiles = new List<object>();
         }
 
     }

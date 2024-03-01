@@ -14,6 +14,6 @@ public class DamagedCommand : ICommand
 
     public void Execute()
     {
-        game.takeDamage();
+        //game.takeDamage(gameTime);
     }
 }
