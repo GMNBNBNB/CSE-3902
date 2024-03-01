@@ -1,30 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 public class TortoiseEnemy : ISprite
 {
     private Texture2D enemyAttack;
     private Vector2 position;
-    private Vector2 fireBallPosition;
     private int currentFrame;
     private double timeSinceLastFrame;
-    private Rectangle[] fireBall;
     private Rectangle[] frames;
-    private Rectangle Fireframes;
     private Rectangle[] leftFrames;
     private Rectangle[] rightFrames;
     float velocity;
     private Rectangle screenBounds;
-    private bool IsActive;
-    private float FireSpeed = 300f;
-    public TortoiseEnemy(Texture2D enemyAttack, Vector2 position, Rectangle screenBounds)
+    private Vector2 FireSpeed;
+    private List<object> projectiles;
+    public TortoiseEnemy(Texture2D enemyAttack, Vector2 position, Rectangle screenBounds, List<object> projectiles)
     {
         this.enemyAttack = enemyAttack;
         this.position = position;
-        fireBall = new Rectangle[2];
-        fireBall[0] = new Rectangle(130, 252, 25, 8);
-        fireBall[1] = new Rectangle(190, 252, 25, 8);
+        this.projectiles = projectiles;
 
         leftFrames = new Rectangle[4];
         rightFrames = new Rectangle[4];
@@ -41,38 +37,30 @@ public class TortoiseEnemy : ISprite
         timeSinceLastFrame = 0;
         this.velocity = 100f;
         this.screenBounds = screenBounds;
-        fireBallPosition = this.position;
     }
+
 
     public void Update(GameTime gameTime)
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        fireBallPosition.X = fireBallPosition.X - FireSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-        if (fireBallPosition.X < screenBounds.Left || fireBallPosition.X > screenBounds.Right - 40)
-        {
-            IsActive = false;
-        }
 
         if (nextX < screenBounds.Left + 300)
         {
             velocity = -velocity;
             frames = rightFrames;
-            IsActive = true;
-            FireSpeed = -FireSpeed;
-            Fireframes = fireBall[0];
-            fireBallPosition = position;
+            FireSpeed = new Vector2(-300, 0);
+            EnemyFireball newEnemyFireball = new EnemyFireball(enemyAttack, position, FireSpeed, screenBounds);
+            projectiles.Add(newEnemyFireball);
         }
         else if (nextX > screenBounds.Right - 200)
         {
             velocity = -velocity;
             nextX = screenBounds.Right - 200;
             frames = leftFrames;
-            IsActive = true;
-            FireSpeed = -FireSpeed;
-            Fireframes = fireBall[1];
-            fireBallPosition = position;
+            FireSpeed = new Vector2(300, 0);
+            EnemyFireball newEnemyFireball = new EnemyFireball(enemyAttack, position, FireSpeed, screenBounds);
+            projectiles.Add(newEnemyFireball);
         }
         if (timeSinceLastFrame >= 200.0)
         {
@@ -88,10 +76,6 @@ public class TortoiseEnemy : ISprite
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(enemyAttack, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-        if (IsActive)
-        {
-            spriteBatch.Draw(enemyAttack, fireBallPosition, Fireframes, Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
-        }
     }
     public Rectangle Bounds
     {

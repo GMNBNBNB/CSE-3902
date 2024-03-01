@@ -39,13 +39,11 @@ public class Goomba : ISprite
         if (nextX < screenBounds.Left + 300)
         {
             velocity = -velocity;
-            frames = frames;
         }
         else if (nextX > screenBounds.Right - 200)
         {
             velocity = -velocity;
             nextX = screenBounds.Right - 200;
-            frames = frames;
         }
         if (timeSinceLastFrame >= 100.0)
         {

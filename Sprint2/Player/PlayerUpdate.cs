@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint0;
+using Player;
 
 
 namespace Player
@@ -11,16 +12,30 @@ namespace Player
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
             float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if (isInvincible && (gameTime.TotalGameTime - lastDamagedTime > invincibleDuration))
+            {
+                isInvincible = false;
+            }
+
             if (currentState == MarioState.Dead)
             {
-                currentFrame = 1;
                 damagedAnimationTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
                 if (damagedAnimationTime <= 0)
                 {
                     currentFrame = 0;
                     currentState = MarioState.Big;
-                    frames = bigLeftFrames;
+                    frames = facingRight ? bigRightFrames : bigLeftFrames;
+                    facingRight = false;
+                    isInvincible = true;
+                    lastDamagedTime = gameTime.TotalGameTime;
                     damagedAnimationTime = 0;
+                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
+                }
+                else
+                {
+                    frames = leftFrames;
+                    currentFrame = 1;
                 }
             }
 
@@ -121,11 +136,6 @@ namespace Player
                     jumpSpeed = 0;
                 }
             }
-
-            foreach (IProjectiles pro in projectiles)
-            {
-                pro.Update(gameTime);
-            }
         }
     }
-    }
+}
