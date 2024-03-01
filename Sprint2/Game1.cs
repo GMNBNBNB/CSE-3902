@@ -13,7 +13,7 @@ namespace Sprint0
         Texture2D enemyAttack;
         Vector2 position;
         Vector2 EnemyPosition;
-        ScrollingBackground background; 
+        ScrollingBackground background;
 
         ISprite sprite;
         List<object> controllerList;
@@ -81,7 +81,7 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
             background = new ScrollingBackground(Content, "bg1", _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             spriteI = new Spring(textureI, positionI);
-            player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds()); 
+            player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds());
             enemies.Enqueue(new FlowerEmeny(texture, EnemyPosition));
             enemies.Enqueue(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
             enemies.Enqueue(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
@@ -118,11 +118,17 @@ namespace Sprint0
                         player.damaged(gameTime);
                         health = 2;
                     }
-
                 }
-
                 enemies.Peek().Update(gameTime);
             }
+            foreach (Rectangle blockRect in background.Blocks)
+            {
+                if (CollisionDetector.DetectCollision(player.Bounds, blockRect))
+                {
+                    player.reset();
+                }
+            }
+
             player.Update(gameTime);
             spriteI.Update(gameTime);
             background.Update(gameTime);
@@ -139,6 +145,10 @@ namespace Sprint0
 
             _spriteBatch.Begin();
             background.Draw(_spriteBatch);
+            foreach (Rectangle blockRect in background.Blocks)
+            {
+                _spriteBatch.Draw(textureB, blockRect, currentBlockRect, Color.White);
+            }
             player.Draw(_spriteBatch);
             if (enemies.Count > 0)
             {

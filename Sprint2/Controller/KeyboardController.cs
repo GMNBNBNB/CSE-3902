@@ -169,7 +169,6 @@ public class KeyboardController : IController
                 game.moveRight();
             }
         }
-        
         previousKeyboardState = state;
     }
 }
