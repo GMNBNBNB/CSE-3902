@@ -61,7 +61,7 @@ namespace Sprint0
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
-            EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 100);
+            EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 130);
             positionI = new Vector2(400, 300);
             controllerList = new List<object>();
             currentBlockIndex = 0;
@@ -145,10 +145,6 @@ namespace Sprint0
 
             _spriteBatch.Begin();
             background.Draw(_spriteBatch);
-            foreach (Rectangle blockRect in background.Blocks)
-            {
-                _spriteBatch.Draw(textureB, blockRect, currentBlockRect, Color.White);
-            }
             player.Draw(_spriteBatch);
             if (enemies.Count > 0)
             {

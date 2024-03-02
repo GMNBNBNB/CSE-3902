@@ -34,7 +34,7 @@ public class ScrollingBackground
     }
     public void Update(GameTime gametime)
     {
-        position1.X -= scrollSpeed;
+        //position1.X -= scrollSpeed;
     }
     public void Draw(SpriteBatch spriteBatch)
     {
@@ -44,12 +44,12 @@ public class ScrollingBackground
     private void InitializeBlocks()
     {
         blocks = new Rectangle[1];
-        blocks[0] = new Rectangle(144, 256, 15, 15);
+        blocks[0] = new Rectangle(245,144, 15, 15);
         for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i] = new Rectangle(
-               (int)(blocks[0].X),
-               (int)(blocks[0].Y),
+               (int)(blocks[0].X* scale),
+               (int)(blocks[0].Y* scale),
                (int)(blocks[0].Width * scale),
                (int)(blocks[0].Height * scale));
 
