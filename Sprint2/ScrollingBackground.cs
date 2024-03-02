@@ -43,15 +43,16 @@ public class ScrollingBackground
     }
     private void InitializeBlocks()
     {
-        blocks = new Rectangle[1];
-        blocks[0] = new Rectangle(245,144, 15, 15);
+        blocks = new Rectangle[2];
+        blocks[0] = new Rectangle(0, 207, 3378, 18);
+        blocks[1] = new Rectangle(256,144, 15, 15);
         for (int i = 0; i < blocks.Length; i++)
         {
             blocks[i] = new Rectangle(
-               (int)(blocks[0].X* scale),
-               (int)(blocks[0].Y* scale),
-               (int)(blocks[0].Width * scale),
-               (int)(blocks[0].Height * scale));
+               (int)(blocks[i].X* scale),
+               (int)(blocks[i].Y* scale),
+               (int)(blocks[i].Width * scale),
+               (int)(blocks[i].Height * scale));
 
         }
     }

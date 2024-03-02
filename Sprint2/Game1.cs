@@ -125,7 +125,7 @@ namespace Sprint0
             {
                 if (CollisionDetector.DetectCollision(player.Bounds, blockRect))
                 {
-                    player.reset();
+                    position.Y = blockRect.Y + 100;
                 }
             }
 
@@ -145,6 +145,10 @@ namespace Sprint0
 
             _spriteBatch.Begin();
             background.Draw(_spriteBatch);
+            //foreach (Rectangle blockRect in background.Blocks)
+            //{
+            //    _spriteBatch.Draw(textureB, blockRect, currentBlockRect, Color.White);
+            //}
             player.Draw(_spriteBatch);
             if (enemies.Count > 0)
             {

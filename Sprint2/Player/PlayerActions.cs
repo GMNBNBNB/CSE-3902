@@ -69,7 +69,7 @@ namespace Player
         }
         public Fireball fireball()
         {
-            
+
             Vector2 fireballVelocity;
             if (facingRight)
             {
@@ -81,7 +81,7 @@ namespace Player
             }
             Fireball newFireball = new Fireball(texturePro, position, fireballVelocity, screenBounds);
             return newFireball;
-            
+
         }
 
         public void jump()
@@ -183,5 +183,9 @@ namespace Player
             facingRight = false;
         }
 
+        public void IfCollision()
+        {
+            Vector2 LastPosition = position;
+        }
     }
 }
