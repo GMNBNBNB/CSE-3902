@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>D:/Program Files/source/3/Sprint2/Content/Bg1.png</File>
+    <File>D:/Program Files/source/3/Sprint2/Content/blocks.png</File>
+    <File>D:/Program Files/source/3/Sprint2/Content/EnemyAttack.png</File>
+    <File>D:/Program Files/source/3/Sprint2/Content/items.png</File>
+    <File>D:/Program Files/source/3/Sprint2/Content/mario.gif</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>sheet.gif</File>
+  </DestFiles>
+</SourceFileCollection>

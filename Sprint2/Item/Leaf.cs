@@ -41,8 +41,7 @@ public class Leaf : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Rectangle destinationRectangle = new Rectangle(600, 150, 34, 40);
-        spriteBatch.Draw(texture, destinationRectangle, frames[currentFrame], Color.White);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
     {

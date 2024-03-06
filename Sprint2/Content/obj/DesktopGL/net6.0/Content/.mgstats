@@ -1,0 +1,6 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Program Files/source/3/Sprint2/Content/Bg1.png","D:/Program Files/source/3/Sprint2/Content/bin/DesktopGL/Content/Bg1.xnb","TextureProcessor","Texture2DContent",26014,6482005,0.3548167
+"D:/Program Files/source/3/Sprint2/Content/blocks.png","D:/Program Files/source/3/Sprint2/Content/bin/DesktopGL/Content/blocks.xnb","TextureProcessor","Texture2DContent",4125,94293,0.0033878
+"D:/Program Files/source/3/Sprint2/Content/EnemyAttack.png","D:/Program Files/source/3/Sprint2/Content/bin/DesktopGL/Content/EnemyAttack.xnb","TextureProcessor","Texture2DContent",8295,455269,0.0122435
+"D:/Program Files/source/3/Sprint2/Content/items.png","D:/Program Files/source/3/Sprint2/Content/bin/DesktopGL/Content/items.xnb","TextureProcessor","Texture2DContent",1882,118645,0.0040835
+"D:/Program Files/source/3/Sprint2/Content/mario.gif","D:/Program Files/source/3/Sprint2/Content/bin/DesktopGL/Content/sheet.xnb","TextureProcessor","Texture2DContent",23602,822937,0.0171102

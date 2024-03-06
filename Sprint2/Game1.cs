@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Player;
 using System;
+using Sprint2;
+using System.Reflection.Metadata;
 
 namespace Sprint0
 {
@@ -13,7 +15,7 @@ namespace Sprint0
         Texture2D enemyAttack;
         Vector2 position;
         Vector2 EnemyPosition;
-        ScrollingBackground background;
+        Vector2 BlockPosition;
 
         ISprite sprite;
         List<object> controllerList;
@@ -33,6 +35,8 @@ namespace Sprint0
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        block block;
+
         static int health = 2;
 
         public Game1()
@@ -49,10 +53,6 @@ namespace Sprint0
         {
             spriteI = newSprite;
         }
-        public void changeBlock(int index)
-        {
-            currentBlockIndex = index;
-        }
             public Rectangle GetScreenBounds()
         {
             return new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
@@ -61,10 +61,10 @@ namespace Sprint0
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
+            BlockPosition = new Vector2(300, 300);
             EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 130);
             positionI = new Vector2(400, 300);
             controllerList = new List<object>();
-            currentBlockIndex = 0;
             projectiles = new List<object>();
             enemies = new Queue<ISprite>();
 
@@ -79,7 +79,7 @@ namespace Sprint0
             textureI = Content.Load<Texture2D>("items");
             textureB = Content.Load<Texture2D>("blocks");
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
-            background = new ScrollingBackground(Content, "bg1", _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            block = new block(textureB, BlockPosition);
             spriteI = new Spring(textureI, positionI);
             player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds());
             enemies.Enqueue(new FlowerEmeny(texture, EnemyPosition));
@@ -121,19 +121,10 @@ namespace Sprint0
                 }
                 enemies.Peek().Update(gameTime);
             }
-            foreach (Rectangle blockRect in background.Blocks)
-            {
-                if (CollisionDetector.DetectCollision(player.Bounds, blockRect))
-                {
-                    position.Y = blockRect.Y + 100;
-                }
-            }
-
             player.Update(gameTime);
+            block.Update(gameTime,player);
             spriteI.Update(gameTime);
-            background.Update(gameTime);
-            currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
-
+          
 
             base.Update(gameTime);
         }
@@ -144,11 +135,6 @@ namespace Sprint0
 
 
             _spriteBatch.Begin();
-            background.Draw(_spriteBatch);
-            //foreach (Rectangle blockRect in background.Blocks)
-            //{
-            //    _spriteBatch.Draw(textureB, blockRect, currentBlockRect, Color.White);
-            //}
             player.Draw(_spriteBatch);
             if (enemies.Count > 0)
             {
@@ -159,11 +145,15 @@ namespace Sprint0
             {
                 pro.Draw(_spriteBatch);
             }
-            _spriteBatch.Draw(textureB, new Vector2(300, 150), currentBlockRect, Color.White);
+            block.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
 
+        public void changeBlock(int index)
+        {
+            block.changeBlock(index);
+        }
         public void takeDamage(GameTime gameTime)
         {
             player.damaged(gameTime);

@@ -88,7 +88,7 @@ namespace Player
         {
             if (currentState != MarioState.Dead && jumpSpeed == 0)
             {
-                jumpSpeed = -15;
+                jumpSpeed = -18;
                 if (frames == leftFrames)
                 {
                     frames = leftJumpFrames;
@@ -185,7 +185,9 @@ namespace Player
 
         public void IfCollision()
         {
-            Vector2 LastPosition = position;
+            jumpSpeed = 0;
+            jumpSpeed += gravity;
+            position.Y += jumpSpeed;
         }
     }
 }
