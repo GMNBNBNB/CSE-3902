@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 using Sprint0;
+using Sprint2;
 
 namespace Player
 {
@@ -41,6 +42,9 @@ namespace Player
 
         float gravity = 0.8f;
         float jumpSpeed;
+
+        block block;
+
         private enum MarioState
         {
             Big,
@@ -50,18 +54,19 @@ namespace Player
         }
         private MarioState currentState;
         private TimeSpan lastDamagedTime;
-        private TimeSpan invincibleDuration = TimeSpan.FromMilliseconds(500);
-        private bool isInvincible = false;
+        private TimeSpan invincibleDuration;
+        private bool isInvincible;
 
         private Game1 game;
 
-        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds, Map map)
+        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds, Map map, block block)
         {
             this.game = game;
             this.texture = texture;
             this.texturePro = texturePro;
             this.position = position;
             this.map = map;
+            this.block = block;
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];
             leftJumpFrames = new Rectangle[3];
@@ -141,6 +146,8 @@ namespace Player
             this.velocity = 300f;
             this.screenBounds = screenBounds;
             damagedAnimationTime = 0;
+            isInvincible = false;
+            invincibleDuration = TimeSpan.FromMilliseconds(500);
         }
         public Rectangle Bounds
         {

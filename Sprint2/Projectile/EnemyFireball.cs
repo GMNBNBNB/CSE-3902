@@ -20,7 +20,7 @@ public class EnemyFireball : IProjectiles
 
     public EnemyFireball(Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
     {
-        Position = position + new Vector2(0, 20);
+        Position = position;
         Velocity = velocity;
         IsActive = true;
         this.screenBounds = screenBounds;
@@ -48,7 +48,7 @@ public class EnemyFireball : IProjectiles
         {
             Rectangle bounds = new Rectangle(
                 (int)Position.X,
-                (int)Position.Y,
+                (int)Position.Y+60,
                 frames[currentFrame].Width*3,
                 frames[currentFrame].Height*3
             );
@@ -59,11 +59,10 @@ public class EnemyFireball : IProjectiles
 
 
 
-    public void Update(GameTime gameTime, Queue<ISprite> enemies, IPlayer player)
+    public void Update(GameTime gameTime, List<ISprite> enemies, IPlayer player)
     {
         Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
         if (enemyFireballCollision.EnemyFireballHitMario(player))
         {
             player.damaged(gameTime);

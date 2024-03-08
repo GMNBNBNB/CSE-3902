@@ -70,7 +70,7 @@ public class generate
         switch (name)
         {
             case "Goomba":
-                game.enemies1.Add(new Goomba(texture, position, game.GetScreenBounds()));
+                game.AddEnemy(new Goomba(texture, position, game.GetScreenBounds()));
                 break;
         }
     }

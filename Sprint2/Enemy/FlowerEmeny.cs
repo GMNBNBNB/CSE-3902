@@ -49,9 +49,9 @@ public class FlowerEmeny : ISprite
         {
             Rectangle bounds = new Rectangle(
                 (int)position.X,
-                (int)position.Y,
-                frames[currentFrame].Width *2,
-                frames[currentFrame].Height *2
+                (int)position.Y + 60,
+                frames[currentFrame].Width *3,
+                frames[currentFrame].Height *3
             );
 
             return bounds;

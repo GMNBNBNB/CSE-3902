@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public interface IProjectiles
 {
-	void Update(GameTime gameTime, Queue<ISprite> enemies, IPlayer player);
+	void Update(GameTime gameTime, List<ISprite> enemies, IPlayer player);
 	void Draw(SpriteBatch spirtBatch);
     Rectangle Bounds { get; }
 }

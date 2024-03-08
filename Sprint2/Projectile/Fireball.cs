@@ -49,7 +49,7 @@ public class Fireball : IProjectiles
 
         
 
-    public void Update(GameTime gameTime, Queue<ISprite> enemies, IPlayer player)
+    public void Update(GameTime gameTime, List<ISprite> enemies, IPlayer player)
     {
         Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -60,12 +60,19 @@ public class Fireball : IProjectiles
             {
                 return;
             }
-
-            if (fireballCollision.FireballHitEnemy(enemies.Peek()))
+            ISprite toRemove = null;
+            foreach (ISprite e in enemies)
             {
-                IsActive = false;
-                enemies.Dequeue();
-                return;
+                if (fireballCollision.FireballHitEnemy(e))
+                {
+                    IsActive = false;
+                    toRemove = e;
+                    break; 
+                }
+            }
+            if (toRemove != null)
+            {
+                enemies.Remove(toRemove);
             }
         }
 

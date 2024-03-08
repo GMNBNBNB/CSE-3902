@@ -125,11 +125,14 @@ namespace Player
                 }
             }
 
-            if (lastPositionX - position.X != 0)
+            if (game.Level() != 2)
             {
-                // Console.WriteLine("lastPositionX: " + lastPositionX + " position.X: " + position.X);
-                if (map.Update(gameTime, facingRight, position, new Vector2(velocity, 0)))
-                    position.X = lastPositionX;
+                if (lastPositionX - position.X != 0)
+                {
+                    // Console.WriteLine("lastPositionX: " + lastPositionX + " position.X: " + position.X);
+                    if (map.Update(gameTime, facingRight, position, new Vector2(velocity, 0)))
+                        position.X = lastPositionX;
+                }
             }
 
             if (jumpSpeed != 0 || position.Y < screenBounds.Height - 60)
@@ -143,6 +146,7 @@ namespace Player
                     jumpSpeed = 0;
                 }
             }
+            
         }
     }
 }
