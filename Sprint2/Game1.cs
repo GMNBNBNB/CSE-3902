@@ -14,14 +14,13 @@ namespace Sprint0
         Texture2D enemyAttack;
         Vector2 position;
         Vector2 EnemyPosition;
-        ScrollingBackground background;
 
         ISprite sprite;
         List<object> controllerList;
         IPlayer player;
         List<object> projectiles;
         Queue<ISprite> enemies;
-        Queue<ISprite> allEnemies;
+        public List<ISprite> enemies1;
 
         ISprite spriteI;
         Texture2D textureI;
@@ -113,6 +112,7 @@ namespace Sprint0
             currentBlockIndex = 0;
             projectiles = new List<object>();
             enemies = new Queue<ISprite>();
+            enemies1 = new List<ISprite>();
 
             menuController = new MenuController(this);
 
@@ -138,7 +138,6 @@ namespace Sprint0
             enemies.Enqueue(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Enqueue(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
             enemies.Enqueue(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
-            allEnemies = new Queue<ISprite>(enemies);
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
             font = Content.Load<SpriteFont>("File");
         }
@@ -158,41 +157,66 @@ namespace Sprint0
             }
             else if (currentState == GameState.Playing)
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-
-                player.Update(gameTime);
-                spriteI.Update(gameTime);
-
-                foreach (IController controller in controllerList)
+                if (gameIndex == 0 || gameIndex == 1)
                 {
-                    controller.Update(gameTime);
-                }
+                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                        Exit();
 
-                foreach (IProjectiles pro in projectiles)
-                {   
-                    pro.Update(gameTime, enemies, player);
-                }
-                if (enemies.Count > 0)
-                {
+                    player.Update(gameTime);
+                    spriteI.Update(gameTime);
 
-                    if (CollisionDetector.DetectCollision(player.Bounds, enemies.Peek().Bounds))
+                    foreach (IController controller in controllerList)
                     {
-                        if (health > 0)
-                        {
-                            player.damaged(gameTime);
-                            health--;
-                        }
-                        else
-                        {
-                            player.damaged(gameTime);
-                            health = 2;
-                        }
+                        controller.Update(gameTime);
                     }
-                    enemies.Peek().Update(gameTime);
-                }
 
-                currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
+                    foreach (IProjectiles pro in projectiles)
+                    {
+                        pro.Update(gameTime, enemies, player);
+                    }
+                    if (enemies.Count > 0)
+                    {
+
+                        if (CollisionDetector.DetectCollision(player.Bounds, enemies.Peek().Bounds))
+                        {
+                            if (health > 0)
+                            {
+                                player.damaged(gameTime);
+                                health--;
+                            }
+                            else
+                            {
+                                player.damaged(gameTime);
+                                health = 2;
+                            }
+                        }
+                        enemies.Peek().Update(gameTime);
+                    }
+
+                    currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
+                }
+                else
+                {
+                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                        Exit();
+
+                    player.Update(gameTime);
+
+                    foreach (IController controller in controllerList)
+                    {
+                        controller.Update(gameTime);
+                    }
+
+                    foreach (IProjectiles pro in projectiles)
+                    {
+                        pro.Update(gameTime, enemies, player);
+                    }
+
+                    foreach (ISprite e in enemies1)
+                    {
+                        e.Update(gameTime);
+                    }
+                }
             }
 
             else if (currentState == GameState.Paused)
@@ -235,22 +259,41 @@ namespace Sprint0
             }
             else if (currentState == GameState.Playing)
             {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
+                if (gameIndex == 0 || gameIndex == 1)
+                {
+                    GraphicsDevice.Clear(Color.CornflowerBlue);
 
-                _spriteBatch.Begin();
-                map.Draw(_spriteBatch);
-                player.Draw(_spriteBatch);
-                if (enemies.Count > 0)
-                {
-                    enemies.Peek().Draw(_spriteBatch);
+                    _spriteBatch.Begin();
+                    map.Draw(_spriteBatch);
+                    player.Draw(_spriteBatch);
+                    foreach(ISprite e in enemies1)
+                    {
+                        e.Draw(_spriteBatch);
+                    }
+                    foreach (IProjectiles pro in projectiles)
+                    {
+                        pro.Draw(_spriteBatch);
+                    }
+                    _spriteBatch.End();
                 }
-                spriteI.Draw(_spriteBatch);
-                foreach (IProjectiles pro in projectiles)
+                else
                 {
-                    pro.Draw(_spriteBatch);
+                    GraphicsDevice.Clear(Color.CornflowerBlue);
+
+                    _spriteBatch.Begin();
+                    player.Draw(_spriteBatch);
+                    if (enemies.Count > 0)
+                    {
+                        enemies.Peek().Draw(_spriteBatch);
+                    }
+                    spriteI.Draw(_spriteBatch);
+                    foreach (IProjectiles pro in projectiles)
+                    {
+                        pro.Draw(_spriteBatch);
+                    }
+                    _spriteBatch.Draw(textureB, new Vector2(300, 150), currentBlockRect, Color.White);
+                    _spriteBatch.End();
                 }
-                _spriteBatch.Draw(textureB, new Vector2(300, 150), currentBlockRect, Color.White);
-                _spriteBatch.End();
             }
             else if (currentState == GameState.Paused)
             {
