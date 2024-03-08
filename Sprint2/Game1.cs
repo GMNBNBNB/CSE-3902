@@ -81,7 +81,7 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
             block = new block(textureB, BlockPosition);
             spriteI = new Spring(textureI, positionI);
-            player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds());
+            player = new PlayerSprite(texture, enemyAttack, position, GetScreenBounds(),block);
             enemies.Enqueue(new FlowerEmeny(texture, EnemyPosition));
             enemies.Enqueue(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
             enemies.Enqueue(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));

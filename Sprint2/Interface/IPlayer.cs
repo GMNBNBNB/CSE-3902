@@ -18,5 +18,8 @@ public interface IPlayer
     void crouch();
     void crouchStop();
     void reset();
-    void IfCollision();
+    void IfCollisionTop();
+    void IfCollisionBot();
+    void IfCollisionLSide();
+    void IfCollisionRSide();
 }

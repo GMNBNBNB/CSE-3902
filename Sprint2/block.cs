@@ -10,7 +10,7 @@ namespace Sprint2
         private Rectangle currentBlockRect;
         private Texture2D texture2;
         private Vector2 position;
-        private Rectangle bounds;
+        CollisionHelper.CollisionDirection collisionDirection;
         public void changeBlock(int index)
         {
             currentBlockIndex = index;
@@ -23,22 +23,45 @@ namespace Sprint2
         public void Update(GameTime gameTime, IPlayer player)
         {
             currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
-            bounds = new Rectangle(
-                     (int)position.X,
-                     (int)position.Y,
-                     currentBlockRect.Width*2,
-                     currentBlockRect.Height*2
-                 );
-            if (CollisionDetector.DetectCollision(player.Bounds, bounds))
+            if (CollisionDetector.DetectCollision(this.Bounds, player.Bounds))
             {
-                currentBlockIndex++;
-                player.IfCollision();
-            }
+                collisionDirection = CollisionHelper.DetermineCollisionDirection(this.Bounds,player.Bounds);
+                if (collisionDirection == CollisionHelper.CollisionDirection.Top)
+                {
+                    currentBlockIndex++;
+                    player.IfCollisionTop();
+                }
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+                {
+                    player.IfCollisionBot();
+                }
+                if(collisionDirection == CollisionHelper.CollisionDirection.Left)
+                {
+                    player.IfCollisionLSide();
+                }
+                if (collisionDirection == CollisionHelper.CollisionDirection.Right)
+                {
+                    player.IfCollisionRSide();
+                }
 
             }
+
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture2, position, currentBlockRect, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+        }
+        public Rectangle Bounds
+        {
+            get
+            {
+                Rectangle bounds = new Rectangle(
+                     (int)position.X,
+                     (int)position.Y,
+                     currentBlockRect.Width * 2,
+                     currentBlockRect.Height * 2);
+                return bounds;
+            }
         }
     }
 }

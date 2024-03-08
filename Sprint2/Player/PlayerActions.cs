@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint2;
 
 namespace Player
 {
@@ -182,12 +183,24 @@ namespace Player
             damagedAnimationTime = 0;
             facingRight = false;
         }
-
-        public void IfCollision()
+        public void IfCollisionTop()
         {
             jumpSpeed = 0;
             jumpSpeed += gravity;
             position.Y += jumpSpeed;
+        }
+        public void IfCollisionBot()
+        {
+            jumpSpeed = 0;
+            position.Y = block.Bounds.Y - this.Bounds.Height;
+        }
+        public void IfCollisionRSide()
+        {
+            position.X = block.Bounds.X - this.Bounds.Width;
+        }
+        public void IfCollisionLSide()
+        {
+            position.X = block.Bounds.X + this.Bounds.Width;
         }
     }
 }

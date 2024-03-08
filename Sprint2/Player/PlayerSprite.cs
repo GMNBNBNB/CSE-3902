@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
+using Sprint2;
 using System;
 
 namespace Player
@@ -39,6 +38,8 @@ namespace Player
         private double moveVelocity = 10;
         float gravity = 0.8f;
         float jumpSpeed;
+
+        block block;
         private enum MarioState
         {
             Big,
@@ -53,11 +54,12 @@ namespace Player
 
 
 
-        public PlayerSprite(Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds)
+        public PlayerSprite(Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds, block block)
         {
             this.texture = texture;
             this.texturePro = texturePro;
             this.position = position;
+            this.block = block;
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];
             leftJumpFrames = new Rectangle[3];
@@ -127,6 +129,7 @@ namespace Player
             this.screenBounds = screenBounds;
             damagedAnimationTime = 0;
             facingRight = false;
+
         }
         public Rectangle Bounds
         {
