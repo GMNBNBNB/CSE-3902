@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework.Input;
 public class Map
 {
     private Vector2 position;
-    private Vector2 velocity;
+    //private Vector2 velocity;
     private Rectangle screenBounds;
     private Texture2D texture;
-    private bool canScroll;
+    //private bool canScroll;
     private float scale;
-    public float baseY;
+    //public float baseY;
 
     public void LoadContent(Texture2D texture)
     {
@@ -22,11 +22,11 @@ public class Map
     
     public Map(Texture2D texture, float baseY, Rectangle screenBounds)
     {
-        this.baseY = baseY;
+        //this.baseY = baseY;
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
-        velocity = Vector2.Zero;
-        canScroll = false;
+        //velocity = Vector2.Zero;
+        //canScroll = false;
         
         LoadContent(texture);
     }
@@ -36,19 +36,19 @@ public class Map
         position = Vector2.Zero;
     }
 
-    public bool Update(GameTime gameTime, bool faceRight, Vector2 playerPosition, Vector2 playerVelocity)
-    {
+    //public bool Update(GameTime gameTime, bool faceRight, Vector2 playerPosition, Vector2 playerVelocity)
+    //{
         
-        canScroll = (playerPosition.X <= (screenBounds.Width + 16) / 2 && position.X > 0) || (playerPosition.X >= (screenBounds.Width - 16) / 2 && position.X < texture.Width - screenBounds.Width); 
-        if (!canScroll) return false;
+    //    canScroll = (playerPosition.X <= (screenBounds.Width + 16) / 2 && position.X > 0) || (playerPosition.X >= (screenBounds.Width - 16) / 2 && position.X < texture.Width - screenBounds.Width); 
+    //    if (!canScroll) return false;
         
-        float lastPosition = position.X;
+    //    float lastPosition = position.X;
         
-        var change = playerVelocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        position.X += faceRight ? change : -change;
-        position.X = MathHelper.Clamp(position.X, 0, texture.Width - screenBounds.Width);
-        return position.X - lastPosition != 0;
-    }
+    //    var change = playerVelocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
+    //    position.X += faceRight ? change : -change;
+    //    position.X = MathHelper.Clamp(position.X, 0, texture.Width - screenBounds.Width);
+    //    return position.X - lastPosition != 0;
+    //}
 
     public void Draw(SpriteBatch spriteBatch)
     {

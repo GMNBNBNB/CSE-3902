@@ -130,7 +130,6 @@ namespace Sprint0
             textureI = Content.Load<Texture2D>("items");
             textureB = Content.Load<Texture2D>("blocks");
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
-            mapTexture = Content.Load<Texture2D>("1-1");
 
             block = new block(textureB, BlockPosition);
             map = new Map(mapTexture, 58, GetScreenBounds());
