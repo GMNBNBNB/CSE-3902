@@ -13,7 +13,7 @@ public class KeyboardController : IController
     private Texture2D enemyAttack;
     private Vector2 position;
     private Rectangle screenBounds;
-    private Queue<ISprite> enemies;
+    private List<ISprite> enemies;
     private ISprite sprite;
     private KeyboardState previousKeyboardState;
 
@@ -25,7 +25,7 @@ public class KeyboardController : IController
     private Texture2D textureB;
     private int currentBlockIndex = 0;
 
-    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, Queue<ISprite> enemies, Texture2D textureI, Vector2 positionI, Texture2D textureB)
+    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, List<ISprite> enemies, Texture2D textureI, Vector2 positionI, Texture2D textureB)
     {
         this.game = game;
         this.texture = texture;
@@ -72,19 +72,18 @@ public class KeyboardController : IController
         {
             if (enemies.Count > 0)
             {
-                sprite = enemies.Dequeue();
-                enemies.Enqueue(sprite);
+                sprite = enemies[0];
+                enemies.RemoveAt(0);
+                enemies.Add(sprite);
             }
         }
         else if (state.IsKeyDown(Keys.O) && !previousKeyboardState.IsKeyDown(Keys.O))
         {
             if (enemies.Count > 0)
             {
-                for (int i = 0; i < enemies.Count - 1; i++)
-                {
-                    sprite = enemies.Dequeue();
-                    enemies.Enqueue(sprite);
-                }
+                sprite = enemies[enemies.Count - 1];
+                enemies.RemoveAt(enemies.Count-1);
+                enemies.Insert(0, sprite);
             }
         }
 

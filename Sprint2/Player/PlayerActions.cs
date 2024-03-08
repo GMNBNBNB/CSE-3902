@@ -86,7 +86,7 @@ namespace Player
         {
             if (currentState != MarioState.Dead && jumpSpeed == 0)
             {
-                jumpSpeed = -15;
+                jumpSpeed = -18;
                 if (frames == leftFrames)
                 {
                     frames = leftJumpFrames;
@@ -108,6 +108,7 @@ namespace Player
                 timeSinceLastFrame = 0;
             }
         }
+
 
         public void crouch()
         {
@@ -181,9 +182,24 @@ namespace Player
             facingRight = true;
         }
 
-        public void IfCollision()
+        public void IfCollisionTop()
         {
-            Vector2 LastPosition = position;
+            jumpSpeed = 0;
+            jumpSpeed += gravity;
+            position.Y += jumpSpeed;
+        }
+        public void IfCollisionBot()
+        {
+            jumpSpeed = 0;
+            position.Y = block.Bounds.Y - this.Bounds.Height;
+        }
+        public void IfCollisionRSide()
+        {
+            position.X = block.Bounds.X - this.Bounds.Width;
+        }
+        public void IfCollisionLSide()
+        {
+            position.X = block.Bounds.X + this.Bounds.Width;
         }
     }
 }
