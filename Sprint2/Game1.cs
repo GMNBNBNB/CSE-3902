@@ -154,16 +154,15 @@ namespace Sprint0
                 {
                     currentState = GameState.Playing;
                 }
-
-
             }
             else if (currentState == GameState.Playing)
             {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    currentState = GameState.MainMenu;
+                }
                 if (gameIndex == 0 || gameIndex == 1)
                 {
-                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                        Exit();
-
                     player.Update(gameTime);
                     spriteI.Update(gameTime);
 
@@ -224,7 +223,6 @@ namespace Sprint0
                     block.Update(gameTime, player);
                 }
             }
-
             else if (currentState == GameState.Paused)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
@@ -233,7 +231,6 @@ namespace Sprint0
                     currentState = GameState.Playing;
                 }
             }
-
             base.Update(gameTime);
         }
 
@@ -377,7 +374,6 @@ namespace Sprint0
         {
             enemies1.Add(enemy);
         }
-
         public void reset()
         {
             resetMap();

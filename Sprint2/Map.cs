@@ -30,25 +30,11 @@ public class Map
         
         LoadContent(texture);
     }
-
-    public void resetPosition()
+    public void UpDate(GameTime gameTime)
     {
-        position = Vector2.Zero;
+
     }
 
-    //public bool Update(GameTime gameTime, bool faceRight, Vector2 playerPosition, Vector2 playerVelocity)
-    //{
-        
-    //    canScroll = (playerPosition.X <= (screenBounds.Width + 16) / 2 && position.X > 0) || (playerPosition.X >= (screenBounds.Width - 16) / 2 && position.X < texture.Width - screenBounds.Width); 
-    //    if (!canScroll) return false;
-        
-    //    float lastPosition = position.X;
-        
-    //    var change = playerVelocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
-    //    position.X += faceRight ? change : -change;
-    //    position.X = MathHelper.Clamp(position.X, 0, texture.Width - screenBounds.Width);
-    //    return position.X - lastPosition != 0;
-    //}
 
     public void Draw(SpriteBatch spriteBatch)
     {

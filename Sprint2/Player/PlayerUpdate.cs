@@ -31,7 +31,6 @@ namespace Player
                     lastDamagedTime = gameTime.TotalGameTime;
                     damagedAnimationTime = 0;
                     position = game.initialPosition();
-                    map.resetPosition();
                 }
                 else
                 {
@@ -124,17 +123,6 @@ namespace Player
                     timeSinceLastFrame = 0;
                 }
             }
-
-            //if (game.Level() != 2)
-            //{
-            //    if (lastPositionX - position.X != 0)
-            //    {
-            //         Console.WriteLine("lastPositionX: " + lastPositionX + " position.X: " + position.X);
-            //        if (map.Update(gameTime, facingRight, position, new Vector2(velocity, 0)))
-            //            position.X = lastPositionX;
-            //    }
-            //}
-
             if (jumpSpeed != 0 || position.Y <= screenBounds.Height - this.Bounds.Height - 60)
             {
                 jumpSpeed += gravity;
