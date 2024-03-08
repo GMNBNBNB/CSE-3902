@@ -18,7 +18,7 @@ public class Fireball : IProjectiles
 
     public Fireball(Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
     {
-        Position = position;
+        Position = position - new Vector2(0, 30);
         Velocity = velocity;
         IsActive = true;
         this.screenBounds = screenBounds;

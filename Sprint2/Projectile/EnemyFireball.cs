@@ -20,7 +20,7 @@ public class EnemyFireball : IProjectiles
 
     public EnemyFireball(Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
     {
-        Position = position;
+        Position = position + new Vector2(0, 20);
         Velocity = velocity;
         IsActive = true;
         this.screenBounds = screenBounds;
@@ -49,8 +49,8 @@ public class EnemyFireball : IProjectiles
             Rectangle bounds = new Rectangle(
                 (int)Position.X,
                 (int)Position.Y,
-                frames[currentFrame].Width,
-                frames[currentFrame].Height
+                frames[currentFrame].Width*3,
+                frames[currentFrame].Height*3
             );
 
             return bounds;
@@ -68,6 +68,7 @@ public class EnemyFireball : IProjectiles
         {
             player.damaged(gameTime);
         }
+
 
         if (Position.X < screenBounds.Left || Position.X > screenBounds.Right - 40)
         {

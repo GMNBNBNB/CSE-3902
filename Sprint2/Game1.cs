@@ -57,6 +57,7 @@ namespace Sprint0
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+
         public void ChangeSprite(ISprite newSprite)
         {
             sprite = newSprite;
@@ -160,13 +161,16 @@ namespace Sprint0
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
 
+                player.Update(gameTime);
+                spriteI.Update(gameTime);
+
                 foreach (IController controller in controllerList)
                 {
                     controller.Update(gameTime);
                 }
 
                 foreach (IProjectiles pro in projectiles)
-                {
+                {   
                     pro.Update(gameTime, enemies, player);
                 }
                 if (enemies.Count > 0)
@@ -188,9 +192,6 @@ namespace Sprint0
                     enemies.Peek().Update(gameTime);
                 }
 
-
-                player.Update(gameTime);
-                spriteI.Update(gameTime);
                 currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
             }
 

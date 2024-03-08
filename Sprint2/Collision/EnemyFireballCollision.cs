@@ -15,7 +15,7 @@ namespace Sprint0
 
         public bool EnemyFireballHitMario(IPlayer player)
         {
-            return CollisionDetector.DetectCollision(enemyFireball.Bounds, player.Bounds);
+            return CollisionDetector.DetectCollision(player.Bounds, enemyFireball.Bounds);
         }
 
     }

@@ -73,8 +73,10 @@ namespace Player
 
             leftFrames[0] = new Rectangle(194, 43, 13, 18);
             leftFrames[1] = new Rectangle(12, 45, 16, 16);
+            leftFrames[2] = new Rectangle(12, 45, 16, 16);
             rightFrames[0] = new Rectangle(305, 43, 16, 18);
             rightFrames[1] = new Rectangle(12, 45, 16, 16);
+            rightFrames[2] = new Rectangle(12, 45, 16, 16);
 
             leftJumpFrames[0] = new Rectangle(140, 43, 16, 16);
             leftJumpFrames[1] = new Rectangle(140, 43, 16, 16);
@@ -102,13 +104,19 @@ namespace Player
             bigRightWalkFrames = new Rectangle[3];
 
             bigLeftFrames[0] = new Rectangle(237, 0, 20, 34);
+            bigLeftFrames[1] = new Rectangle(237, 0, 20, 34);
+            bigLeftFrames[2] = new Rectangle(237, 0, 20, 34);
             bigRightFrames[0] = new Rectangle(258, 0, 17, 34);
+            bigRightFrames[1] = new Rectangle(258, 0, 17, 34);
+            bigRightFrames[2] = new Rectangle(258, 0, 17, 34);
 
             bigLeftJumpFrames[0] = new Rectangle(126, 0, 19, 34);
             bigLeftJumpFrames[1] = new Rectangle(126, 0, 19, 34);
+            bigLeftJumpFrames[2] = new Rectangle(126, 0, 19, 34);
 
             bigLeftCrouchFrames[0] = new Rectangle(219, 9, 18, 25);
             bigLeftCrouchFrames[1] = new Rectangle(219, 9, 18, 25);
+            bigLeftCrouchFrames[2] = new Rectangle(219, 9, 18, 25);
 
             bigLeftWalkFrames[0] = new Rectangle(201, 0, 18, 33);
             bigLeftWalkFrames[1] = new Rectangle(183, 0, 16, 35);
@@ -116,9 +124,11 @@ namespace Player
 
             bigRightJumpFrames[0] = new Rectangle(369, 0, 18, 36);
             bigRightJumpFrames[1] = new Rectangle(369, 0, 18, 36);
+            bigRightJumpFrames[2] = new Rectangle(369, 0, 18, 36);
 
             bigRightCrouchFrames[0] = new Rectangle(276, 9, 18, 25);
             bigRightCrouchFrames[1] = new Rectangle(276, 9, 18, 25);
+            bigRightCrouchFrames[2] = new Rectangle(276, 9, 18, 25);
 
             bigRightWalkFrames[0] = new Rectangle(294, 0, 20, 34);
             bigRightWalkFrames[1] = new Rectangle(312, 0, 17, 34);

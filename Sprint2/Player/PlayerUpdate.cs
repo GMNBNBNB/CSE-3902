@@ -24,9 +24,9 @@ namespace Player
                 if (damagedAnimationTime <= 0)
                 {
                     currentFrame = 0;
-                    currentState = MarioState.Small;
-                    frames = facingRight ? rightFrames : leftFrames;
-                    facingRight = false;
+                    currentState = MarioState.Big;
+                    facingRight = true;
+                    frames = facingRight ? bigRightFrames : bigLeftFrames;
                     isInvincible = true;
                     lastDamagedTime = gameTime.TotalGameTime;
                     damagedAnimationTime = 0;

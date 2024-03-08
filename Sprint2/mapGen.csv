@@ -1,0 +1,4 @@
+type,name,x,y
+block,ground_block,50,400
+item,coin,200,300
+enemy,goomba,500,400
