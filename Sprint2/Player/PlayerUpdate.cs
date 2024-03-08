@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprint0;
-using Player;
 
 
 namespace Player
@@ -10,7 +9,8 @@ namespace Player
         public void Update(GameTime gameTime)
         {
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-            float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float nextX = position.X + (facingRight ? velocity * (float)gameTime.ElapsedGameTime.TotalSeconds : -velocity * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            var lastPositionX = position.X;
 
             if (isInvincible && (gameTime.TotalGameTime - lastDamagedTime > invincibleDuration))
             {
@@ -24,13 +24,14 @@ namespace Player
                 if (damagedAnimationTime <= 0)
                 {
                     currentFrame = 0;
-                    currentState = MarioState.Big;
-                    frames = facingRight ? bigRightFrames : bigLeftFrames;
+                    currentState = MarioState.Small;
+                    frames = facingRight ? rightFrames : leftFrames;
                     facingRight = false;
                     isInvincible = true;
                     lastDamagedTime = gameTime.TotalGameTime;
                     damagedAnimationTime = 0;
-                    position = new Vector2(screenBounds.Width / 2 - 100, screenBounds.Height / 2);
+                    position = game.initialPosition();
+                    map.resetPosition();
                 }
                 else
                 {
@@ -86,13 +87,12 @@ namespace Player
                 if (nextX < screenBounds.Left)
                 {
                     nextX = screenBounds.Left;
-                    position.X = nextX;
                 }
                 else if (nextX > screenBounds.Right - 60)
                 {
-                    nextX = screenBounds.Right - 60;
-                    position.X = nextX;
+                    nextX = screenBounds.Right - 60;                   
                 }
+                position.X = nextX;
                 if (timeSinceLastFrame >= 100.0)
                 {
                     currentFrame++;
@@ -109,13 +109,12 @@ namespace Player
                 if (nextX < screenBounds.Left)
                 {
                     nextX = screenBounds.Left;
-                    position.X = nextX;
                 }
                 else if (nextX > screenBounds.Right - 60)
                 {
                     nextX = screenBounds.Right - 60;
-                    position.X = nextX;
                 }
+                position.X = nextX;
                 if (timeSinceLastFrame >= 100.0)
                 {
                     currentFrame++;
@@ -125,14 +124,22 @@ namespace Player
                     timeSinceLastFrame = 0;
                 }
             }
-            if (jumpSpeed != 0 || position.Y < screenBounds.Height - 100)
+
+            if (lastPositionX - position.X != 0)
+            {
+                // Console.WriteLine("lastPositionX: " + lastPositionX + " position.X: " + position.X);
+                if (map.Update(gameTime, facingRight, position, new Vector2(velocity, 0)))
+                    position.X = lastPositionX;
+            }
+
+            if (jumpSpeed != 0 || position.Y < screenBounds.Height - 60)
             {
                 jumpSpeed += gravity;
                 position.Y += jumpSpeed;
 
-                if (position.Y >= screenBounds.Height - 100)
+                if (position.Y >= screenBounds.Height - 60)
                 {
-                    position.Y = screenBounds.Height - 100;
+                    position.Y = screenBounds.Height - 60;
                     jumpSpeed = 0;
                 }
             }

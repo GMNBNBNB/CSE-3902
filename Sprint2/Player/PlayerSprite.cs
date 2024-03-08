@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+using Sprint0;
 
 namespace Player
 {
@@ -13,6 +14,8 @@ namespace Player
         private Vector2 position;
         private int currentFrame;
         private double timeSinceLastFrame;
+
+        private Map map;
 
         private Rectangle[] frames;
         private Rectangle[] leftFrames;
@@ -31,12 +34,11 @@ namespace Player
         private Rectangle[] bigLeftWalkFrames;
         private Rectangle[] bigRightWalkFrames;
 
-        float velocity;
+        private float velocity;
         private Rectangle screenBounds;
         private double damagedAnimationTime;
         private bool facingRight;
 
-        private double moveVelocity = 10;
         float gravity = 0.8f;
         float jumpSpeed;
         private enum MarioState
@@ -51,13 +53,15 @@ namespace Player
         private TimeSpan invincibleDuration = TimeSpan.FromMilliseconds(500);
         private bool isInvincible = false;
 
+        private Game1 game;
 
-
-        public PlayerSprite(Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds)
+        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds, Map map)
         {
+            this.game = game;
             this.texture = texture;
             this.texturePro = texturePro;
             this.position = position;
+            this.map = map;
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];
             leftJumpFrames = new Rectangle[3];
@@ -65,7 +69,7 @@ namespace Player
             leftWalkFrames = new Rectangle[3];
             rightWalkFrames = new Rectangle[3];
 
-            currentState = MarioState.Big;
+            currentState = MarioState.Small;
 
             leftFrames[0] = new Rectangle(194, 43, 13, 18);
             leftFrames[1] = new Rectangle(12, 45, 16, 16);
@@ -120,13 +124,13 @@ namespace Player
             bigRightWalkFrames[1] = new Rectangle(312, 0, 17, 34);
             bigRightWalkFrames[2] = new Rectangle(330, 0, 19, 35);
 
-            frames = bigLeftFrames;
+            facingRight = true;
+            frames = rightFrames;
             currentFrame = 0;
             timeSinceLastFrame = 0;
-            this.velocity = 100f;
+            this.velocity = 300f;
             this.screenBounds = screenBounds;
             damagedAnimationTime = 0;
-            facingRight = false;
         }
         public Rectangle Bounds
         {
@@ -145,7 +149,7 @@ namespace Player
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, new Vector2(0, frames[currentFrame].Height), 2f, SpriteEffects.None, 0f);
         }
     }
 }

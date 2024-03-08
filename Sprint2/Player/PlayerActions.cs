@@ -12,7 +12,6 @@ namespace Player
         {
             if (currentState != MarioState.Dead)
             {
-                position.X -= (float)moveVelocity;
                 if (currentState == MarioState.Big)
                 {
                     frames = bigLeftWalkFrames;
@@ -42,7 +41,6 @@ namespace Player
         {
             if (currentState != MarioState.Dead)
             {
-                position.X += (float)moveVelocity;
                 if (currentState == MarioState.Big)
                 {
                     frames = bigRightWalkFrames;
@@ -174,13 +172,13 @@ namespace Player
         }
         public void reset()
         {
-            currentState = MarioState.Big;
-            position = new Vector2(screenBounds.Width / 2, screenBounds.Height / 2);
-            frames = bigLeftFrames;
+            currentState = MarioState.Small;
+            position = game.initialPosition();
+            frames = rightFrames;
             currentFrame = 0;
             timeSinceLastFrame = 0;
             damagedAnimationTime = 0;
-            facingRight = false;
+            facingRight = true;
         }
 
         public void IfCollision()
