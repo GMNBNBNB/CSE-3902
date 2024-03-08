@@ -6,27 +6,24 @@ using Microsoft.Xna.Framework.Input;
 public class Map
 {
     private Vector2 position;
-    //private Vector2 velocity;
     private Rectangle screenBounds;
     private Texture2D texture;
-    //private bool canScroll;
     private float scale;
-    //public float baseY;
+    private Vector2 position1;
+
 
     public void LoadContent(Texture2D texture)
     {
-        scale = (float)screenBounds.Height / texture.Height;
+        scale = Math.Max((float)screenBounds.Width / texture.Width, (float)screenBounds.Height / texture.Height);
         this.texture = texture;
+        position1 = new Vector2(0, 0);
 
     }
-    
-    public Map(Texture2D texture, float baseY, Rectangle screenBounds)
+
+    public Map(Texture2D texture,Rectangle screenBounds)
     {
-        //this.baseY = baseY;
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
-        //velocity = Vector2.Zero;
-        //canScroll = false;
         
         LoadContent(texture);
     }
@@ -38,6 +35,7 @@ public class Map
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(texture, Vector2.Zero, new Rectangle((int)(position.X/scale),0,screenBounds.Width,screenBounds.Height), Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+        Rectangle destinationRect1 = new Rectangle((int)position1.X, (int)position1.Y, (int)(texture.Width * scale), (int)(texture.Height * scale));
+        spriteBatch.Draw(texture, destinationRect1,Color.White);
     }
 }

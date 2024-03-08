@@ -132,7 +132,7 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, 58, GetScreenBounds());
+            map = new Map(mapTexture,GetScreenBounds());
             spriteI = new Spring(textureI, positionI);
             player = new PlayerSprite(this, texture, enemyAttack, position, GetScreenBounds(), map, block);
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
@@ -149,6 +149,9 @@ namespace Sprint0
             if (currentState == GameState.MainMenu)
             {
                 menuController.Update(gameTime);
+                if (Keyboard.GetState().IsKeyDown(Keys.Q)) 
+                    Exit();
+
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed ||
                     Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
@@ -198,14 +201,14 @@ namespace Sprint0
                 }
                 else
                 {
-                    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                        Exit();
-
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        currentState = GameState.MainMenu;
+                    }
                     foreach (IController controller in controllerList)
                     {
                         controller.Update(gameTime);
                     }
-
                     foreach (IProjectiles pro in projectiles)
                     {
                         pro.Update(gameTime, enemies, player);
@@ -364,19 +367,12 @@ namespace Sprint0
         {
             return new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
         }
-
-        public void resetMap()
-        {
-            map = new Map(mapTexture, 58, GetScreenBounds());
-        }
-
         public void AddEnemy(ISprite enemy)
         {
             enemies1.Add(enemy);
         }
         public void reset()
         {
-            resetMap();
             player.reset();
             enemies.Clear();
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
