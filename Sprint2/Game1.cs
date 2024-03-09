@@ -132,7 +132,7 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture,GetScreenBounds());
+            map = new Map(mapTexture,GetScreenBounds(), this);
             spriteI = new Spring(textureI, positionI);
             player = new PlayerSprite(this, texture, enemyAttack, position, GetScreenBounds(), map, block);
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
