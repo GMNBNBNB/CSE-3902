@@ -154,7 +154,7 @@ namespace Player
             {
                 return;
             }
-           lastDamagedTime = gameTime.TotalGameTime;
+            lastDamagedTime = gameTime.TotalGameTime;
 
             switch (currentState)
             {

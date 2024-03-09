@@ -36,6 +36,8 @@ namespace Sprint0
 
         static int health = 2;
 
+        Camera _camera;
+
         Texture2D mapTexture;
         Map map;
 
@@ -114,6 +116,7 @@ namespace Sprint0
             projectiles = new List<object>();
             enemies = new List<ISprite>();
             enemies1 = new List<ISprite>();
+            _camera = new Camera(GraphicsDevice.Viewport);
 
             menuController = new MenuController(this);
 
@@ -131,7 +134,7 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture,GetScreenBounds());
+            map = new Map(mapTexture, GetScreenBounds());
             spriteI = new Spring(textureI, positionI);
             player = new PlayerSprite(this, texture, enemyAttack, position, GetScreenBounds(), map, block);
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
@@ -143,12 +146,13 @@ namespace Sprint0
             font = Content.Load<SpriteFont>("File");
         }
 
-        protected override void Update(GameTime gameTime){
+        protected override void Update(GameTime gameTime)
+        {
 
             if (currentState == GameState.MainMenu)
             {
                 menuController.Update(gameTime);
-                if (Keyboard.GetState().IsKeyDown(Keys.Q)) 
+                if (Keyboard.GetState().IsKeyDown(Keys.Q))
                     Exit();
 
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed ||
@@ -167,6 +171,7 @@ namespace Sprint0
                 {
                     player.Update(gameTime);
                     spriteI.Update(gameTime);
+                    _camera.Update(player.getPosition());
 
                     foreach (IController controller in controllerList)
                     {
@@ -217,7 +222,7 @@ namespace Sprint0
                         enemies[0].Update(gameTime);
                         if (CollisionDetector.DetectCollision(player.Bounds, enemies[0].Bounds))
                         {
-                             player.damaged(gameTime);
+                            player.damaged(gameTime);
                         }
                     }
 
@@ -268,10 +273,10 @@ namespace Sprint0
                 {
                     GraphicsDevice.Clear(Color.CornflowerBlue);
 
-                    _spriteBatch.Begin();
+                    _spriteBatch.Begin(transformMatrix: _camera.Transform);
                     map.Draw(_spriteBatch);
                     player.Draw(_spriteBatch);
-                    foreach(ISprite e in enemies1)
+                    foreach (ISprite e in enemies1)
                     {
                         e.Draw(_spriteBatch);
                     }
@@ -331,7 +336,7 @@ namespace Sprint0
         {
             player.jump();
         }
-        
+
         public void crouch()
         {
             player.crouch();
@@ -346,12 +351,12 @@ namespace Sprint0
         {
             player.moveLeft();
         }
-        
+
         public void moveRight()
         {
             player.moveRight();
         }
-        
+
         public void leftStop()
         {
             player.moveLeftStop();

@@ -22,4 +22,5 @@ public interface IPlayer
     void IfCollisionBot();
     void IfCollisionLSide();
     void IfCollisionRSide();
+    Vector2 getPosition();
 }

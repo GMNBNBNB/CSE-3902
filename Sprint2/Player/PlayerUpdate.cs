@@ -134,7 +134,7 @@ namespace Player
                     jumpSpeed = 0;
                 }
             }
-            
+
         }
     }
 }
