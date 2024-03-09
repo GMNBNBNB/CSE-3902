@@ -1,30 +1,45 @@
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
+using Sprint2;
+using static System.Reflection.Metadata.BlobBuilder;
 
-public class generate
+public class Generate
 {
     private Game1 game;
     private Texture2D texture;
-
-    public generate(string csv, Game1 game, Texture2D texture)
+    private Texture2D enemy;
+    private string csv;
+    private Texture2D BlockTexture;
+    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture)
     {
         this.game = game;
         this.texture = texture;
-
+        this.enemy = enemy;
+        this.BlockTexture = BlockTexture;
+        csv = @"..\..\..\mapGen.csv";
         using (var reader = new StreamReader(csv))
         {
+            bool isFirstLine = true;
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
+
+                if (isFirstLine)
+                {
+                    isFirstLine = false;
+                    continue;
+                }
+
                 var values = line.Split(',');
 
                 string type = values[0];
                 string name = values[1];
-                int x = int.Parse(values[2]);
-                int y = int.Parse(values[3]);
+                float x = float.Parse(values[2]);
+                float y = float.Parse(values[3]);
 
                 CreateGameObject(type, name, new Vector2(x, y));
             }
@@ -52,7 +67,12 @@ public class generate
     
     public void CreateBlock(string name, Vector2 position)
     {
-
+        switch (name)
+        {
+            case "1":
+                game.AddBlock(new block(BlockTexture, position));
+                break;
+        }
     }
 
 
@@ -70,7 +90,7 @@ public class generate
         switch (name)
         {
             case "Goomba":
-                game.AddEnemy(new Goomba(texture, position, game.GetScreenBounds()));
+                game.AddEnemy(new Goomba(enemy, position, game.GetMap()));
                 break;
         }
     }

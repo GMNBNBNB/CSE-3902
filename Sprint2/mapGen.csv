@@ -1,4 +1,8 @@
 type,name,x,y
-item,Block,288,150
+block,1,232,300
+block,1,264,300
+block,1,296,300
+block,1,328,300
+block,1,360,300
 item,Box,260,150
-enemy,Goomba,300,210
+enemy,Goomba,600,366
