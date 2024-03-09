@@ -106,6 +106,11 @@ namespace Sprint0
             return new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
+        public Rectangle GetMap()
+        {
+            return new Rectangle(0, 0, 3584, 240);
+        }
+
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
@@ -134,7 +139,7 @@ namespace Sprint0
             _camera = new Camera(GraphicsDevice.Viewport, mapTexture);
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, GetScreenBounds());
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this);
             spriteI = new Spring(textureI, positionI);
             player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds());
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
