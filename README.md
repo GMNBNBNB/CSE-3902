@@ -18,3 +18,4 @@ Interaction with items and blocks is implemented.
 The map is not fully created; we only created a few blocks and items for testing.
 Mario has three health points, and each time he collides with enemies, he will lose one health point.
 Enemies can also attack; each time Mario collides with a fireball, he will lose one health point.
+Mario can eat coin in the map.
