@@ -163,7 +163,6 @@ namespace Player
                 return bounds;
             }
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);

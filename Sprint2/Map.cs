@@ -24,7 +24,6 @@ public class Map
     {
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
-        
         LoadContent(texture);
     }
     public void UpDate(GameTime gameTime)

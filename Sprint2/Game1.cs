@@ -42,7 +42,6 @@ namespace Sprint0
         public GameState currentState = GameState.MainMenu;
         public SpriteFont font;
         private MenuController menuController;
-
         public enum GameState
         {
             MainMenu,

@@ -48,7 +48,7 @@ public class EnemyFireball : IProjectiles
         {
             Rectangle bounds = new Rectangle(
                 (int)Position.X,
-                (int)Position.Y+60,
+                (int)Position.Y,
                 frames[currentFrame].Width*3,
                 frames[currentFrame].Height*3
             );
