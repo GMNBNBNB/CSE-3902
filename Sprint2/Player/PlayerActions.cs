@@ -191,7 +191,6 @@ namespace Player
         public void IfCollisionBot()
         {
             jumpSpeed = 0;
-            gravity = 0;
             position.Y = block.Bounds.Y - this.Bounds.Height;
         }
         public void IfCollisionRSide()
