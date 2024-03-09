@@ -23,10 +23,11 @@ namespace Sprint0
         List<object> projectiles;
         List<ISprite> enemies;
         public List<ISprite> enemies1;
-        public List<block> blocks;
+        List<block> blocks;
+        List<ISprite> Items;
         block block;
 
-        ISprite spriteI;
+        ISprite item;
         Texture2D textureI;
         Vector2 positionI;
 
@@ -66,7 +67,7 @@ namespace Sprint0
         }
         public void ChangeItem(ISprite newSprite)
         {
-            spriteI = newSprite;
+            item = newSprite;
         }
 
         public void changeNextLevel()
@@ -122,6 +123,7 @@ namespace Sprint0
             projectiles = new List<object>();
             enemies = new List<ISprite>();
             enemies1 = new List<ISprite>();
+            Items = new List<ISprite>();
             blocks = new List<block>();
 
             menuController = new MenuController(this);
@@ -141,8 +143,8 @@ namespace Sprint0
             _camera = new Camera(GraphicsDevice.Viewport, mapTexture);
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB);
-            spriteI = new Spring(textureI, positionI);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI);
+            item = new Spring(textureI, positionI);
             player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds());
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
@@ -177,7 +179,7 @@ namespace Sprint0
                 if (gameIndex == 0 || gameIndex == 1)
                 {
                     player.Update(gameTime);
-                    spriteI.Update(gameTime);
+                    item.Update(gameTime,player);
                     _camera.Update(player.getPosition());
 
                     foreach (IController controller in controllerList)
@@ -209,8 +211,12 @@ namespace Sprint0
                                     health = 2;
                                 }
                             }
-                            e.Update(gameTime);
+                            e.Update(gameTime, player);
                         }
+                    }
+                    foreach (ISprite I in Items)
+                    {
+                        I.Update(gameTime, player);
                     }
                 }
                 else
@@ -229,7 +235,7 @@ namespace Sprint0
                     }
                     if (enemies.Count > 0)
                     {
-                        enemies[0].Update(gameTime);
+                        enemies[0].Update(gameTime, player);
                         if (CollisionDetector.DetectCollision(player.Bounds, enemies[0].Bounds))
                         {
                             player.damaged(gameTime);
@@ -297,6 +303,10 @@ namespace Sprint0
                     {
                         b.Draw(_spriteBatch);
                     }
+                    foreach (ISprite I in Items)
+                    {
+                        I.Draw(_spriteBatch);
+                    }
                     _spriteBatch.End();
                 }
                 else
@@ -309,7 +319,7 @@ namespace Sprint0
                     {
                         enemies[0].Draw(_spriteBatch);
                     }
-                    spriteI.Draw(_spriteBatch);
+                    item.Draw(_spriteBatch);
                     foreach (IProjectiles pro in projectiles)
                     {
                         pro.Draw(_spriteBatch);
@@ -390,6 +400,10 @@ namespace Sprint0
         public void AddBlock(block block)
         {
             blocks.Add(block);
+        }
+        public void AddItem(ISprite item)
+        {
+            Items.Add(item);
         }
         public void reset()
         {

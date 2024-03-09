@@ -4,5 +4,5 @@ block,1,264,300
 block,1,296,300
 block,1,328,300
 block,1,360,300
-item,Box,260,150
+item,Coin,260,380
 enemy,Goomba,600,366

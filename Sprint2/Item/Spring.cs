@@ -27,7 +27,7 @@ public class Spring : ISprite
         timeSinceLastFrame = 0;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, IPlayer p)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)
@@ -42,7 +42,7 @@ public class Spring : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Rectangle destinationRectangle = new Rectangle(600, 150, 38, 48);
+        Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 38, 48);
         spriteBatch.Draw(texture, destinationRectangle, frames[currentFrame], Color.White);
     }
     public Rectangle Bounds

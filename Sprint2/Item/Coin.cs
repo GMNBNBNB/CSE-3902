@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sprint0;
 
 public class Coin : ISprite
 {
@@ -13,6 +14,7 @@ public class Coin : ISprite
     private int currentFrame;
     private double timeSinceLastFrame;
     private Rectangle[] frames;
+    private bool isAchive = true;
 
 
     public Coin(Texture2D texture, Vector2 position)
@@ -28,7 +30,7 @@ public class Coin : ISprite
         timeSinceLastFrame = 0;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime,IPlayer player)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)
@@ -39,12 +41,18 @@ public class Coin : ISprite
 
             timeSinceLastFrame = 0;
         }
+        if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
+        {
+            isAchive = false;
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Rectangle destinationRectangle = new Rectangle(600, 150, 20, 38);
-        spriteBatch.Draw(texture, destinationRectangle, frames[currentFrame], Color.White);
+        if(isAchive)
+        {
+            spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
+        }
     }
     public Rectangle Bounds
     {

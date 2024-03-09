@@ -27,7 +27,7 @@ public class Box : ISprite
         timeSinceLastFrame = 0;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, IPlayer p)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)
@@ -42,8 +42,7 @@ public class Box : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Rectangle destinationRectangle = new Rectangle(600, 150, 36, 34);
-        spriteBatch.Draw(texture, destinationRectangle, frames[currentFrame], Color.White);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
     {

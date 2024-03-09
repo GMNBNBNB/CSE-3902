@@ -26,7 +26,7 @@ public class FlowerEmeny : ISprite
         timeSinceLastFrame = 0;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, IPlayer p)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)

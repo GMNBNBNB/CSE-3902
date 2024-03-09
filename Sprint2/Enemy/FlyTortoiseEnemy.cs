@@ -34,7 +34,7 @@ public class FlyTortoiseEnemy : ISprite
         this.screenBounds = screenBounds;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, IPlayer p)
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;

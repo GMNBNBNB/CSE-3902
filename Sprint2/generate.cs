@@ -14,12 +14,14 @@ public class Generate
     private Texture2D enemy;
     private string csv;
     private Texture2D BlockTexture;
-    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture)
+    private Texture2D textureI;
+    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture,Texture2D textureI)
     {
         this.game = game;
         this.texture = texture;
         this.enemy = enemy;
         this.BlockTexture = BlockTexture;
+        this.textureI = textureI;
         csv = @"..\..\..\mapGen.csv";
         using (var reader = new StreamReader(csv))
         {
@@ -80,8 +82,9 @@ public class Generate
     {
         switch (name)
         {
-            //case "Box":
-                //game
+            case "Coin":
+                game.AddItem(new Coin(textureI, position));
+                break;
         }
     }
 
