@@ -15,6 +15,9 @@ public class Goomba : ISprite
     float velocity;
     private Rectangle screenBounds;
 
+    private float moveRangeStart;
+    private float moveRangeEnd;
+
     public Goomba(Texture2D texture, Vector2 position, Rectangle screenBounds)
     {
         this.texture = texture;
@@ -28,6 +31,9 @@ public class Goomba : ISprite
         timeSinceLastFrame = 0;
         this.velocity = 200f;
         this.screenBounds = screenBounds;
+
+        moveRangeStart = position.X - 300;
+        moveRangeEnd = position.X + 300;
     }
 
     public void Update(GameTime gameTime)
@@ -35,16 +41,12 @@ public class Goomba : ISprite
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+        if (nextX < moveRangeStart || nextX > moveRangeEnd)
+        {
+            velocity = -velocity;
+            nextX = MathHelper.Clamp(nextX, moveRangeStart, moveRangeEnd);
+        }
 
-        if (nextX < screenBounds.Left + 300)
-        {
-            velocity = -velocity;
-        }
-        else if (nextX > screenBounds.Right - 200)
-        {
-            velocity = -velocity;
-            nextX = screenBounds.Right - 200;
-        }
         if (timeSinceLastFrame >= 100.0)
         {
             currentFrame++;

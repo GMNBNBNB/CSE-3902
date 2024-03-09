@@ -8,12 +8,14 @@ public class Generate
 {
     private Game1 game;
     private Texture2D texture;
+    private Texture2D enemy;
     private string csv;
 
-    public Generate(Game1 game, Texture2D texture)
+    public Generate(Game1 game, Texture2D texture, Texture2D enemy)
     {
         this.game = game;
         this.texture = texture;
+        this.enemy = enemy;
         csv = @"..\..\..\mapGen.csv";
         using (var reader = new StreamReader(csv))
         {
@@ -79,7 +81,7 @@ public class Generate
         switch (name)
         {
             case "Goomba":
-                game.AddEnemy(new Goomba(texture, position, game.GetScreenBounds()));
+                game.AddEnemy(new Goomba(enemy, position, game.GetMap()));
                 break;
         }
     }

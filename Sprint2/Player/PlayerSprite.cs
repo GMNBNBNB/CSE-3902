@@ -156,18 +156,20 @@ namespace Player
                 Rectangle bounds = new Rectangle(
                     (int)position.X,
                     (int)position.Y,
-                    frames[currentFrame].Width*2,
-                    frames[currentFrame].Height*2
+                    frames[currentFrame].Width * 2,
+                    frames[currentFrame].Height * 2
                 );
 
                 return bounds;
             }
         }
-
+        public Vector2 getPosition()
+        {
+            return position;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
         }
     }
 }
-    
