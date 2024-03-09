@@ -1,23 +1,18 @@
 3902 team 6 project
 
-ICommand interface is not yet in use
-ISprite is used for Enemy, Block and Item
-IPlayer is used for Player controll
-IProjectile is used for Projectile controll
 
-Player controls
-Arrow and "wasd" keys should move Mario and change his facing direction, 'w' and up arrow jump, 's' and down arrow are crouch
-Number keys (1, 2) make Mario shoot projectile
-Use 'e' to cause Mario change the state
+We have designed three levels, where level 1 and level 2 are adventure levels, and level 3 is a test room.
 
-Block/obstacle controls
-Use keys "t" and "y" to cycle between which block is currently being shown 
+In level 3:
 
-Item controls
-Use keys "u" and "i" to cycle between which item is currently being shown 
+Block/obstacle controls: Use the keys "t" and "y" to cycle between which block is currently being shown.
+Item controls: Use the keys "u" and "i" to cycle between which item is currently being shown.
+Enemy/NPC (other character) controls: Use the keys "o" and "p" to cycle between which enemy or NPC is currently being shown.
+Other controls: Use 'q' to quit and 'r' to reset the program back to its initial state.
+For each level, you can use Escape to exit the level, return to the main menu, and use Q to quit the game.
 
-Enemy/NPC (other character) controls
-Use keys "o" and "p" to cycle between which enemy or npc is currently being shown 
+For level 1:
 
-Other controls
-Use 'q' to quit and 'r' to reset the program back to its initial state.
+We achieved collision with enemies and blocks.
+Interaction with items and blocks is implemented.
+The map is not fully created; we only created a few blocks and items for testing.
