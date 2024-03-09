@@ -116,7 +116,6 @@ namespace Sprint0
             projectiles = new List<object>();
             enemies = new List<ISprite>();
             enemies1 = new List<ISprite>();
-            _camera = new Camera(GraphicsDevice.Viewport);
 
             menuController = new MenuController(this);
 
@@ -132,11 +131,12 @@ namespace Sprint0
             textureI = Content.Load<Texture2D>("items");
             textureB = Content.Load<Texture2D>("blocks");
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
+            _camera = new Camera(GraphicsDevice.Viewport, mapTexture);
 
             block = new block(textureB, BlockPosition);
             map = new Map(mapTexture, GetScreenBounds());
             spriteI = new Spring(textureI, positionI);
-            player = new PlayerSprite(this, texture, enemyAttack, position, GetScreenBounds(), map, block);
+            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds());
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
             enemies.Add(new TortoiseEnemy(enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));

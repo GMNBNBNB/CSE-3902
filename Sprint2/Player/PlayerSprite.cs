@@ -15,6 +15,7 @@ namespace Player
         private Vector2 position;
         private int currentFrame;
         private double timeSinceLastFrame;
+        Rectangle GetScreenBounds;
 
         private Map map;
 
@@ -36,13 +37,12 @@ namespace Player
         private Rectangle[] bigRightWalkFrames;
 
         private float velocity;
-        private Rectangle screenBounds;
         private double damagedAnimationTime;
         private bool facingRight;
 
         float gravity = 0.8f;
         float jumpSpeed;
-
+        Texture2D MapTexture;
         block block;
 
         private enum MarioState
@@ -59,7 +59,7 @@ namespace Player
 
         private Game1 game;
 
-        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Rectangle screenBounds, Map map, block block)
+        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Texture2D MapTexture, Map map, block block, Rectangle GetScreenBounds)
         {
             this.game = game;
             this.texture = texture;
@@ -67,6 +67,7 @@ namespace Player
             this.position = position;
             this.map = map;
             this.block = block;
+            this.GetScreenBounds = GetScreenBounds;
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];
             leftJumpFrames = new Rectangle[3];
@@ -144,7 +145,7 @@ namespace Player
             currentFrame = 0;
             timeSinceLastFrame = 0;
             this.velocity = 300f;
-            this.screenBounds = screenBounds;
+            this.MapTexture = MapTexture;
             damagedAnimationTime = 0;
             isInvincible = false;
             invincibleDuration = TimeSpan.FromMilliseconds(500);

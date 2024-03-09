@@ -43,9 +43,7 @@ namespace Sprint2
                 {
                     player.IfCollisionRSide();
                 }
-
             }
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {

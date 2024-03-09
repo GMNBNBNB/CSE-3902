@@ -13,17 +13,22 @@ namespace Sprint2
         public Matrix Transform { get; private set; }
         public Vector2 Position { get; private set; }
         private readonly Viewport viewport;
+        private Texture2D Map;  
 
-        public Camera(Viewport viewport)
+        public Camera(Viewport viewport,Texture2D Map)
         {
             this.viewport = viewport;
+            this.Map = Map;
         }
 
         public void Update(Vector2 targetPosition)
         {
+            float maxX = Map.Width - viewport.Width;
+            float halfViewportWidth = viewport.Width / 3f;
+            float desiredX = targetPosition.X - halfViewportWidth;
+            float clampedX = MathHelper.Clamp(desiredX, 0, maxX);
             // Center camera horizontally on target sprite
-            float halfViewportWidth = viewport.Width / 2f;
-            Position = new Vector2(targetPosition.X - halfViewportWidth, 0);
+            Position = new Vector2(clampedX, 0);
 
             // Clamp position to stay within the bounds of the world
             // Adjust the clamp range according to your world size

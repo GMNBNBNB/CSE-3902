@@ -83,14 +83,14 @@ namespace Player
 
             if (frames == leftWalkFrames || frames == rightWalkFrames)
             {
-                if (nextX < screenBounds.Left)
+                if (nextX < 0)
                 {
-                    nextX = screenBounds.Left;
+                    nextX = 0;
                 }
-                //else if (nextX > screenBounds.Right - 60)
-                //{
-                //    nextX = screenBounds.Right - 60;                   
-                //}
+                else if (nextX > MapTexture.Width - 50)
+                {
+                    nextX = MapTexture.Width - 50;
+                }
                 position.X = nextX;
                 if (timeSinceLastFrame >= 100.0)
                 {
@@ -105,14 +105,14 @@ namespace Player
 
             if (frames == bigLeftWalkFrames || frames == bigRightWalkFrames)
             {
-                if (nextX < screenBounds.Left)
+                if (nextX < 0)
                 {
-                    nextX = screenBounds.Left;
+                    nextX = 0;
                 }
-                //else if (nextX > screenBounds.Right - 60)
-                //{
-                //    nextX = screenBounds.Right - 60;
-                //}
+                else if (nextX > MapTexture.Width - 50)
+                {
+                    nextX = MapTexture.Width - 50;
+                }
                 position.X = nextX;
                 if (timeSinceLastFrame >= 100.0)
                 {
@@ -123,14 +123,14 @@ namespace Player
                     timeSinceLastFrame = 0;
                 }
             }
-            if (jumpSpeed != 0 || position.Y <= screenBounds.Height - this.Bounds.Height - 60)
+            if (jumpSpeed != 0 || position.Y <= GetScreenBounds.Height - this.Bounds.Height - 60)
             {
                 jumpSpeed += gravity;
                 position.Y += jumpSpeed;
 
-                if (position.Y >= screenBounds.Height - this.Bounds.Height - 60)
+                if (position.Y >= GetScreenBounds.Height - this.Bounds.Height - 60)
                 {
-                    position.Y = screenBounds.Height - this.Bounds.Height - 60;
+                    position.Y = GetScreenBounds.Height - this.Bounds.Height - 60;
                     jumpSpeed = 0;
                 }
             }

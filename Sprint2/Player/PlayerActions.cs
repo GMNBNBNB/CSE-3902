@@ -77,7 +77,7 @@ namespace Player
             {
                 fireballVelocity = new Vector2(-300, 0);
             }
-            Fireball newFireball = new Fireball(texturePro, position, fireballVelocity, screenBounds);
+            Fireball newFireball = new Fireball(texturePro, position, fireballVelocity,GetScreenBounds);
             return newFireball;
 
         }
