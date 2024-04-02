@@ -1,0 +1,12 @@
+author: Bowei Kou
+Date: Mar 7
+Sprint 3
+.cs file: MenuController.cs
+.cs author: Yuhang Huang
+Quality: 
+	each function and variable has a reasonable name, and can easily be understood.
+	all the functions used in the interface and interface identification are clear.
+	some duplicate code can be optimized.
+	accomplish all the player's needed functions.
+Hypothetical change:
+	Need to change to mouseController.

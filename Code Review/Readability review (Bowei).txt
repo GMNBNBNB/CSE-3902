@@ -1,0 +1,7 @@
+author: Bowei Kou
+Date: Mar 7
+.cs file: menuController.cs
+.cs author: Yuhang Huang
+time: 45 minutes
+readable: each action has a specific function name, and the variable name is also reasonable.
+not readable: All mouse controls need to be added to this file to keep the other files separate and clean.

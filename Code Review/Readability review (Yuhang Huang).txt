@@ -1,0 +1,7 @@
+Author: Yuhang Huang
+Date: 3/7
+Sprint number: Sprint 3
+Name of the .cs file: enemyFireball
+Author of the .cs file: Bowei Kou
+Time(minutes): 20
+The file's functions and variables are well-named and free of unnecessary code, nice file.

@@ -1,0 +1,17 @@
+
+Meng Gao
+3/3
+Sprint 3
+map.cs
+Jinjin Zhang
+30 min
+The code needs to be made concise, avoiding most whitespace, and unneeded variables and methods need to be removed.
+
+
+Meng Gao
+3/7
+Sprint 3
+map.cs
+Jinjin Zhang
+30 min
+the code after fixed are pretty good,  but still need to use more specific variable name.
