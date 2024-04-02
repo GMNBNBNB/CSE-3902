@@ -10,7 +10,7 @@ using Sprint2.Block;
 
 namespace Sprint0
 {
-    public class Game1 : Game
+    public partial class Game1 : Game
     {
         Texture2D texture;
         Texture2D enemyAttack;
@@ -27,6 +27,7 @@ namespace Sprint0
         public List<ISprite> enemies1;
         List<IBlock> blocks;
         List<ISprite> Items;
+        List<ISprite> DestroyItems;
         List<IBlock> blocksC;
         List<ISprite> ItemsC;
         block block;
@@ -172,6 +173,7 @@ namespace Sprint0
             enemies = new List<ISprite>();
             enemies1 = new List<ISprite>();
             Items = new List<ISprite>();
+            DestroyItems = new List<ISprite>();
             blocks = new List<IBlock>();
             ItemsC = new List<ISprite>();
             blocksC = new List<IBlock>();
@@ -281,14 +283,6 @@ namespace Sprint0
                             blockCollision.Update(b, player);
                         }
                     }
-                    //foreach (IBlock b in blocks)
-                    //{
-                    //    if (CollisionDetector.DetectCollision(b.Bounds, player.Bounds))
-                    //    {
-                    //        blockCollision.Update(b, player);
-                    //        break;
-                    //    }
-                    //}
                     foreach (IProjectiles pro in projectiles)
                     {
                         pro.Update(gameTime, enemies1, player, blocks);
@@ -316,6 +310,10 @@ namespace Sprint0
                     foreach (ISprite I in Items)
                     {
                         I.Update(gameTime, player);
+                    }
+                    foreach (ISprite I in DestroyItems)
+                    {
+                        Items.Remove(I);
                     }
                 }
                 else
@@ -555,84 +553,5 @@ namespace Sprint0
 
             base.Draw(gameTime);
         }
-
-        public void changeBlock(int index)
-        {
-            block.changeBlock(index);
-        }
-
-        public void takeDamage(GameTime gameTime)
-        {
-            player.damaged(gameTime);
-        }
-
-        public void shotFireBall()
-        {
-            projectiles.Add(player.fireball());
-        }
-
-        public void jump()
-        {
-            player.jump();
-        }
-
-        public void crouch()
-        {
-            player.crouch();
-        }
-
-        public void crouchStop()
-        {
-            player.crouchStop();
-        }
-
-        public void moveLeft()
-        {
-            player.moveLeft();
-        }
-
-        public void moveRight()
-        {
-            player.moveRight();
-        }
-
-        public void leftStop()
-        {
-            player.moveLeftStop();
-        }
-
-        public void rightStop()
-        {
-            player.moveRightStop();
-        }
-
-        public Vector2 initialPosition()
-        {
-            return new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
-        }
-        public void AddEnemy(ISprite enemy)
-        {
-            enemies1.Add(enemy);
-        }
-        public void AddBlock(IBlock block)
-        {
-            blocks.Add(block);
-        }
-        public void AddItem(ISprite item)
-        {
-            Items.Add(item);
-        }
-        public void reset()
-        {
-            player.reset();
-            enemies.Clear();
-            enemies.Add(new FlowerEmeny(texture, EnemyPosition));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
-            enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
-            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
-            projectiles.Clear();
-        }
-
     }
 }

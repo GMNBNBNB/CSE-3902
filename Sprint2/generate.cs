@@ -106,6 +106,9 @@ public class Generate
             case "Coin":
                 game.AddItem(new Coin(game, textureI, position));
                 break;
+            case "DFlower":
+                game.AddItem(new DFlower(game, textureI, position));
+                break;
         }
     }
 

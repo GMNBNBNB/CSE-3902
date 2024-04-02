@@ -221,5 +221,10 @@ namespace Player
             float collisionDepthY = CollisionHelper.getY(rectA, rectB); 
             position.X += collisionDepthX;
         }
+        public void ChangeCurrentState()
+        {
+            currentState = MarioState.Big;
+            position.Y = GetScreenBounds.Height - this.Bounds.Height - 120;
+        }
     }
 }

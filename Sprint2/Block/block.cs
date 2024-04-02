@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprint0;
 
-namespace Sprint2
+namespace Sprint2.Block
 {
     public class block
     {
@@ -15,35 +15,14 @@ namespace Sprint2
         {
             currentBlockIndex = index;
         }
-        public block(Texture2D texture,Vector2 position)
+        public block(Texture2D texture, Vector2 position)
         {
-            this.texture2 = texture;
+            texture2 = texture;
             this.position = position;
         }
         public void Update(GameTime gameTime, IPlayer player)
         {
             currentBlockRect = new Rectangle(currentBlockIndex * 16, 0, 16, 16);
-            //if (CollisionDetector.DetectCollision(this.Bounds, player.Bounds))
-            //{
-            //    collisionDirection = CollisionHelper.DetermineCollisionDirection(this.Bounds,player.Bounds);
-            //    if (collisionDirection == CollisionHelper.CollisionDirection.Top)
-            //    {
-            //        currentBlockIndex++;
-            //        player.IfCollisionTop();
-            //    }
-            //    if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
-            //    {
-            //        player.IfCollisionBot();
-            //    }
-            //    if(collisionDirection == CollisionHelper.CollisionDirection.Left)
-            //    {
-            //        player.IfCollisionLSide();
-            //    }
-            //    if (collisionDirection == CollisionHelper.CollisionDirection.Right)
-            //    {
-            //        player.IfCollisionRSide();
-            //    }
-            //}
         }
         public void Draw(SpriteBatch spriteBatch)
         {

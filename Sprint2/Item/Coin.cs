@@ -43,21 +43,15 @@ public class Coin : ISprite
             timeSinceLastFrame = 0;
         }
         if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
-        {
-            if (isAchive)
-            {
-                game.music.playCoin();
-            }
-            isAchive = false;
+        {          
+            game.music.playCoin();
+            game.DestroyItem(this);
         }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        if(isAchive)
-        {
-            spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-        }
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
     {

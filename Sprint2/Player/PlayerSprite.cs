@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 using Sprint0;
-using Sprint2;
+using Sprint2.Block;
 
 namespace Player
 {

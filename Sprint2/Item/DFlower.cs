@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sprint0;
 
 public class DFlower : ISprite
 {
@@ -13,12 +14,14 @@ public class DFlower : ISprite
     private int currentFrame;
     private double timeSinceLastFrame;
     private Rectangle[] frames;
+    private Game1 game;
 
 
-    public DFlower(Texture2D texture, Vector2 position)
+    public DFlower(Game1 game,Texture2D texture, Vector2 position)
     {
         this.texture = texture;
         this.position = position;
+        this.game = game;
         frames = new Rectangle[4];
         frames[0] = new Rectangle(122, 61, 19, 20);
         frames[1] = new Rectangle(152, 61, 19, 20);
@@ -38,6 +41,12 @@ public class DFlower : ISprite
                 currentFrame = 0;
 
             timeSinceLastFrame = 0;
+        }
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            p.ChangeCurrentState();
+            game.music.playCoin();
+            game.DestroyItem(this);
         }
     }
 

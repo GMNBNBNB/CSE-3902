@@ -10,4 +10,5 @@ block,1,456,300
 block,1,488,300
 block,pipe,1200,350
 item,Coin,260,380
+item,DFlower,400,380
 enemy,Goomba,600,366

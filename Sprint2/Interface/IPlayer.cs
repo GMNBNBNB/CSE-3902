@@ -26,4 +26,5 @@ public interface IPlayer
     Vector2 getPosition();
     void setPosition(Vector2 position);
     void inCave(Boolean incave);
+    void ChangeCurrentState();
 }

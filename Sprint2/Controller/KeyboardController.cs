@@ -40,7 +40,7 @@ public class KeyboardController : IController
         items.Add(new Spring(textureI, positionI));
         items.Add(new Coin(game, textureI, positionI));
         items.Add(new LFlower(textureI, positionI));
-        items.Add(new DFlower(textureI, positionI));
+        items.Add(new DFlower(game,textureI, positionI));
         items.Add(new Box(textureI, positionI));
         items.Add(new Leaf(textureI, positionI));
         items.Add(new Platform(textureI, positionI));

@@ -1,7 +1,0 @@
-Author: Chengxi Zhang
-Date: 3/7/2024
-Sprint number: Sprint 2
-Name of the .cs file: block
-Author of the .cs file: Meng Gao
-Time(minutes): 10
-	The first letter of the class name should be capitalized, the rest of the code and naming makes sense, and it's a good code overall.
