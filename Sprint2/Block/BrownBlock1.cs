@@ -15,10 +15,20 @@ namespace Sprint2.Block
         {
             texture2 = texture;
             this.position = position;
+            currentBlockRect = new Rectangle(271,112, 16, 16);
         }
         public void Update(GameTime gameTime, IPlayer player)
         {
-            currentBlockRect = new Rectangle(0, 0, 16, 16);
+            if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
+            {
+                collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
+                if (collisionDirection == CollisionHelper.CollisionDirection.Top)
+                {
+                    currentBlockRect = new Rectangle(304, 111, 16, 16);
+                }
+
+
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

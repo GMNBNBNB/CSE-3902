@@ -18,7 +18,7 @@ namespace Sprint2.Block
         }
         public void Update(GameTime gameTime, IPlayer player)
         {
-            currentBlockRect = new Rectangle(16, 0, 16, 16);
+            currentBlockRect = new Rectangle(304, 111, 16, 16);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

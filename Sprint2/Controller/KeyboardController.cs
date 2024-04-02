@@ -55,10 +55,6 @@ public class KeyboardController : IController
     {
         KeyboardState state = Keyboard.GetState();
 
-        //if (state.IsKeyDown(Keys.Q))
-        //{
-        //    game.Exit();
-        //}
         if (state.IsKeyDown(Keys.R))
         {
             currentItemIndex = 0;
