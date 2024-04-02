@@ -1,7 +1,0 @@
-Author: Yuhang Huang
-Date: 3/3
-Sprint number: Sprint 3
-Name of the .cs file: EnemyFireball.cs
-Author of the .cs file: Bowei Kou
-Time(minutes): 15
-The overall code is relatively simple and easy to understand, and implements sensible collisions and switching. However, the code in the collision detection section still needs to be modified to ensure that Mario's collisions are always detected.

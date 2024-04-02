@@ -1,7 +1,0 @@
-Author: Jinjin Zhang
-Date: 3/7/2024
-Sprint number: Sprint 3
-Name of the .cs file: Goomba
-Author of the .cs file: Chenxi Zhang
-Time(minutes): 10
-	The naming of variables and functions should follow the camel naming rule and, at the same time, unnecessary variables and functions should be removed.

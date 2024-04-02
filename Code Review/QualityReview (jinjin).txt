@@ -1,7 +1,0 @@
-Author: Jinjin Zhang
-Date: 3/3/2024
-Sprint number: Sprint 3
-Name of the .cs file: Goomba
-Author of the .cs file: Chenxi Zhang
-Time(minutes): 10
-	The authors fixed the collision and generation bugs caused by Goomba, but the fixes still need to be changed to methods to make the code cleaner.
