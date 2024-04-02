@@ -6,7 +6,6 @@ namespace Sprint2.Block
 {
     public class BrownBlock1 : IBlock
     {
-        private int currentBlockIndex = 0;
         private Rectangle currentBlockRect;
         private Texture2D texture2;
         private Vector2 position;

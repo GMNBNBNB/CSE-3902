@@ -89,11 +89,14 @@ public class Generate
     {
         switch (name)
         {
-            case "1":
+            case "BrownBlock1":
                 game.AddBlock(new BrownBlock1(BlockTexture, position));
                 break;
             case "pipe":
                 game.AddBlock(new PipeEn(pipeTexture, position));
+                break;
+            case "CoinBlock":
+                game.AddBlock(new CoinBlock(BlockTexture, position, textureI));
                 break;
         }
     }
