@@ -1,0 +1,4 @@
+type,name,x,y
+block,1,232,300
+block,pipe,535,350
+item,Coin,260,380
