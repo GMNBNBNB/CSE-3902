@@ -58,6 +58,7 @@ namespace Sprint0
         private MenuController menuController;
         private PauseMenuController pauseController;
         private VectoryController vectoryController;
+        public Health mario_health;
         public enum GameState
         {
             MainMenu,
@@ -115,21 +116,20 @@ namespace Sprint0
             block = new block(textureB, BlockPosition);
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
-            item = new Spring(textureI, positionI);
+            item = new Spring(textureI, positionI);          
             reStart();
             font = Content.Load<SpriteFont>("File");
+            mario_health = new Health(texture, font, this);
         }
 
         public void reStart()
         {
             music.startMusic();
-            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
-            enemies.Clear();
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
+            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
             blocks.Clear();
             Items.Clear();
             enemies1.Clear();
-            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             item = new Spring(textureI, positionI);
@@ -210,20 +210,9 @@ namespace Sprint0
                     {
                         foreach (ISprite e in enemies1)
                         {
-                            if (CollisionDetector.DetectCollision(player.Bounds, e.Bounds))
-                            {
-                                //if (health > 0)
-                                //{
-                                //    player.damaged(gameTime);
-                                //    health--;
-                                //}
-                                //else
-                                //{
-                                //    player.damaged(gameTime);
-                                //    health = 2;
-                                //}
-                            }
+                        
                             e.Update(gameTime, player);
+                            mario_health.Update(gameTime, player, e);
                         }
                         foreach (ISprite e in DestroyEnemies)
                         {
@@ -288,7 +277,7 @@ namespace Sprint0
                     {
                         currentState = GameState.Playing;
                         player.inCave(false);
-                        player.setPosition(new Vector2(1200, 300));
+                        player.setPosition(new Vector2(1000, 300));
                     }
                 }
                 player.Update(gameTime);
@@ -312,6 +301,10 @@ namespace Sprint0
                 foreach (IController controller in controllerList)
                 {
                     controller.Update(gameTime);
+                }
+                foreach (ISprite I in DestroyItems)
+                {
+                    ItemsC.Remove(I);
                 }
 
             }
@@ -370,6 +363,7 @@ namespace Sprint0
                         I.Draw(_spriteBatch);
                     }
                     _spriteBatch.End();
+                    mario_health.Draw(_spriteBatch);
                 }
                 else
                 {
