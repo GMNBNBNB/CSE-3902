@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Player;
 using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -111,8 +112,8 @@ namespace Sprint0
             object f = player.fireball();
             if (f != null)
             {
-                projectiles.Add(player.fireball());
-            }
+            projectiles.Add(player.fireball());
+        }
         }
 
         public void jump()
@@ -168,12 +169,12 @@ namespace Sprint0
             {
                 blocksC.Add(block);
             }
-
+            
         }
         public void AddItem(ISprite item, Boolean world)
         {
-            if (world)
-            {
+            if (world) 
+            { 
                 Items.Add(item);
             }
             else

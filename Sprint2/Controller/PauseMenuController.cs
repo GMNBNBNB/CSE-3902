@@ -41,7 +41,11 @@ public class PauseMenuController : IController
                 game.music.startMusic();
             }
             else
+            {
                 game.currentState = Game1.GameState.MainMenu;
+                game.reStart();
+            }
+
         }
 
         //new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X/2, GetScreenBounds().Height / 2 - 100 + 50 * i)
@@ -67,7 +71,10 @@ public class PauseMenuController : IController
                     game.music.startMusic();
                 }
                 else
+                {
                     game.currentState = Game1.GameState.MainMenu;
+                    game.reStart();
+                }
             }
         }
 

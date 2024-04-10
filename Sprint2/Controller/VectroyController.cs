@@ -41,7 +41,10 @@ public class VectoryController : IController
                 game.currentState = Game1.GameState.Playing;
             }
             else
+            {
                 game.currentState = Game1.GameState.MainMenu;
+                game.reStart();
+            }         
         }
 
         //new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X/2, GetScreenBounds().Height / 2 - 100 + 50 * i)
@@ -67,7 +70,10 @@ public class VectoryController : IController
                     game.currentState = Game1.GameState.Playing;
                 }
                 else
+                {
                     game.currentState = Game1.GameState.MainMenu;
+                    game.reStart();
+                }
             }
         }
 

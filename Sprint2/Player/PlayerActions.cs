@@ -70,18 +70,18 @@ namespace Player
         {
             if (currentState == MarioState.Big)
             {
-                Vector2 fireballVelocity;
-                if (facingRight)
-                {
-                    fireballVelocity = new Vector2(300, 0);
-                }
-                else
-                {
-                    fireballVelocity = new Vector2(-300, 0);
-                }
-                game.music.playFireball();
+            Vector2 fireballVelocity;
+            if (facingRight)
+            {
+                fireballVelocity = new Vector2(300, 0);
+            }
+            else
+            {
+                fireballVelocity = new Vector2(-300, 0);
+            }
+            game.music.playFireball();
                 Fireball newFireball = new Fireball(game, texturePro, position, fireballVelocity, GetScreenBounds);
-                return newFireball;
+            return newFireball;
             }
             else
             {

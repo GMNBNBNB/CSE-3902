@@ -130,6 +130,14 @@ namespace Sprint0
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
+            blocks.Clear();
+            Items.Clear();
+            enemies1.Clear();
+            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            item = new Spring(textureI, positionI);
+            projectiles.Clear();
         }
 
         protected override void Update(GameTime gameTime)

@@ -42,7 +42,7 @@ namespace Sprint2.Block
                     if (collisionDirection == CollisionHelper.CollisionDirection.Top)
                     {
                         game.music.playCoin();
-                        hitCount++;
+                        hitCount++;  
                         currentFrame++;
                         if (currentFrame >= frames.Length)
                         {

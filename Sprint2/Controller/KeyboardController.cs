@@ -127,7 +127,7 @@ public class KeyboardController : IController
         {
             game.jump();
         }
-
+        
         if ((state.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
         {
             if (mute)
