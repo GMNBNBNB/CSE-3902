@@ -182,3 +182,15 @@
 /processorParam:Quality=Best
 /build:sounds/smb_pipe.wav
 
+#begin sounds/smb_stomp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/smb_stomp.wav
+
+#begin sounds/smb_vine.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/smb_vine.wav
+

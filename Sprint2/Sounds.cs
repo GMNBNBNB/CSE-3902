@@ -14,6 +14,8 @@ public class Sounds
     private SoundEffect die;
     private SoundEffect pause;
     private SoundEffect pipe;
+    private SoundEffect big;
+    private SoundEffect stomp;
     private Song music;
     private Song gameOver;
     private Song ending;
@@ -27,6 +29,8 @@ public class Sounds
         die = Content.Load<SoundEffect>("sounds/smb_mariodie");
         pause = Content.Load<SoundEffect>("sounds/smb_pause");
         pipe = Content.Load<SoundEffect>("sounds/smb_pipe");
+        big = Content.Load<SoundEffect>("sounds/smb_vine");
+        stomp = Content.Load<SoundEffect>("sounds/smb_stomp");
 
         music = Content.Load<Song>("sounds/01-main-theme-overworld");
         gameOver = Content.Load<Song>("sounds/10-game-over-2");
@@ -50,6 +54,15 @@ public class Sounds
         MediaPlayer.IsRepeating = true;
     }
 
+    public void playBig()
+    {
+        big.Play();
+    }
+
+    public void playStomp()
+    {
+        stomp.Play();
+    }
 
     public void playPipe()
     {
