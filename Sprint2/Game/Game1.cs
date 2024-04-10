@@ -122,7 +122,7 @@ namespace Sprint0
 
         public void reStart()
         {
-            music.startMusic();
+            music.stopMusic();
             player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
             enemies.Clear();
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
@@ -158,6 +158,7 @@ namespace Sprint0
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     currentState = GameState.MainMenu;
+                    reStart();
                     music.stopMusic();
                     music.playPause();
                 }
