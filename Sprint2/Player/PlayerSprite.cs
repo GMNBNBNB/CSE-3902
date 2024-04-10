@@ -51,13 +51,13 @@ namespace Player
 
         Boolean incave;
         
-        private enum MarioState
-        {
-            Big,
-            Small,
-            Dead,
-            Crouch
-        }
+        //private enum MarioState
+        //{
+        //    Big,
+        //    Small,
+        //    Dead,
+        //    Crouch
+        //}
         private MarioState currentState;
         private TimeSpan lastDamagedTime;
         private TimeSpan invincibleDuration;
@@ -185,6 +185,15 @@ namespace Player
         public void inCave(Boolean incaveS)
         {
             incave = incaveS;
+        }
+        public MarioState GetMarioState() // used for Mario Life
+        {
+            return currentState;
+        }
+
+        public void setMarioState(MarioState state)
+        {
+            currentState = state;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
