@@ -4,6 +4,14 @@ using Microsoft.Xna.Framework.Input;
 using Player;
 using System;
 
+public enum MarioState
+{
+    Big,
+    Small,
+    Dead,
+    Crouch
+}
+
 public interface IPlayer
 {
     void Update(GameTime gameTime);
@@ -24,9 +32,15 @@ public interface IPlayer
     void IfCollisionLSide(Rectangle rectA, Rectangle rectB);
     void IfCollisionRSide(Rectangle rectA, Rectangle rectB);
     Vector2 getPosition();
+
+    void setSpeed(float speed);
     void setPosition(Vector2 position);
     void inCave(Boolean incave);
     void ChangeCurrentState();
 
     void CheckCollisionWithEnemy(bool IfJump);
+
+    MarioState GetMarioState(); // used for Mario Life
+
+    void setMarioState(MarioState state);
 }

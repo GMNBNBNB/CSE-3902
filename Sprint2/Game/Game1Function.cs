@@ -171,6 +171,10 @@ namespace Sprint0
             }
             
         }
+        public void DestroyBlocks(IBlock block, Boolean world)
+        {
+            DestroyBlock.Add(block);
+        }
         public void AddItem(ISprite item, Boolean world)
         {
             if (world) 

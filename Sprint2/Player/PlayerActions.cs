@@ -136,6 +136,7 @@ namespace Player
                     else return;
                     currentFrame = 0;
                     timeSinceLastFrame = 0;
+                    position.Y = position.Y - this.Bounds.Height / 16;
                 }
             }
         }
@@ -153,6 +154,7 @@ namespace Player
             else return;
             currentFrame = 0;
             timeSinceLastFrame = 0;
+            position.Y = position.Y - this.Bounds.Height / 4;
         }
 
         public void damaged(GameTime gameTime)
@@ -236,7 +238,7 @@ namespace Player
         public void ChangeCurrentState()
         {
             currentState = MarioState.Big;
-            position.Y = GetScreenBounds.Height - this.Bounds.Height - 120;
+            position.Y = position.Y - this.Bounds.Height;
         }
 
         public void CheckCollisionWithEnemy(bool IfJump)

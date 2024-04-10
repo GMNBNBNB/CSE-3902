@@ -94,7 +94,7 @@ public class Generate
         switch (name)
         {
             case "BrownBlock1":
-                game.AddBlock(new BrownBlock1(BlockTexture, position),incave);
+                game.AddBlock(new BrownBlock1(BlockTexture, position, game),incave);
                 break;
             case "pipe":
                 game.AddBlock(new PipeEn(pipeTexture, position),incave);
