@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,12 +22,12 @@ public class Cave
 
     }
 
-    public Cave(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture, Texture2D textureI, Texture2D pipeTexture)
+    public Cave(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture, Texture2D textureI, Texture2D pipeTexture, List<IBlock> block)
     {
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
         LoadContent(texture);
-        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI,pipeTexture,false);
+        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI,pipeTexture,false,block);
     }
 
     public void Draw(SpriteBatch spriteBatch)

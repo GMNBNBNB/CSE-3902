@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
+using Sprint2.Block;
 
 
 public class Map
@@ -21,12 +23,12 @@ public class Map
 
     }
 
-    public Map(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture,Texture2D textureI, Texture2D pipeTexture)
+    public Map(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture,Texture2D textureI, Texture2D pipeTexture, List<IBlock> block)
     {
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
         LoadContent(texture);
-        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI, pipeTexture, true);
+        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI, pipeTexture, true, block);
     }
    
     public void Draw(SpriteBatch spriteBatch)

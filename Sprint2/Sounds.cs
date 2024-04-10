@@ -13,8 +13,10 @@ public class Sounds
     private SoundEffect jump;
     private SoundEffect die;
     private SoundEffect pause;
+    private SoundEffect pipe;
     private Song music;
     private Song gameOver;
+    private Song ending;
 
     public Sounds(ContentManager Content)
     {
@@ -24,9 +26,11 @@ public class Sounds
         jump = Content.Load<SoundEffect>("sounds/smb_jumpsmall");
         die = Content.Load<SoundEffect>("sounds/smb_mariodie");
         pause = Content.Load<SoundEffect>("sounds/smb_pause");
+        pipe = Content.Load<SoundEffect>("sounds/smb_pipe");
 
         music = Content.Load<Song>("sounds/01-main-theme-overworld");
         gameOver = Content.Load<Song>("sounds/10-game-over-2");
+        ending = Content.Load<Song>("sounds/12-ending");
     }
 
     public void startMusic()
@@ -38,6 +42,18 @@ public class Sounds
     public void stopMusic()
     {
         MediaPlayer.Stop();
+    }
+
+    public void startEnd()
+    {
+        MediaPlayer.Play(ending);
+        MediaPlayer.IsRepeating = true;
+    }
+
+
+    public void playPipe()
+    {
+        pipe.Play();
     }
 
     public void playCoin()

@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint0;
+using System.Collections.Generic;
+using System.Numerics;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 public class Goomba : ISprite
 {
@@ -17,11 +21,16 @@ public class Goomba : ISprite
 
     private float moveRangeStart;
     private float moveRangeEnd;
+    private Game1 game;
+    CollisionHelper.CollisionDirection collisionDirection;
+    private List<IBlock> block;
 
-    public Goomba(Texture2D texture, Vector2 position, Rectangle screenBounds)
+    public Goomba(Texture2D texture, Vector2 position, Rectangle screenBounds,Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
+        this.game = game;
+        this.block = block;
 
         frames = new Rectangle[2];
         frames[0] = new Rectangle(0, 0, 18, 17);
@@ -41,10 +50,17 @@ public class Goomba : ISprite
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-        if (nextX < moveRangeStart || nextX > moveRangeEnd)
+        foreach(IBlock block in block)
         {
-            velocity = -velocity;
-            nextX = MathHelper.Clamp(nextX, moveRangeStart, moveRangeEnd);
+            if (nextX < moveRangeStart || nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
+                (int)nextX,
+                (int)position.Y,
+                frames[currentFrame].Width * 3,
+                frames[currentFrame].Height * 3), block.Bounds))
+            {
+                velocity = -velocity;
+                nextX = MathHelper.Clamp(nextX, moveRangeStart, moveRangeEnd);
+            }
         }
 
         if (timeSinceLastFrame >= 100.0)
@@ -57,6 +73,19 @@ public class Goomba : ISprite
         }
 
         position.X = nextX;
+
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+            {
+                p.CheckCollisionWithEnemy(true);
+                p.jump();
+                game.DestroyEnemy(this);
+                game.music.playFireworks();
+            }
+        }
+
     }
 
     public void Draw(SpriteBatch spriteBatch)

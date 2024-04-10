@@ -6,6 +6,7 @@ using System;
 using Sprint0;
 using Sprint2.Block;
 
+
 namespace Player
 {
     public partial class PlayerSprite : IPlayer
@@ -40,12 +41,14 @@ namespace Player
         private float velocity;
         private double damagedAnimationTime;
         private bool facingRight;
+        private bool hasCollidedWithEnemy = false;
 
         float gravity = 0.8f;
         float jumpSpeed;
         Texture2D MapTexture;
         Texture2D caveTexture;
         block block;
+
         Boolean incave;
         
         private enum MarioState

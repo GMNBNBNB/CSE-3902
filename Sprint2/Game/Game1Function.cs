@@ -1,10 +1,101 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Sprint0
 {
     public partial class Game1 : Game
     {
+        public Game1()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+        }
+
+        public void ChangeSprite(ISprite newSprite)
+        {
+            sprite = newSprite;
+        }
+        public void ChangeItem(ISprite newSprite)
+        {
+            item = newSprite;
+        }
+
+        public int getPauseIndex()
+        {
+            return pauseIndex;
+        }
+
+        public void changeNextLevel()
+        {
+            gameIndex++;
+            if (gameIndex > 2)
+            {
+                gameIndex = 0;
+            }
+        }
+
+        public void changePreviousLevel()
+        {
+            gameIndex--;
+            if (gameIndex < 0)
+            {
+                gameIndex = 2;
+            }
+        }
+
+        public void changePause()
+        {
+            pauseIndex = (pauseIndex + 1) % 2;
+        }
+
+
+        public void changeVectory()
+        {
+            vectoryIndex = (vectoryIndex + 1) % 2;
+        }
+
+        public int getVectoryIndex()
+        {
+            return vectoryIndex;
+        }
+
+        public void focusLevel(int i)
+        {
+            gameIndex = i;
+        }
+
+
+        public void focusPause(int i)
+        {
+            pauseIndex = i;
+        }
+
+        public void focusVectory(int i)
+        {
+            vectoryIndex = i;
+        }
+
+        public int Level()
+        {
+            return gameIndex;
+        }
+
+        public void play()
+        {
+            currentState = GameState.Playing;
+        }
+
+        public Rectangle GetScreenBounds()
+        {
+            return new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+        }
+
+        public Rectangle GetMap()
+        {
+            return new Rectangle(0, 0, 3584, 240);
+        }
         public void changeBlock(int index)
         {
             block.changeBlock(index);
@@ -17,7 +108,11 @@ namespace Sprint0
 
         public void shotFireBall()
         {
-            projectiles.Add(player.fireball());
+            object f = player.fireball();
+            if (f != null)
+            {
+                projectiles.Add(player.fireball());
+            }
         }
 
         public void jump()
@@ -63,17 +158,36 @@ namespace Sprint0
         {
             enemies1.Add(enemy);
         }
-        public void AddBlock(IBlock block)
+        public void AddBlock(IBlock block, Boolean world)
         {
-            blocks.Add(block);
+            if (world)
+            {
+                blocks.Add(block);
+            }
+            else
+            {
+                blocksC.Add(block);
+            }
+
         }
-        public void AddItem(ISprite item)
+        public void AddItem(ISprite item, Boolean world)
         {
-            Items.Add(item);
+            if (world)
+            {
+                Items.Add(item);
+            }
+            else
+            {
+                ItemsC.Add(item);
+            }
         }
         public void DestroyItem(ISprite item)
         {
             DestroyItems.Add(item);
+        }
+        public void DestroyEnemy(ISprite enemies)
+        {
+            DestroyEnemies.Add(enemies);
         }
         public void reset()
         {
@@ -82,7 +196,7 @@ namespace Sprint0
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
-            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
+            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
             projectiles.Clear();
         }

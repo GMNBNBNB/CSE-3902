@@ -24,6 +24,7 @@ namespace Sprint0
         IPlayer player;
         List<object> projectiles;
         List<ISprite> enemies;
+        List<ISprite> DestroyEnemies;
         public List<ISprite> enemies1;
         List<IBlock> blocks;
         List<ISprite> Items;
@@ -71,97 +72,6 @@ namespace Sprint0
 
         public Sounds music;
 
-        public Game1()
-        {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-        }
-
-        public void ChangeSprite(ISprite newSprite)
-        {
-            sprite = newSprite;
-        }
-        public void ChangeItem(ISprite newSprite)
-        {
-            item = newSprite;
-        }
-
-        public int getPauseIndex()
-        {
-            return pauseIndex;
-        }
-
-        public void changeNextLevel()
-        {
-            gameIndex++;
-            if (gameIndex > 2)
-            {
-                gameIndex = 0;
-            }
-        }
-
-        public void changePreviousLevel()
-        {
-            gameIndex--;
-            if (gameIndex < 0)
-            {
-                gameIndex = 2;
-            }
-        }
-
-        public void changePause()
-        {
-            pauseIndex = (pauseIndex + 1) % 2;
-        }
-
-
-        public void changeVectory()
-        {
-            vectoryIndex = (vectoryIndex + 1) % 2;
-        }
-
-        public int getVectoryIndex()
-        {
-            return vectoryIndex;
-        }
-
-        public void focusLevel(int i)
-        {
-            gameIndex = i;
-        }
-
-
-        public void focusPause(int i)
-        {
-            pauseIndex = i;
-        }
-
-        public void focusVectory(int i)
-        {
-            vectoryIndex = i;
-        }
-
-        public int Level()
-        {
-            return gameIndex;
-        }
-
-        public void play()
-        {
-            currentState = GameState.Playing;
-        }
-
-        public Rectangle GetScreenBounds()
-        {
-            return new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-        }
-
-        public Rectangle GetMap()
-        {
-            return new Rectangle(0, 0, 3584, 240);
-        }
-
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
@@ -171,6 +81,7 @@ namespace Sprint0
             controllerList = new List<object>();
             projectiles = new List<object>();
             enemies = new List<ISprite>();
+            DestroyEnemies = new List<ISprite>();
             enemies1 = new List<ISprite>();
             Items = new List<ISprite>();
             DestroyItems = new List<ISprite>();
@@ -202,8 +113,8 @@ namespace Sprint0
 
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             item = new Spring(textureI, positionI);
             reStart();
             font = Content.Load<SpriteFont>("File");
@@ -216,7 +127,7 @@ namespace Sprint0
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
-            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds()));
+            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
         }
@@ -234,6 +145,7 @@ namespace Sprint0
                     Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     currentState = GameState.Playing;
+                    music.stopMusic();
                     music.startMusic();
                 }
             }
@@ -255,6 +167,7 @@ namespace Sprint0
                 {
                     if (Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.Down))
                     {
+                        music.playPipe();
                         currentState = GameState.Cave;
                         player.inCave(true);
                         player.setPosition(new Vector2(_graphics.PreferredBackBufferWidth / 2 - 200, _graphics.PreferredBackBufferHeight / 2));
@@ -293,18 +206,22 @@ namespace Sprint0
                         {
                             if (CollisionDetector.DetectCollision(player.Bounds, e.Bounds))
                             {
-                                if (health > 0)
-                                {
-                                    player.damaged(gameTime);
-                                    health--;
-                                }
-                                else
-                                {
-                                    player.damaged(gameTime);
-                                    health = 2;
-                                }
+                                //if (health > 0)
+                                //{
+                                //    player.damaged(gameTime);
+                                //    health--;
+                                //}
+                                //else
+                                //{
+                                //    player.damaged(gameTime);
+                                //    health = 2;
+                                //}
                             }
                             e.Update(gameTime, player);
+                        }
+                        foreach (ISprite e in DestroyEnemies)
+                        {
+                            enemies1.Remove(e);
                         }
                     }
                     foreach (ISprite I in Items)
@@ -347,7 +264,7 @@ namespace Sprint0
                     currentState = GameState.Playing;
                 }
             }
-            else if (currentState ==GameState.Vectory)
+            else if (currentState == GameState.Vectory)
             {
                 vectoryController.Update(gameTime);
             }
@@ -370,7 +287,7 @@ namespace Sprint0
                 }
                 player.Update(gameTime);
                 _camera.Update(player.getPosition(), currentState);
-                foreach (IBlock b in blocks)
+                foreach (IBlock b in blocksC)
                 {
                     b.Update(gameTime, player);
                     if (CollisionDetector.DetectCollision(b.Bounds, player.Bounds))
@@ -378,7 +295,7 @@ namespace Sprint0
                         blockCollision.Update(b, player);
                     }
                 }
-                foreach (ISprite I in Items)
+                foreach (ISprite I in ItemsC)
                 {
                     I.Update(gameTime, player);
                 }
@@ -509,11 +426,11 @@ namespace Sprint0
                 {
                     pro.Draw(_spriteBatch);
                 }
-                foreach (IBlock b in blocks)
+                foreach (IBlock b in blocksC)
                 {
                     b.Draw(_spriteBatch);
                 }
-                foreach (ISprite I in Items)
+                foreach (ISprite I in ItemsC)
                 {
                     I.Draw(_spriteBatch);
                 }

@@ -18,16 +18,16 @@ namespace Sprint2.Block
         }
         public void Update(GameTime gameTime, IPlayer player)
         {
-            if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
-            {
-                collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
-                if (collisionDirection == CollisionHelper.CollisionDirection.Top)
-                {
-                    currentBlockRect = new Rectangle(304, 111, 16, 16);
-                }
+            //if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
+            //{
+            //    collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
+            //    if (collisionDirection == CollisionHelper.CollisionDirection.Top)
+            //    {
+            //        currentBlockRect = new Rectangle(304, 111, 16, 16);
+            //    }
 
 
-            }
+            //}
         }
         public void Draw(SpriteBatch spriteBatch)
         {

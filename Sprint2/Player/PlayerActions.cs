@@ -68,27 +68,34 @@ namespace Player
         }
         public Fireball fireball()
         {
-
-            Vector2 fireballVelocity;
-            if (facingRight)
+            if (currentState == MarioState.Big)
             {
-                fireballVelocity = new Vector2(300, 0);
+                Vector2 fireballVelocity;
+                if (facingRight)
+                {
+                    fireballVelocity = new Vector2(300, 0);
+                }
+                else
+                {
+                    fireballVelocity = new Vector2(-300, 0);
+                }
+                game.music.playFireball();
+                Fireball newFireball = new Fireball(game, texturePro, position, fireballVelocity, GetScreenBounds);
+                return newFireball;
             }
             else
             {
-                fireballVelocity = new Vector2(-300, 0);
+                return null;
             }
-            game.music.playFireball();
-            Fireball newFireball = new Fireball(game, texturePro, position, fireballVelocity,GetScreenBounds);
-            return newFireball;
 
         }
 
         public void jump()
         {
-            if (currentState != MarioState.Dead && jumpSpeed == 0)
+            if (currentState != MarioState.Dead && (jumpSpeed == 0 || hasCollidedWithEnemy))
             {
                 jumpSpeed = -18;
+                hasCollidedWithEnemy = false;
                 if (frames == leftFrames)
                 {
                     frames = leftJumpFrames;
@@ -202,8 +209,12 @@ namespace Player
 
             float collisionDepthX = CollisionHelper.getX(rectA, rectB);
             float collisionDepthY = CollisionHelper.getY(rectA, rectB);
-            jumpSpeed = 0;
-            position.Y -= collisionDepthY;
+            float buffer = 2.5f;  
+            if (Math.Abs(collisionDepthY) > buffer)
+            {
+                jumpSpeed = 0;
+                position.Y -= (collisionDepthY - buffer * Math.Sign(collisionDepthY));
+            }
         }
 
         public void IfCollisionRSide(Rectangle rectA, Rectangle rectB)
@@ -221,10 +232,19 @@ namespace Player
             float collisionDepthY = CollisionHelper.getY(rectA, rectB); 
             position.X += collisionDepthX;
         }
+
         public void ChangeCurrentState()
         {
             currentState = MarioState.Big;
             position.Y = GetScreenBounds.Height - this.Bounds.Height - 120;
+        }
+
+        public void CheckCollisionWithEnemy(bool IfJump)
+        {
+            if (IfJump)
+            {
+                hasCollidedWithEnemy = true;
+            }
         }
     }
 }

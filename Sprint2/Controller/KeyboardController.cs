@@ -24,6 +24,7 @@ public class KeyboardController : IController
 
     private Texture2D textureB;
     private int currentBlockIndex = 0;
+    private bool mute = false;
 
     public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, List<ISprite> enemies, Texture2D textureI, Vector2 positionI, Texture2D textureB)
     {
@@ -126,7 +127,20 @@ public class KeyboardController : IController
         {
             game.jump();
         }
-        
+
+        if ((state.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
+        {
+            if (mute)
+            {
+                mute = false;
+                game.music.startMusic();
+            }
+            else
+            {
+                mute = true;
+                game.music.stopMusic()  ;
+            }
+        }
 
         // S for crouch
         if (previousKeyboardState.IsKeyDown(Keys.S) || previousKeyboardState.IsKeyDown(Keys.Down))

@@ -27,4 +27,5 @@ public interface IPlayer
     void setPosition(Vector2 position);
     void inCave(Boolean incave);
     void ChangeCurrentState();
+    void CheckCollisionWithEnemy(bool IfJump);
 }

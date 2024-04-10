@@ -134,6 +134,12 @@
 /processorParam:Quality=Best
 /build:sounds/10-game-over-2.mp3
 
+#begin sounds/12-ending.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/12-ending.mp3
+
 #begin sounds/smb_coin.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -169,4 +175,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/smb_pause.wav
+
+#begin sounds/smb_pipe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/smb_pipe.wav
 

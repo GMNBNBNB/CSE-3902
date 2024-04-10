@@ -16,12 +16,15 @@ namespace Sprint2.Block
         private Rectangle currentItemRect;
         CollisionHelper.CollisionDirection collisionDirection;
         private bool GetCoin = false;
-        public CoinBlock(Texture2D texture, Vector2 position, Texture2D textureItem)
+        private int hitCount = 0;
+        private Game1 game;
+        public CoinBlock(Texture2D texture, Vector2 position, Texture2D textureItem, Game1 game)
         {
+            this.game = game;
             texture2 = texture;
             textureI = textureItem;
             this.position = position;
-            CoinPosition = new Vector2(position.X,position.Y - 40);
+            CoinPosition = new Vector2(position.X, position.Y - 40);
             frames = new Rectangle[4];
             frames[0] = new Rectangle(80, 111, 16, 16);
             frames[1] = new Rectangle(96, 111, 16, 16);
@@ -33,19 +36,22 @@ namespace Sprint2.Block
         {
             if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
             {
-                collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
-                if (collisionDirection == CollisionHelper.CollisionDirection.Top)
-                {                  
-                    currentFrame++;
-                    if (currentFrame >= frames.Length)
+                if (hitCount < 3)
+                {
+                    collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
+                    if (collisionDirection == CollisionHelper.CollisionDirection.Top)
                     {
-                        currentFrame = 3;
-                    }
-                    else
-                    {
+                        game.music.playCoin();
+                        hitCount++;
+                        currentFrame++;
+                        if (currentFrame >= frames.Length)
+                        {
+                            currentFrame = 0;
+                        }
                         GetCoin = true;
+
                     }
-                }                       
+                }
             }
             if (GetCoin)
             {
