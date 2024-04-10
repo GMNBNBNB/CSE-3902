@@ -122,13 +122,9 @@ namespace Sprint0
 
         public void reStart()
         {
+            music.startMusic();
             player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
             enemies.Clear();
-            enemies.Add(new FlowerEmeny(texture, EnemyPosition));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
-            enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
-            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
             controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
             blocks.Clear();
             Items.Clear();
@@ -184,6 +180,8 @@ namespace Sprint0
                 if (player.getPosition().X >= _camera.Map.Width - 50)
                 {
                     this.currentState = GameState.Vectory;
+                    music.stopMusic();
+                    music.startEnd();
                 }
 
                 if (gameIndex == 0 || gameIndex == 1)
