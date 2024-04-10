@@ -288,7 +288,7 @@ namespace Sprint0
                     {
                         currentState = GameState.Playing;
                         player.inCave(false);
-                        player.setPosition(new Vector2(1200, 300));
+                        player.setPosition(new Vector2(1000, 300));
                     }
                 }
                 player.Update(gameTime);
@@ -312,6 +312,10 @@ namespace Sprint0
                 foreach (IController controller in controllerList)
                 {
                     controller.Update(gameTime);
+                }
+                foreach (ISprite I in DestroyItems)
+                {
+                    ItemsC.Remove(I);
                 }
 
             }
