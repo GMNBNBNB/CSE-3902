@@ -288,6 +288,7 @@ namespace Sprint0
                     if (Keyboard.GetState().IsKeyDown(Keys.B))
                     {
                         currentState = GameState.Playing;
+                        music.playPipe();
                         player.inCave(false);
                         player.setPosition(new Vector2(1000, 300));
                     }

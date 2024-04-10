@@ -45,7 +45,7 @@ public class DFlower : ISprite
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {
             p.ChangeCurrentState();
-            game.music.playCoin();
+            game.music.playBig();
             game.DestroyItem(this);
         }
     }
