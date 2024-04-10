@@ -73,6 +73,7 @@ public class PauseMenuController : IController
                 else
                 {
                     game.currentState = Game1.GameState.MainMenu;
+                    game.music.stopMusic();
                     game.reStart();
                 }
             }

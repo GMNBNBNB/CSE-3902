@@ -35,15 +35,14 @@ public class VectoryController : IController
         //enter for select
         if (state.IsKeyDown(Keys.Enter) && !previousKeyboardState.IsKeyDown(Keys.Enter))
         {
+            game.reStart();
             if (game.getVectoryIndex() == 0)
             {
-                game.reStart();
                 game.currentState = Game1.GameState.Playing;
             }
             else
             {
                 game.currentState = Game1.GameState.MainMenu;
-                game.reStart();
             }         
         }
 
@@ -67,6 +66,7 @@ public class VectoryController : IController
                 if (game.getVectoryIndex() == 0)
                 {
                     game.reStart();
+                    game.music.startMusic();
                     game.currentState = Game1.GameState.Playing;
                 }
                 else

@@ -82,7 +82,7 @@ public class Goomba : ISprite
                 p.CheckCollisionWithEnemy(true);
                 p.jump();
                 game.DestroyEnemy(this);
-                game.music.playFireworks();
+                game.music.playStomp();
             }
         }
 
