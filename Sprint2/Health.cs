@@ -44,7 +44,7 @@ namespace Sprint2
         {
             health_string = health.ToString();
         }
-        private void IncreaeHealth()
+        public void IncreaeHealth()
         {
             health++;
         }

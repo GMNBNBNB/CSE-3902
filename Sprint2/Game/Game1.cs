@@ -27,6 +27,7 @@ namespace Sprint0
         List<ISprite> DestroyEnemies;
         public List<ISprite> enemies1;
         List<IBlock> blocks;
+        List<IBlock> DestroyBlock;
         List<ISprite> Items;
         List<ISprite> DestroyItems;
         List<IBlock> blocksC;
@@ -59,6 +60,8 @@ namespace Sprint0
         private PauseMenuController pauseController;
         private VectoryController vectoryController;
         public Health mario_health;
+
+        public CheatCodeManager CheatCodeManager;
         public enum GameState
         {
             MainMenu,
@@ -87,6 +90,7 @@ namespace Sprint0
             Items = new List<ISprite>();
             DestroyItems = new List<ISprite>();
             blocks = new List<IBlock>();
+            DestroyBlock = new List<IBlock>();
             ItemsC = new List<ISprite>();
             blocksC = new List<IBlock>();
 
@@ -117,9 +121,10 @@ namespace Sprint0
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             item = new Spring(textureI, positionI);          
-            reStart();
             font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
+            //CheatCodeManager = new CheatCodeManager(font,player, mario_health,this);
+            reStart();
         }
 
         public void reStart()
@@ -127,7 +132,8 @@ namespace Sprint0
             music.startMusic();
             player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
             enemies.Clear();
-            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB));
+            CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
+            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB, CheatCodeManager));
             blocks.Clear();
             Items.Clear();
             enemies1.Clear();
@@ -163,7 +169,7 @@ namespace Sprint0
                     music.stopMusic();
                     music.playPause();
                 }
-                else if (Keyboard.GetState().IsKeyDown(Keys.P))
+                else if (Keyboard.GetState().IsKeyDown(Keys.C))
                 {
                     currentState = GameState.Paused;
                     music.stopMusic();
@@ -204,7 +210,11 @@ namespace Sprint0
                             blockCollision.Update(b, player);
                         }
                     }
-                    foreach (IProjectiles pro in projectiles)
+                    foreach (IBlock b in DestroyBlock)
+                    {
+                        blocks.Remove(b);
+                    }
+                        foreach (IProjectiles pro in projectiles)
                     {
                         pro.Update(gameTime, enemies1, player, blocks);
                     }
@@ -366,7 +376,8 @@ namespace Sprint0
                         I.Draw(_spriteBatch);
                     }
                     _spriteBatch.End();
-                    mario_health.Draw(_spriteBatch);
+                    CheatCodeManager.Draw(_spriteBatch);
+                    mario_health.Draw(_spriteBatch);                    
                 }
                 else
                 {

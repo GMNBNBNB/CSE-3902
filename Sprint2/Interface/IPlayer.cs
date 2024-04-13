@@ -32,6 +32,8 @@ public interface IPlayer
     void IfCollisionLSide(Rectangle rectA, Rectangle rectB);
     void IfCollisionRSide(Rectangle rectA, Rectangle rectB);
     Vector2 getPosition();
+
+    void setSpeed(float speed);
     void setPosition(Vector2 position);
     void inCave(Boolean incave);
     void ChangeCurrentState();

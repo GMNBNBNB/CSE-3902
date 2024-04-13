@@ -38,7 +38,7 @@ namespace Player
         private Rectangle[] bigLeftWalkFrames;
         private Rectangle[] bigRightWalkFrames;
 
-        private float velocity;
+        public float velocity;
         private double damagedAnimationTime;
         private bool facingRight;
         private bool hasCollidedWithEnemy = false;
@@ -181,6 +181,10 @@ namespace Player
         public void setPosition(Vector2 positionS)
         {
             position = positionS;
+        }
+        public void setSpeed(float speed)
+        {
+            velocity = speed;
         }
         public void inCave(Boolean incaveS)
         {

@@ -15,6 +15,8 @@ namespace Sprint2.Block
         private Vector2 CoinPosition;
         private Rectangle currentItemRect;
         CollisionHelper.CollisionDirection collisionDirection;
+        private double cooldownTimer;
+        private const double CooldownPeriod = 0.2;
         private bool GetCoin = false;
         private int hitCount = 0;
         private Game1 game;
@@ -34,22 +36,30 @@ namespace Sprint2.Block
         }
         public void Update(GameTime gameTime, IPlayer player)
         {
-            if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
-            {
-                if (hitCount < 3)
-                {
-                    collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
-                    if (collisionDirection == CollisionHelper.CollisionDirection.Top)
-                    {
-                        game.music.playCoin();
-                        hitCount++;  
-                        currentFrame++;
-                        if (currentFrame >= frames.Length)
-                        {
-                            currentFrame = 0;
-                        }
-                        GetCoin = true;
 
+            if (cooldownTimer > 0)
+            {
+                cooldownTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            if (cooldownTimer <= 0)
+            {
+                if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
+                {
+                    if (hitCount < 3)
+                    {
+                        collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
+                        if (collisionDirection == CollisionHelper.CollisionDirection.Top)
+                        {
+                            game.music.playCoin();
+                            hitCount++;
+                            currentFrame++;
+                            if (currentFrame >= frames.Length)
+                            {
+                                currentFrame = 0;
+                            }
+                            GetCoin = true;
+                            cooldownTimer = CooldownPeriod;
+                        }
                     }
                 }
             }
