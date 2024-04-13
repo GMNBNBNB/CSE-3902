@@ -123,7 +123,6 @@ namespace Sprint0
             item = new Spring(textureI, positionI);          
             font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
-            //CheatCodeManager = new CheatCodeManager(font,player, mario_health,this);
             reStart();
         }
 

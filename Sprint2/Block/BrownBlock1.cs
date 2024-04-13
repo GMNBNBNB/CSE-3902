@@ -19,6 +19,7 @@ namespace Sprint2.Block
         private Game1 game;
         CollisionHelper.CollisionDirection collisionDirection;
         private double cooldownTimer;
+        private MarioState currentState;
         private const double CooldownPeriod = 0.2;  
 
         public BrownBlock1(Texture2D texture, Vector2 position,Game1 game)
@@ -34,33 +35,37 @@ namespace Sprint2.Block
             {
                 cooldownTimer -= gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (state != BlockState.Disappeared)
+            currentState = player.GetMarioState();
+            if (currentState == MarioState.Big)
             {
-                if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
+                if (state != BlockState.Disappeared)
                 {
-                    collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
-                    if (collisionDirection == CollisionHelper.CollisionDirection.Top)
+                    if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
                     {
-                        if (cooldownTimer <= 0)
+                        collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, player.Bounds);
+                        if (collisionDirection == CollisionHelper.CollisionDirection.Top)
                         {
-                            if (state == BlockState.Intact)
+                            if (cooldownTimer <= 0)
                             {
-                                currentBlockRect = new Rectangle(304, 111, 16, 16);
-                                state = BlockState.Cracked;
-                                cooldownTimer = CooldownPeriod;
+                                if (state == BlockState.Intact)
+                                {
+                                    currentBlockRect = new Rectangle(304, 111, 16, 16);
+                                    state = BlockState.Cracked;
+                                    cooldownTimer = CooldownPeriod;
+                                }
+                                else if (state == BlockState.Cracked)
+                                {
+                                    state = BlockState.Disappeared;
+                                    cooldownTimer = CooldownPeriod;
+                                }
                             }
-                            else if (state == BlockState.Cracked)
-                            {
-                                state = BlockState.Disappeared;
-                                cooldownTimer = CooldownPeriod;
-                            }
-                        }                        
+                        }
                     }
                 }
-            }
-            else
-            {
-                game.DestroyBlocks(this,false);
+                else
+                {
+                    game.DestroyBlocks(this, false);
+                }
             }
         }
         public void Draw(SpriteBatch spriteBatch)
