@@ -2,6 +2,7 @@
 using Player;
 using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Sprint2;
 
 namespace Sprint0
 {
@@ -12,6 +13,22 @@ namespace Sprint0
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+        }
+
+        public void reStart()
+        {
+            music.startMusic();
+            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
+            enemies.Clear();
+            CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
+            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB, CheatCodeManager));
+            blocks.Clear();
+            Items.Clear();
+            enemies1.Clear();
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            item = new Spring(textureI, positionI);
+            projectiles.Clear();
         }
 
         public void ChangeSprite(ISprite newSprite)

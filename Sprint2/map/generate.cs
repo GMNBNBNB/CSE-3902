@@ -22,7 +22,7 @@ public class Generate
     private Texture2D BlockTexture;
     private Texture2D textureI;
     private Texture2D pipeTexture;
-    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture,Texture2D textureI,Texture2D pipeTexture,Boolean word, List<IBlock> block)
+    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture, Texture2D textureI, Texture2D pipeTexture, Boolean word, List<IBlock> block)
     {
         this.game = game;
         this.block = block;
@@ -47,27 +47,27 @@ public class Generate
         {
             bool isFirstLine = true;
             while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+
+                if (isFirstLine)
                 {
-                    var line = reader.ReadLine();
-
-                    if (isFirstLine)
-                    {
-                        isFirstLine = false;
-                        continue;
-                    }
-
-                    var values = line.Split(',');
-
-                    string type = values[0];
-                    string name = values[1];
-                    float x = float.Parse(values[2]);
-                    float y = float.Parse(values[3]);
-
-                    CreateGameObject(type, name, new Vector2(x, y));
+                    isFirstLine = false;
+                    continue;
                 }
-            }
 
-        
+                var values = line.Split(',');
+
+                string type = values[0];
+                string name = values[1];
+                float x = float.Parse(values[2]);
+                float y = float.Parse(values[3]);
+
+                CreateGameObject(type, name, new Vector2(x, y));
+            }
+        }
+
+
     }
 
     public void CreateGameObject(string type, string name, Vector2 position)
@@ -88,19 +88,19 @@ public class Generate
         }
     }
 
-    
+
     public void CreateBlock(string name, Vector2 position)
     {
         switch (name)
         {
             case "BrownBlock1":
-                game.AddBlock(new BrownBlock1(BlockTexture, position, game),incave);
+                game.AddBlock(new BrownBlock1(BlockTexture, position, game), incave);
                 break;
             case "pipe":
-                game.AddBlock(new PipeEn(pipeTexture, position),incave);
+                game.AddBlock(new PipeEn(pipeTexture, position), incave);
                 break;
             case "CoinBlock":
-                game.AddBlock(new CoinBlock(BlockTexture, position, textureI, game),incave);
+                game.AddBlock(new CoinBlock(BlockTexture, position, textureI, game), incave);
                 break;
         }
     }
@@ -111,7 +111,7 @@ public class Generate
         switch (name)
         {
             case "Coin":
-                game.AddItem(new Coin(game, textureI, position),incave);
+                game.AddItem(new Coin(game, textureI, position), incave);
                 break;
             case "DFlower":
                 game.AddItem(new DFlower(game, textureI, position), incave);
@@ -124,7 +124,7 @@ public class Generate
         switch (name)
         {
             case "Goomba":
-                game.AddEnemy(new Goomba(enemy, position, game.GetMap(), game,block));
+                game.AddEnemy(new Goomba(enemy, position, game.GetMap(), game, block));
                 break;
         }
     }

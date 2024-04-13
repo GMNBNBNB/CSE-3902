@@ -127,21 +127,6 @@ namespace Sprint0
             reStart();
         }
 
-        public void reStart()
-        {
-            music.startMusic();
-            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
-            enemies.Clear();
-            CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
-            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB, CheatCodeManager));
-            blocks.Clear();
-            Items.Clear();
-            enemies1.Clear();
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
-            item = new Spring(textureI, positionI);
-            projectiles.Clear();
-        }
 
         protected override void Update(GameTime gameTime)
         {
