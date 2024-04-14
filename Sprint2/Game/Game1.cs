@@ -12,9 +12,16 @@ namespace Sprint0
 {
     public partial class Game1 : Game
     {
-        Texture2D texture;
-        Texture2D enemyAttack;
-        Vector2 position;
+        public Texture2D texture;
+        public Texture2D enemyAttack;
+        public Texture2D mapTexture;
+        public Texture2D textureI;
+        public Texture2D textureB;
+        public Texture2D caveTexture;
+        public Texture2D pipeTexture;
+        public Vector2 position;
+
+        public Vector2 positionI;
         Vector2 EnemyPosition;
         Vector2 BlockPosition;
 
@@ -34,20 +41,14 @@ namespace Sprint0
         public block block;
 
         public ISprite item;
-        Texture2D textureI;
-        Vector2 positionI;
-
-        Texture2D textureB;
+        
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         public Camera _camera;
 
-        Texture2D mapTexture;
         public Map map;
-        Texture2D caveTexture;
-        Texture2D pipeTexture;
         public Cave cave;
         public BlockCollision blockCollision;
 

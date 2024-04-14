@@ -18,10 +18,10 @@ namespace Sprint0
         public void reStart()
         {
             music.startMusic();
-            player = new PlayerSprite(this, texture, enemyAttack, position, mapTexture, map, block, GetScreenBounds(), caveTexture, cave);
+            player = new PlayerSprite(this, GetScreenBounds());
             enemies.Clear();
             CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
-            controllerList.Add(new KeyboardController(this, texture, enemyAttack, position, enemies, textureI, positionI, textureB, CheatCodeManager));
+            controllerList.Add(new KeyboardController(this));
             blocks.Clear();
             Items.Clear();
             enemies1.Clear();

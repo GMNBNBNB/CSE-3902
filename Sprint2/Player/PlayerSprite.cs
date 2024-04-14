@@ -65,17 +65,17 @@ namespace Player
 
         private Game1 game;
 
-        public PlayerSprite(Game1 game, Texture2D texture, Texture2D texturePro, Vector2 position, Texture2D MapTexture, Map map, block block, Rectangle GetScreenBounds, Texture2D caveTexture, Cave cave)
+        public PlayerSprite(Game1 game, Rectangle GetScreenBounds)
         {
             this.game = game;
-            this.texture = texture;
-            this.texturePro = texturePro;
-            this.position = position;
-            this.map = map;
-            this.block = block;
+            this.texture = game.texture;
+            this.texturePro = game.enemyAttack;
+            this.position = game.position;
+            this.map = game.map;
+            this.block = game.block;
             this.GetScreenBounds = GetScreenBounds;
-            this.cave = cave;
-            this.caveTexture = caveTexture;
+            this.cave = game.cave;
+            this.caveTexture = game.caveTexture;
 
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];
@@ -154,7 +154,7 @@ namespace Player
             currentFrame = 0;
             timeSinceLastFrame = 0;
             this.velocity = 300f;
-            this.MapTexture = MapTexture;
+            this.MapTexture = game.mapTexture;
             damagedAnimationTime = 0;
             isInvincible = false;
             incave = false;

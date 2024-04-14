@@ -31,18 +31,18 @@ public class KeyboardController : IController
 
     CheatCodeManager CheatCodeManager;
 
-    public KeyboardController(Game1 game, Texture2D texture, Texture2D enemyAttack, Vector2 position, List<ISprite> enemies, Texture2D textureI, Vector2 positionI, Texture2D textureB, CheatCodeManager CheatCodeManager)
+    public KeyboardController(Game1 game)
     {
         this.game = game;
-        this.texture = texture;
-        this.enemyAttack = enemyAttack;
-        this.enemies = enemies;
-        this.position = position;
+        this.texture = game.texture;
+        this.enemyAttack = game.enemyAttack;
+        this.enemies = game.enemies;
+        this.position = game.position;
         this.screenBounds = game.GetScreenBounds();
-        this.CheatCodeManager = CheatCodeManager;
+        this.CheatCodeManager = game.CheatCodeManager;
 
-        this.textureI = textureI;
-        this.positionI = positionI;
+        this.textureI = game.textureI;
+        this.positionI = game.positionI;
         items.Add(new Spring(textureI, positionI));
         items.Add(new Coin(game, textureI, positionI));
         items.Add(new LFlower(textureI, positionI));
@@ -54,7 +54,7 @@ public class KeyboardController : IController
         items.Add(new Mushroom(textureI, positionI));
         items.Add(new Star(textureI, positionI));
 
-        this.textureB = textureB;
+        this.textureB = game.textureB;
     }
 
     public void Update(GameTime gameTime)
