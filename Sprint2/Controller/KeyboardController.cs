@@ -75,6 +75,7 @@ public class KeyboardController : IController
                 game.ChangeItem(items[currentItemIndex]);
                 game.changeBlock(currentBlockIndex);
                 game.reset();
+                game.music.startMusic();
             }
 
             if (state.IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))

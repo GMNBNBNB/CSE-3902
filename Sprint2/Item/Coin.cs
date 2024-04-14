@@ -14,7 +14,6 @@ public class Coin : ISprite
     private int currentFrame;
     private double timeSinceLastFrame;
     private Rectangle[] frames;
-    private bool isAchive = true;
     private Game1 game;
 
     public Coin(Game1 game,Texture2D texture, Vector2 position)

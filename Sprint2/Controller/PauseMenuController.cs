@@ -44,6 +44,7 @@ public class PauseMenuController : IController
             {
                 game.currentState = Game1.GameState.MainMenu;
                 game.reStart();
+                game.music.stopMusic();
             }
 
         }
@@ -73,8 +74,8 @@ public class PauseMenuController : IController
                 else
                 {
                     game.currentState = Game1.GameState.MainMenu;
-                    game.music.stopMusic();
                     game.reStart();
+                    game.music.stopMusic();
                 }
             }
         }

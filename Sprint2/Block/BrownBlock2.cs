@@ -6,11 +6,9 @@ namespace Sprint2.Block
 {
     public class BrownBlock2: IBlock
     {
-        private int currentBlockIndex = 0;
         private Rectangle currentBlockRect;
         private Texture2D texture2;
         private Vector2 position;
-        CollisionHelper.CollisionDirection collisionDirection;
         public BrownBlock2(Texture2D texture, Vector2 position)
         {
             texture2 = texture;

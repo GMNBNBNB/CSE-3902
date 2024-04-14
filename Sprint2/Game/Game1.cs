@@ -14,27 +14,26 @@ namespace Sprint0
     {
         Texture2D texture;
         Texture2D enemyAttack;
-        Texture2D vectory;
         Vector2 position;
         Vector2 EnemyPosition;
         Vector2 BlockPosition;
 
         ISprite sprite;
-        List<object> controllerList;
-        IPlayer player;
-        List<object> projectiles;
-        List<ISprite> enemies;
-        List<ISprite> DestroyEnemies;
+        public List<object> controllerList;
+        public IPlayer player;
+        public List<object> projectiles;
+        public List<ISprite> enemies;
+        public List<ISprite> DestroyEnemies;
         public List<ISprite> enemies1;
-        List<IBlock> blocks;
-        List<IBlock> DestroyBlock;
-        List<ISprite> Items;
-        List<ISprite> DestroyItems;
-        List<IBlock> blocksC;
-        List<ISprite> ItemsC;
-        block block;
+        public List<IBlock> blocks;
+        public List<IBlock> DestroyBlock;
+        public List<ISprite> Items;
+        public List<ISprite> DestroyItems;
+        public List<IBlock> blocksC;
+        public List<ISprite> ItemsC;
+        public block block;
 
-        ISprite item;
+        public ISprite item;
         Texture2D textureI;
         Vector2 positionI;
 
@@ -43,16 +42,14 @@ namespace Sprint0
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        static int health = 2;
-
-        Camera _camera;
+        public Camera _camera;
 
         Texture2D mapTexture;
-        Map map;
+        public Map map;
         Texture2D caveTexture;
         Texture2D pipeTexture;
-        Cave cave;
-        BlockCollision blockCollision;
+        public Cave cave;
+        public BlockCollision blockCollision;
 
         public GameState currentState = GameState.MainMenu;
         public SpriteFont font;
@@ -76,10 +73,18 @@ namespace Sprint0
 
         public Sounds music;
 
+        private UpdateManager updateManager;
+        private DrawManager drawManager;
+
+        Vector2 playerPosition;
+        Vector2 cavePosition;
+
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
             EnemyPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 + 100, _graphics.PreferredBackBufferHeight / 2 + 130);
+            playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 200, _graphics.PreferredBackBufferHeight / 2);
+            cavePosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
             positionI = new Vector2(400, 300);
             BlockPosition = new Vector2(300, 300);
             controllerList = new List<object>();
@@ -98,6 +103,8 @@ namespace Sprint0
             menuController = new MenuController(this);
             pauseController = new PauseMenuController(this);
             vectoryController = new VectoryController(this);
+            updateManager = new UpdateManager(this);
+            drawManager = new DrawManager(this);
 
             music = new Sounds(Content);
             base.Initialize();
@@ -133,127 +140,17 @@ namespace Sprint0
             if (currentState == GameState.MainMenu)
             {
                 menuController.Update(gameTime);
-                if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                    Exit();
-
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed ||
-                    Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    currentState = GameState.Playing;
-                    music.stopMusic();
-                    music.startMusic();
-                }
+                updateManager.MainMenuUpdate();
             }
             else if (currentState == GameState.Playing)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    currentState = GameState.MainMenu;
-                    reStart();
-                    music.stopMusic();
-                    music.playPause();
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.C))
-                {
-                    currentState = GameState.Paused;
-                    music.stopMusic();
-                    music.playPause();
-                }
-                if (blockCollision.pipeAbove())
-                {
-                    if (Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.Down))
-                    {
-                        music.playPipe();
-                        currentState = GameState.Cave;
-                        player.inCave(true);
-                        player.setPosition(new Vector2(_graphics.PreferredBackBufferWidth / 2 - 200, _graphics.PreferredBackBufferHeight / 2));
-                    }
-                }
-                if (player.getPosition().X >= _camera.Map.Width - 50)
-                {
-                    this.currentState = GameState.Vectory;
-                    music.stopMusic();
-                    music.startEnd();
-                }
-
-                if (gameIndex == 0 || gameIndex == 1)
-                {
-                    item.Update(gameTime, player);
-                    _camera.Update(player.getPosition(), currentState);
-
-                    foreach (IController controller in controllerList)
-                    {
-                        controller.Update(gameTime);
-                    }
-                    player.Update(gameTime);
-                    foreach (IBlock b in blocks)
-                    {
-                        b.Update(gameTime, player);
-                        if (CollisionDetector.DetectCollision(b.Bounds, player.Bounds))
-                        {
-                            blockCollision.Update(b, player);
-                        }
-                    }
-                    foreach (IBlock b in DestroyBlock)
-                    {
-                        blocks.Remove(b);
-                    }
-                        foreach (IProjectiles pro in projectiles)
-                    {
-                        pro.Update(gameTime, enemies1, player, blocks);
-                    }
-                    if (enemies1.Count > 0)
-                    {
-                        foreach (ISprite e in enemies1)
-                        {
-                        
-                            e.Update(gameTime, player);
-                            mario_health.Update(gameTime, player, e);
-                        }
-                        foreach (ISprite e in DestroyEnemies)
-                        {
-                            enemies1.Remove(e);
-                        }
-                    }
-                    foreach (ISprite I in Items)
-                    {
-                        I.Update(gameTime, player);
-                    }
-                    foreach (ISprite I in DestroyItems)
-                    {
-                        Items.Remove(I);
-                    }
-                }
-                else
-                {
-                    foreach (IController controller in controllerList)
-                    {
-                        controller.Update(gameTime);
-                    }
-                    foreach (IProjectiles pro in projectiles)
-                    {
-                        pro.Update(gameTime, enemies, player, blocks);
-                    }
-                    if (enemies.Count > 0)
-                    {
-                        enemies[0].Update(gameTime, player);
-                        if (CollisionDetector.DetectCollision(player.Bounds, enemies[0].Bounds))
-                        {
-                            player.damaged(gameTime);
-                        }
-                    }
-                    player.Update(gameTime);
-                    block.Update(gameTime, player);
-                }
+                updateManager.PlayUpdate(playerPosition);
+                updateManager.LevelUpdate(gameIndex, gameTime);
             }
             else if (currentState == GameState.Paused)
             {
                 pauseController.Update(gameTime);
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                    Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    currentState = GameState.Playing;
-                }
+                updateManager.PauseUpdate();
             }
             else if (currentState == GameState.Vectory)
             {
@@ -261,49 +158,7 @@ namespace Sprint0
             }
             else if (currentState == GameState.Cave)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    currentState = GameState.MainMenu;
-                    player.inCave(false);
-                    player.setPosition(new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2));
-                }
-                if (blockCollision.pipeAbove())
-                {
-                    if (Keyboard.GetState().IsKeyDown(Keys.B))
-                    {
-                        currentState = GameState.Playing;
-                        music.playPipe();
-                        player.inCave(false);
-                        player.setPosition(new Vector2(1000, 300));
-                    }
-                }
-                player.Update(gameTime);
-                _camera.Update(player.getPosition(), currentState);
-                foreach (IBlock b in blocksC)
-                {
-                    b.Update(gameTime, player);
-                    if (CollisionDetector.DetectCollision(b.Bounds, player.Bounds))
-                    {
-                        blockCollision.Update(b, player);
-                    }
-                }
-                foreach (ISprite I in ItemsC)
-                {
-                    I.Update(gameTime, player);
-                }
-                foreach (IProjectiles pro in projectiles)
-                {
-                    pro.Update(gameTime, enemies1, player, blocks);
-                }
-                foreach (IController controller in controllerList)
-                {
-                    controller.Update(gameTime);
-                }
-                foreach (ISprite I in DestroyItems)
-                {
-                    ItemsC.Remove(I);
-                }
-
+                updateManager.CaveUpdate(cavePosition, gameTime);
             }
             base.Update(gameTime);
         }
@@ -315,154 +170,36 @@ namespace Sprint0
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin();
-                map.Draw(_spriteBatch);
-                _spriteBatch.DrawString(font, "Super Mario", new Vector2(GetScreenBounds().Width / 2 - font.MeasureString("Main Menu").X, GetScreenBounds().Height / 2 - 200), Color.White, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
-                for (int i = 0; i < 3; i++)
-                {
-
-                    if (i != gameIndex)
-                    {
-                        string text = "LEVEL " + (i + 1) + " ";
-                        _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * i), Color.White);
-                    }
-                    else
-                    {
-                        string text = "LEVEL " + (i + 1) + ">";
-                        _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * i), Color.Yellow);
-                    }
-                }
-                _spriteBatch.DrawString(font, "Select the level to enter the game", new Vector2(GetScreenBounds().Width / 2 - (font.MeasureString("Select the level to enter the game").X * 0.75f), GetScreenBounds().Height / 2 + 100), Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
+                drawManager.MainMenuDraw(_spriteBatch, GetScreenBounds(), font, gameIndex);
                 _spriteBatch.End();
             }
             else if (currentState == GameState.Playing)
             {
-                if (gameIndex == 0 || gameIndex == 1)
-                {
-                    GraphicsDevice.Clear(Color.CornflowerBlue);
-
-                    _spriteBatch.Begin(transformMatrix: _camera.Transform);
-                    map.Draw(_spriteBatch);
-                    player.Draw(_spriteBatch);
-                    foreach (ISprite e in enemies1)
-                    {
-                        e.Draw(_spriteBatch);
-                    }
-                    foreach (IProjectiles pro in projectiles)
-                    {
-                        pro.Draw(_spriteBatch);
-                    }
-                    foreach (IBlock b in blocks)
-                    {
-                        b.Draw(_spriteBatch);
-                    }
-                    foreach (ISprite I in Items)
-                    {
-                        I.Draw(_spriteBatch);
-                    }
-                    _spriteBatch.End();
-                    CheatCodeManager.Draw(_spriteBatch);
-                    mario_health.Draw(_spriteBatch);                    
-                }
-                else
-                {
-                    GraphicsDevice.Clear(Color.CornflowerBlue);
-
-                    _spriteBatch.Begin();
-                    player.Draw(_spriteBatch);
-                    if (enemies.Count > 0)
-                    {
-                        enemies[0].Draw(_spriteBatch);
-                    }
-                    item.Draw(_spriteBatch);
-                    foreach (IProjectiles pro in projectiles)
-                    {
-                        pro.Draw(_spriteBatch);
-                    }
-                    block.Draw(_spriteBatch);
-                    _spriteBatch.End();
-                }
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+                _spriteBatch.Begin(transformMatrix: _camera.Transform);
+                drawManager.LevelDraw(_spriteBatch, gameIndex);
+                _spriteBatch.End();
+                CheatCodeManager.Draw(_spriteBatch);
+                mario_health.Draw(_spriteBatch);
             }
             else if (currentState == GameState.Paused)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin();
-                _spriteBatch.DrawString(font, "Paused", new Vector2(100, 100), Color.White);
-                if (pauseIndex != 0)
-                {
-                    string text = "Continue";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 0), Color.White);
-                }
-                else
-                {
-                    string text = "Continue";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 0), Color.Yellow);
-                }
-
-
-                if (pauseIndex != 1)
-                {
-                    string text = "Back to menu";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 1), Color.White);
-                }
-                else
-                {
-                    string text = "Back to menu";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 1), Color.Yellow);
-                }
-
-
-
+                drawManager.PauseDraw(_spriteBatch, GetScreenBounds(), font, pauseIndex);
                 _spriteBatch.End();
             }
             else if (currentState == GameState.Cave)
             {
                 GraphicsDevice.Clear(Color.Black);
                 _spriteBatch.Begin(transformMatrix: _camera.Transform);
-                cave.Draw(_spriteBatch);
-                player.Draw(_spriteBatch);
-                foreach (IProjectiles pro in projectiles)
-                {
-                    pro.Draw(_spriteBatch);
-                }
-                foreach (IBlock b in blocksC)
-                {
-                    b.Draw(_spriteBatch);
-                }
-                foreach (ISprite I in ItemsC)
-                {
-                    I.Draw(_spriteBatch);
-                }
+                drawManager.CaveDraw(_spriteBatch);
                 _spriteBatch.End();
             }
             else if (currentState == GameState.Vectory)
             {
                 _spriteBatch.Begin();
-                _spriteBatch.DrawString(font, "Vectory", new Vector2(GetScreenBounds().Width / 2 - font.MeasureString("Main Menu").X, GetScreenBounds().Height / 2 - 200), Color.White, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
-                if (vectoryIndex != 0)
-                {
-                    string text = "Restart";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 0), Color.White);
-                }
-                else
-                {
-                    string text = "Restart";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 0), Color.Yellow);
-                }
-
-
-                if (vectoryIndex != 1)
-                {
-                    string text = "Back to menu";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 1), Color.White);
-                }
-                else
-                {
-                    string text = "Back to menu";
-                    _spriteBatch.DrawString(font, text, new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X / 2, GetScreenBounds().Height / 2 - 100 + 50 * 1), Color.Yellow);
-                }
-
-
-
+                drawManager.VectoryDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
                 _spriteBatch.End();
             }
 

@@ -73,6 +73,7 @@ public class VectoryController : IController
                 {
                     game.currentState = Game1.GameState.MainMenu;
                     game.reStart();
+                    game.music.stopMusic();
                 }
             }
         }

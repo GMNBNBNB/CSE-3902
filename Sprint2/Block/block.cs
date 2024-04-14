@@ -10,7 +10,6 @@ namespace Sprint2.Block
         private Rectangle currentBlockRect;
         private Texture2D texture2;
         private Vector2 position;
-        CollisionHelper.CollisionDirection collisionDirection;
         public void changeBlock(int index)
         {
             currentBlockIndex = index;

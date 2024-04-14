@@ -10,7 +10,7 @@ namespace Sprint2.Block
         private Rectangle pipeRect;
         private Texture2D texture2;
         private Vector2 position;
-        CollisionHelper.CollisionDirection collisionDirection;
+
         public PipeEn(Texture2D texture, Vector2 position)
         {
             texture2 = texture;
