@@ -51,7 +51,7 @@ public class KeyboardController : IController
         items.Add(new Leaf(textureI, positionI));
         items.Add(new Platform(textureI, positionI));
         items.Add(new WPlatform(textureI, positionI));
-        items.Add(new Mushroom(textureI, positionI));
+        items.Add(new Mushroom(game,textureI, positionI));
         items.Add(new Star(textureI, positionI));
 
         this.textureB = game.textureB;

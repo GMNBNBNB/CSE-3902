@@ -42,12 +42,12 @@ public class DFlower : ISprite
 
             timeSinceLastFrame = 0;
         }
-        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
-        {
-            p.ChangeCurrentState();
-            game.music.playBig();
-            game.DestroyItem(this);
-        }
+        //if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        //{
+        //    p.ChangeCurrentState();
+        //    game.music.playBig();
+        //    game.DestroyItem(this);
+        //}
     }
 
     public void Draw(SpriteBatch spriteBatch)

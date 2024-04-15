@@ -100,7 +100,7 @@ public class Generate
                 game.AddBlock(new PipeEn(pipeTexture, position), incave);
                 break;
             case "CoinBlock":
-                game.AddBlock(new CoinBlock(BlockTexture, position, textureI, game), incave);
+                game.AddBlock(new MusBlock(BlockTexture, position, textureI, game), incave);
                 break;
         }
     }

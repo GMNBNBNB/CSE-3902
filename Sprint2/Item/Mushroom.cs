@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sprint0;
 
 public class Mushroom : ISprite
 {
@@ -13,21 +14,28 @@ public class Mushroom : ISprite
     private int currentFrame;
     private double timeSinceLastFrame;
     private Rectangle[] frames;
+    private Game1 game;
+    public bool IsActive { get; private set; }
 
 
-    public Mushroom(Texture2D texture, Vector2 position)
+    public Mushroom(Game1 game,Texture2D texture, Vector2 position)
     {
         this.texture = texture;
         this.position = position;
+        this.game = game;
         frames = new Rectangle[2];
         frames[0] = new Rectangle(181, 32, 20, 19);
         frames[1] = new Rectangle(212, 32, 20, 19);
         currentFrame = 0;
         timeSinceLastFrame = 0;
+        IsActive = true;
+
     }
 
     public void Update(GameTime gameTime, IPlayer p)
     {
+        if (!IsActive) return;
+
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)
         {
@@ -37,10 +45,17 @@ public class Mushroom : ISprite
 
             timeSinceLastFrame = 0;
         }
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            p.ChangeCurrentState();
+            game.music.playBig();
+            IsActive = false;
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
+        if (!IsActive) return;
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
