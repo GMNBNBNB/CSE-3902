@@ -28,6 +28,7 @@ namespace Sprint0
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
             item = new Spring(textureI, positionI);
+            Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             projectiles.Clear();
         }
 
