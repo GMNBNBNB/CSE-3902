@@ -7,6 +7,7 @@ using System;
 using Sprint0.Controller;
 using Sprint2;
 using Sprint2.Block;
+using Sprint2.Icon;
 
 namespace Sprint0
 {
@@ -80,6 +81,13 @@ namespace Sprint0
         Vector2 playerPosition;
         Vector2 cavePosition;
 
+        //flag
+        public Texture2D textureQiGan;
+        public Texture2D textureQiZi;
+        public Vector2 positionQiZi;
+
+        public CoinCount coin_count;
+
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
@@ -88,6 +96,7 @@ namespace Sprint0
             cavePosition = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
             positionI = new Vector2(400, 300);
             BlockPosition = new Vector2(300, 300);
+            positionQiZi = new Vector2(3200, 85);
             controllerList = new List<object>();
             projectiles = new List<object>();
             enemies = new List<ISprite>();
@@ -122,6 +131,8 @@ namespace Sprint0
             enemyAttack = Content.Load<Texture2D>("EnemyAttack");
             pipeTexture = Content.Load<Texture2D>("pipe");
             caveTexture = Content.Load<Texture2D>("cave");
+            textureQiGan = Content.Load<Texture2D>("ganzi");
+            textureQiZi = Content.Load<Texture2D>("flag");
             _camera = new Camera(GraphicsDevice.Viewport, mapTexture);
 
 
@@ -131,6 +142,7 @@ namespace Sprint0
             item = new Spring(textureI, positionI);          
             font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
+            coin_count = new CoinCount(textureI, font, this);
             reStart();
         }
 
@@ -182,6 +194,7 @@ namespace Sprint0
                 _spriteBatch.End();
                 CheatCodeManager.Draw(_spriteBatch);
                 mario_health.Draw(_spriteBatch);
+                coin_count.Draw(_spriteBatch);
             }
             else if (currentState == GameState.Paused)
             {

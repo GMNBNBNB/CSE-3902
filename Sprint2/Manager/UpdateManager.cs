@@ -63,6 +63,13 @@ public class UpdateManager
             game.music.stopMusic();
             game.music.startEnd();
         }
+
+        if (((Flag)(game.Items[game.Items.Count - 1])).over)
+        {
+            game.currentState = Game1.GameState.Vectory;
+            game.music.stopMusic();
+            game.music.startEnd();
+        }
     }
 
     public void LevelUpdate(int gameIndex, GameTime gameTime)
@@ -109,6 +116,7 @@ public class UpdateManager
             foreach (ISprite I in game.Items)
             {
                 I.Update(gameTime, game.player);
+                game.coin_count.Update(gameTime, game.player, I);
             }
             foreach (ISprite I in game.DestroyItems)
             {

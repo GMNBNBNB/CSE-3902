@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
 using System.Text;
+using Sprint2.Icon;
 
 namespace Sprint2
 {
@@ -110,7 +111,7 @@ namespace Sprint2
             // Process the cheat code
             if (code == "increase health")
             {
-                health.IncreaeHealth();
+                health.increaseHealth();
             }
             if (code.Length >= 5)
             {
