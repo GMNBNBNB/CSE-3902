@@ -125,6 +125,9 @@ namespace Sprint2
                         break;
                     case "jumpS":
                         break;
+                    case "Invin":
+                        game.mario_health.SetInvincible();
+                        break;
                 }
             }
         }

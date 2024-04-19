@@ -29,6 +29,8 @@ namespace Sprint2.Icon
         private SpriteFont font;
         private Vector2 font_position;
         float scale_font;
+        private bool isInvincible;
+        private double InvincibleTime;
 
         // constructor
         public Health(Texture2D texture, SpriteFont font, Game1 game)
@@ -45,6 +47,9 @@ namespace Sprint2.Icon
             scale_font = 1.5f;
             health_string = health.ToString();
             font_position = new Vector2(60, 20);
+
+            isInvincible = false;
+            InvincibleTime = 0;
         }
         private void UpdateHealthString()
         {
@@ -54,6 +59,10 @@ namespace Sprint2.Icon
         {
             health++;
         }
+        public void SetInvincible()
+        {
+            isInvincible = true;
+        }
 
         public void Update(GameTime gameTime, IPlayer player_mario, ISprite enemies) // need to add EnemyFireball enemyAttack later
         {   //PlayerSprite player_mario
@@ -61,18 +70,34 @@ namespace Sprint2.Icon
             Vector2 current_position = player_mario.getPosition();
             Vector2 new_position = new Vector2(current_position.X, current_position.Y + 50);
 
-            if(CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
+            if (!isInvincible)
             {
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
+                {
                     health--;
-                    player_mario.setPosition(new_position);
+                    //player_mario.setPosition(new_position);
                     player_mario.damaged(gameTime);
                     UpdateHealthString();
+                }
+                if (health == 0)
+                {
+                    //game.reStart(); 
+                }
             }
-            if (health == 0)
+            else
             {
-                //game.reStart(); 
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds))
+                {
+                    game.DestroyEnemy(enemies);
+                }
+                InvincibleTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if( InvincibleTime > 20000 )
+                {
+                    isInvincible = false;
+                    InvincibleTime = 0;
+                }
             }
-
+            
         }
         public void Draw(SpriteBatch sb) //, Texture2D texture
         {

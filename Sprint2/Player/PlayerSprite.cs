@@ -51,17 +51,11 @@ namespace Player
 
         Boolean incave;
         
-        //private enum MarioState
-        //{
-        //    Big,
-        //    Small,
-        //    Dead,
-        //    Crouch
-        //}
         private MarioState currentState;
         private TimeSpan lastDamagedTime;
         private TimeSpan invincibleDuration;
-        private bool isInvincible;
+        public bool isInvincible { get; private set; }
+        private bool FireBallIsActive;
 
         private Game1 game;
 
@@ -159,6 +153,8 @@ namespace Player
             isInvincible = false;
             incave = false;
             invincibleDuration = TimeSpan.FromMilliseconds(1500);
+
+            FireBallIsActive = false;
         }
         public Rectangle Bounds
         {
@@ -173,31 +169,6 @@ namespace Player
 
                 return bounds;
             }
-        }
-        public Vector2 getPosition()
-        {
-            return position;
-        }
-        public void setPosition(Vector2 positionS)
-        {
-            position = positionS;
-        }
-        public void setSpeed(float speed)
-        {
-            velocity = speed;
-        }
-        public void inCave(Boolean incaveS)
-        {
-            incave = incaveS;
-        }
-        public MarioState GetMarioState() // used for Mario Life
-        {
-            return currentState;
-        }
-
-        public void setMarioState(MarioState state)
-        {
-            currentState = state;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -43,4 +43,7 @@ public interface IPlayer
     MarioState GetMarioState(); // used for Mario Life
 
     void setMarioState(MarioState state);
+
+    void SetFireBall();
 }
+

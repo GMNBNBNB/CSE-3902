@@ -100,6 +100,11 @@ public class UpdateManager
             {
                 pro.Update(gameTime, game.enemies1, game.player, game.blocks);
             }
+            foreach (ISprite I in game.Items)
+            {
+                I.Update(gameTime, game.player);
+                game.coin_count.Update(gameTime, game.player, I);
+            }
             if (game.enemies1.Count > 0)
             {
                 foreach (ISprite e in game.enemies1)
@@ -112,11 +117,6 @@ public class UpdateManager
                 {
                     game.enemies1.Remove(e);
                 }
-            }
-            foreach (ISprite I in game.Items)
-            {
-                I.Update(gameTime, game.player);
-                game.coin_count.Update(gameTime, game.player, I);
             }
             foreach (ISprite I in game.DestroyItems)
             {

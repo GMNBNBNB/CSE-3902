@@ -52,7 +52,7 @@ public class KeyboardController : IController
         items.Add(new Platform(textureI, positionI));
         items.Add(new WPlatform(textureI, positionI));
         items.Add(new Mushroom(game,textureI, positionI));
-        items.Add(new Star(textureI, positionI));
+        items.Add(new Star(game,textureI, positionI));
 
         this.textureB = game.textureB;
     }

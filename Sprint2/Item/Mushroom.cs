@@ -15,7 +15,7 @@ public class Mushroom : ISprite
     private double timeSinceLastFrame;
     private Rectangle[] frames;
     private Game1 game;
-    public bool IsActive { get; private set; }
+    public bool IsActive;
 
 
     public Mushroom(Game1 game,Texture2D texture, Vector2 position)

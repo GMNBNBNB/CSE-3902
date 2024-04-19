@@ -15,6 +15,7 @@ public class DFlower : ISprite
     private double timeSinceLastFrame;
     private Rectangle[] frames;
     private Game1 game;
+    public bool IsActive;
 
 
     public DFlower(Game1 game,Texture2D texture, Vector2 position)
@@ -29,10 +30,14 @@ public class DFlower : ISprite
         frames[3] = new Rectangle(212, 61, 19, 20);
         currentFrame = 0;
         timeSinceLastFrame = 0;
+
+        IsActive = true;
     }
 
     public void Update(GameTime gameTime, IPlayer p)
     {
+        if (!IsActive) return;
+
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 200)
         {
@@ -42,16 +47,17 @@ public class DFlower : ISprite
 
             timeSinceLastFrame = 0;
         }
-        //if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
-        //{
-        //    p.ChangeCurrentState();
-        //    game.music.playBig();
-        //    game.DestroyItem(this);
-        //}
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            p.SetFireBall();
+            IsActive = false;
+        }
+
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
+        if (!IsActive) return;
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds

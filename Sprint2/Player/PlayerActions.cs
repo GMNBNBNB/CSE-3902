@@ -68,20 +68,20 @@ namespace Player
         }
         public Fireball fireball()
         {
-            if (currentState == MarioState.Big)
+            if (currentState == MarioState.Big && FireBallIsActive)
             {
-            Vector2 fireballVelocity;
-            if (facingRight)
-            {
-                fireballVelocity = new Vector2(300, 0);
-            }
-            else
-            {
-                fireballVelocity = new Vector2(-300, 0);
-            }
-            game.music.playFireball();
+                Vector2 fireballVelocity;
+                if (facingRight)
+                {
+                    fireballVelocity = new Vector2(350, 0);
+                }
+                else
+                {
+                    fireballVelocity = new Vector2(-350, 0);
+                }
+                game.music.playFireball();
                 Fireball newFireball = new Fireball(game, texturePro, position, fireballVelocity, GetScreenBounds);
-            return newFireball;
+                return newFireball;
             }
             else
             {
@@ -195,7 +195,31 @@ namespace Player
             facingRight = true;
         }
 
+        public Vector2 getPosition()
+        {
+            return position;
+        }
+        public void setPosition(Vector2 positionS)
+        {
+            position = positionS;
+        }
+        public void setSpeed(float speed)
+        {
+            velocity = speed;
+        }
+        public void inCave(Boolean incaveS)
+        {
+            incave = incaveS;
+        }
+        public MarioState GetMarioState() // used for Mario Life
+        {
+            return currentState;
+        }
 
+        public void setMarioState(MarioState state)
+        {
+            currentState = state;
+        }
         public void IfCollisionTop(Rectangle rectA, Rectangle rectB)
         {
 
@@ -211,7 +235,7 @@ namespace Player
 
             float collisionDepthX = CollisionHelper.getX(rectA, rectB);
             float collisionDepthY = CollisionHelper.getY(rectA, rectB);
-            float buffer = 2.5f;  
+            float buffer = 2.5f;
             if (Math.Abs(collisionDepthY) > buffer)
             {
                 jumpSpeed = 0;
@@ -222,16 +246,16 @@ namespace Player
         public void IfCollisionRSide(Rectangle rectA, Rectangle rectB)
         {
 
-            float collisionDepthX = CollisionHelper.getX(rectA, rectB); 
-            float collisionDepthY = CollisionHelper.getY(rectA, rectB); 
+            float collisionDepthX = CollisionHelper.getX(rectA, rectB);
+            float collisionDepthY = CollisionHelper.getY(rectA, rectB);
             position.X -= collisionDepthX;
         }
 
         public void IfCollisionLSide(Rectangle rectA, Rectangle rectB)
         {
 
-            float collisionDepthX = CollisionHelper.getX(rectA, rectB); 
-            float collisionDepthY = CollisionHelper.getY(rectA, rectB); 
+            float collisionDepthX = CollisionHelper.getX(rectA, rectB);
+            float collisionDepthY = CollisionHelper.getY(rectA, rectB);
             position.X += collisionDepthX;
         }
 
@@ -247,6 +271,10 @@ namespace Player
             {
                 hasCollidedWithEnemy = true;
             }
+        }
+        public void SetFireBall()
+        {
+            FireBallIsActive = true;
         }
     }
 }

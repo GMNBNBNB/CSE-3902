@@ -99,8 +99,14 @@ public class Generate
             case "pipe":
                 game.AddBlock(new PipeEn(pipeTexture, position), incave);
                 break;
-            case "CoinBlock":
+            case "MusBlock":
                 game.AddBlock(new MusBlock(BlockTexture, position, textureI, game), incave);
+                break;
+            case "StarBlock":
+                game.AddBlock(new StarBlock(BlockTexture, position, textureI, game), incave);
+                break;
+            case "FlowerBlock":
+                game.AddBlock(new FlowerBlock(BlockTexture, position, textureI, game), incave);
                 break;
         }
     }
