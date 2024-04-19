@@ -39,6 +39,10 @@ namespace Sprint0
         public List<ISprite> DestroyItems;
         public List<IBlock> blocksC;
         public List<ISprite> ItemsC;
+
+        public List<ISprite> enemies2;
+        public List<IBlock> blocks2;
+        public List<ISprite> Items2;
         public block block;
 
         public ISprite item;
@@ -50,6 +54,7 @@ namespace Sprint0
         public Camera _camera;
 
         public Map map;
+        public Map map2;
         public Cave cave;
         public BlockCollision blockCollision;
 
@@ -108,6 +113,9 @@ namespace Sprint0
             DestroyBlock = new List<IBlock>();
             ItemsC = new List<ISprite>();
             blocksC = new List<IBlock>();
+            Items2 = new List<ISprite>();
+            blocks2 = new List<IBlock>();
+            enemies2 = new List<ISprite>();
 
             blockCollision = new BlockCollision();
             menuController = new MenuController(this);
@@ -137,8 +145,9 @@ namespace Sprint0
 
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,1);
+            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,2);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,0);
             item = new Spring(textureI, positionI);          
             font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
@@ -158,7 +167,10 @@ namespace Sprint0
             else if (currentState == GameState.Playing)
             {
                 updateManager.PlayUpdate(playerPosition);
-                updateManager.LevelUpdate(gameIndex, gameTime);
+                if (gameIndex == 0)
+                    updateManager.LevelUpdate(gameIndex, gameTime,Items,blocks,enemies1);
+                if (gameIndex == 1)
+                    updateManager.LevelUpdate(gameIndex, gameTime, Items2, blocks2, enemies2);
             }
             else if (currentState == GameState.Paused)
             {
@@ -190,7 +202,10 @@ namespace Sprint0
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin(transformMatrix: _camera.Transform);
-                drawManager.LevelDraw(_spriteBatch, gameIndex);
+                if(gameIndex == 0)
+                    drawManager.LevelDraw(_spriteBatch, gameIndex, map, Items, blocks, enemies1);
+                if(gameIndex == 1)
+                    drawManager.LevelDraw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
                 _spriteBatch.End();
                 CheatCodeManager.Draw(_spriteBatch);
                 mario_health.Draw(_spriteBatch);

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint0;
+using System.Collections.Generic;
 
 public class FlyTortoiseEnemy : ISprite
 {
@@ -13,7 +15,7 @@ public class FlyTortoiseEnemy : ISprite
     private Rectangle[] rightFrames;
     float velocity;
     private Rectangle screenBounds;
-    public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds)
+    public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;

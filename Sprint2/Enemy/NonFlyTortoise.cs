@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint0;
+using System.Collections.Generic;
 
 public class NonFlyTortoise : ISprite
 {
@@ -13,7 +15,7 @@ public class NonFlyTortoise : ISprite
     private Rectangle[] rightFrames;
     float velocity;
     private Rectangle screenBounds;
-    public NonFlyTortoise(Texture2D texture, Vector2 position, Rectangle screenBounds)
+    public NonFlyTortoise(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
@@ -31,6 +33,13 @@ public class NonFlyTortoise : ISprite
         timeSinceLastFrame = 0;
         this.velocity = 200f;
         this.screenBounds = screenBounds;
+    }
+
+    public NonFlyTortoise(Texture2D enemyAttack, Vector2 enemyPosition, Rectangle rectangle)
+    {
+        EnemyAttack = enemyAttack;
+        EnemyPosition = enemyPosition;
+        Rectangle = rectangle;
     }
 
     public void Update(GameTime gameTime, IPlayer p)
@@ -80,4 +89,8 @@ public class NonFlyTortoise : ISprite
             return bounds;
         }
     }
+
+    public Texture2D EnemyAttack { get; }
+    public Vector2 EnemyPosition { get; }
+    public Rectangle Rectangle { get; }
 }

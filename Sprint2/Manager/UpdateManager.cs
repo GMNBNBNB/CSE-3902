@@ -72,7 +72,7 @@ public class UpdateManager
         }
     }
 
-    public void LevelUpdate(int gameIndex, GameTime gameTime)
+    public void LevelUpdate(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         if (gameIndex == 0 || gameIndex == 1)
         {
@@ -84,7 +84,7 @@ public class UpdateManager
                 controller.Update(gameTime);
             }
             game.player.Update(gameTime);
-            foreach (IBlock b in game.blocks)
+            foreach (IBlock b in block)
             {
                 b.Update(gameTime, game.player);
                 if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
@@ -94,20 +94,20 @@ public class UpdateManager
             }
             foreach (IBlock b in game.DestroyBlock)
             {
-                game.blocks.Remove(b);
+                block.Remove(b);
             }
             foreach (IProjectiles pro in game.projectiles)
             {
-                pro.Update(gameTime, game.enemies1, game.player, game.blocks);
+                pro.Update(gameTime, enemie, game.player, block);
             }
-            foreach (ISprite I in game.Items)
+            foreach (ISprite I in Item)
             {
                 I.Update(gameTime, game.player);
                 game.coin_count.Update(gameTime, game.player, I);
             }
-            if (game.enemies1.Count > 0)
+            if (enemie.Count > 0)
             {
-                foreach (ISprite e in game.enemies1)
+                foreach (ISprite e in enemie)
                 {
 
                     e.Update(gameTime, game.player);
@@ -115,12 +115,12 @@ public class UpdateManager
                 }
                 foreach (ISprite e in game.DestroyEnemies)
                 {
-                    game.enemies1.Remove(e);
+                    enemie.Remove(e);
                 }
             }
             foreach (ISprite I in game.DestroyItems)
             {
-                game.Items.Remove(I);
+                Item.Remove(I);
             }
         }
         else
@@ -131,12 +131,12 @@ public class UpdateManager
             }
             foreach (IProjectiles pro in game.projectiles)
             {
-                pro.Update(gameTime, game.enemies, game.player, game.blocks);
+                pro.Update(gameTime, enemie, game.player, block);
             }
             if (game.enemies.Count > 0)
             {
                 game.enemies[0].Update(gameTime, game.player);
-                if (CollisionDetector.DetectCollision(game.player.Bounds, game.enemies[0].Bounds))
+                if (CollisionDetector.DetectCollision(game.player.Bounds, enemie[0].Bounds))
                 {
                     game.player.damaged(gameTime);
                 }

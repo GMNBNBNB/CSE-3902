@@ -3,6 +3,7 @@ using Player;
 using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Sprint2;
+using System.Collections.Generic;
 
 namespace Sprint0
 {
@@ -25,8 +26,9 @@ namespace Sprint0
             blocks.Clear();
             Items.Clear();
             enemies1.Clear();
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,1);
+            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,2);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,0);
             item = new Spring(textureI, positionI);
             Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             projectiles.Clear();
@@ -173,17 +175,27 @@ namespace Sprint0
         {
             return new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
         }
-        public void AddEnemy(ISprite enemy)
+        public void AddEnemy(ISprite enemy, int level)
         {
-            enemies1.Add(enemy);
+            if (level == 1)
+            {
+                enemies1.Add(enemy);
+            }
+            if (level == 2)
+            {
+                enemies2.Add(enemy);
+            }
         }
-        public void AddBlock(IBlock block, Boolean world)
+        public void AddBlock(IBlock block, int level)
         {
-            if (world)
+            if (level == 1)
             {
                 blocks.Add(block);
             }
-            else
+            else if (level == 2)
+            {
+                blocks2.Add(block);
+            }else
             {
                 blocksC.Add(block);
             }
@@ -193,13 +205,16 @@ namespace Sprint0
         {
             DestroyBlock.Add(block);
         }
-        public void AddItem(ISprite item, Boolean world)
+        public void AddItem(ISprite item, int level)
         {
-            if (world) 
+            if (level == 1) 
             { 
                 Items.Add(item);
             }
-            else
+            else if(level == 2)
+            {
+                Items2.Add(item);
+            }else
             {
                 ItemsC.Add(item);
             }
@@ -217,10 +232,10 @@ namespace Sprint0
             player.reset();
             enemies.Clear();
             enemies.Add(new FlowerEmeny(texture, EnemyPosition));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds()));
+            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds()));
+            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks2));
             projectiles.Clear();
         }
 

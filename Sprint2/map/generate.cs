@@ -17,12 +17,13 @@ public class Generate
     private List<IBlock> block;
     private string csvU;
     private string csvM;
+    private string csvM2;
     private string csvC;
-    private Boolean incave;
+    private int level;
     private Texture2D BlockTexture;
     private Texture2D textureI;
     private Texture2D pipeTexture;
-    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture, Texture2D textureI, Texture2D pipeTexture, Boolean word, List<IBlock> block)
+    public Generate(Game1 game, Texture2D texture, Texture2D enemy, Texture2D BlockTexture, Texture2D textureI, Texture2D pipeTexture, List<IBlock> block, int level)
     {
         this.game = game;
         this.block = block;
@@ -32,13 +33,17 @@ public class Generate
         this.textureI = textureI;
         this.pipeTexture = pipeTexture;
         csvM = @"..\..\..\mapGen.csv";
+        csvM2 = @"..\..\..\mapGen2.csv";
         csvC = @"..\..\..\cavGen.csv";
-        incave = word;
-        if (word)
+        this.level = level;
+        if (level == 1)
         {
             csvU = csvM;
         }
-        else
+        else if (level == 2)
+        {
+            csvU = csvM2;
+        }else
         {
             csvU = csvC;
         }
@@ -94,19 +99,19 @@ public class Generate
         switch (name)
         {
             case "BrownBlock1":
-                game.AddBlock(new BrownBlock1(BlockTexture, position, game), incave);
+                game.AddBlock(new BrownBlock1(BlockTexture, position, game), level);
                 break;
             case "pipe":
-                game.AddBlock(new PipeEn(pipeTexture, position), incave);
+                game.AddBlock(new PipeEn(pipeTexture, position), level);
                 break;
             case "MusBlock":
-                game.AddBlock(new MusBlock(BlockTexture, position, textureI, game), incave);
+                game.AddBlock(new MusBlock(BlockTexture, position, textureI, game), level);
                 break;
             case "StarBlock":
-                game.AddBlock(new StarBlock(BlockTexture, position, textureI, game), incave);
+                game.AddBlock(new StarBlock(BlockTexture, position, textureI, game), level);
                 break;
             case "FlowerBlock":
-                game.AddBlock(new FlowerBlock(BlockTexture, position, textureI, game), incave);
+                game.AddBlock(new FlowerBlock(BlockTexture, position, textureI, game), level);
                 break;
         }
     }
@@ -117,10 +122,10 @@ public class Generate
         switch (name)
         {
             case "Coin":
-                game.AddItem(new Coin(game, textureI, position), incave);
+                game.AddItem(new Coin(game, textureI, position), level);
                 break;
             case "DFlower":
-                game.AddItem(new DFlower(game, textureI, position), incave);
+                game.AddItem(new DFlower(game, textureI, position), level);
                 break;
         }
     }
@@ -130,7 +135,13 @@ public class Generate
         switch (name)
         {
             case "Goomba":
-                game.AddEnemy(new Goomba(enemy, position, game.GetMap(), game, block));
+                game.AddEnemy(new Goomba(enemy, position, game.GetMap(), game, block), level);
+                break;
+            case "NonFlyTortoise":
+                game.AddEnemy(new NonFlyTortoise(enemy, position, game.GetMap(), game, block), level);
+                break;
+            case "FlyTortoiseEnemy":
+                game.AddEnemy(new FlyTortoiseEnemy(enemy, position, game.GetMap(), game, block), level);
                 break;
         }
     }

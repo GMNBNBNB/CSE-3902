@@ -39,13 +39,13 @@ public class DrawManager
         spriteBatch.DrawString(font, "Select the level to enter the game", new Vector2(screen.Width / 2 - (font.MeasureString("Select the level to enter the game").X * 0.75f), screen.Height / 2 + 100), Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
     }
 
-    public void LevelDraw(SpriteBatch spriteBatch, int gameIndex)
+    public void LevelDraw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         if (gameIndex == 0 || gameIndex == 1)
         {
-            game.map.Draw(spriteBatch);
+            map.Draw(spriteBatch);
             game.player.Draw(spriteBatch);
-            foreach (ISprite e in game.enemies1)
+            foreach (ISprite e in enemie)
             {
                 e.Draw(spriteBatch);
             }
@@ -53,11 +53,11 @@ public class DrawManager
             {
                 pro.Draw(spriteBatch);
             }
-            foreach (IBlock b in game.blocks)
+            foreach (IBlock b in block)
             {
                 b.Draw(spriteBatch);
             }
-            foreach (ISprite I in game.Items)
+            foreach (ISprite I in Item)
             {
                 I.Draw(spriteBatch);
             }

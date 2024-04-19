@@ -23,12 +23,12 @@ public class Map
 
     }
 
-    public Map(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture,Texture2D textureI, Texture2D pipeTexture, List<IBlock> block)
+    public Map(Texture2D texture, Texture2D enemy, Rectangle screenBounds, Game1 game, Texture2D BlockTexture,Texture2D textureI, Texture2D pipeTexture, List<IBlock> block, int level)
     {
         this.screenBounds = screenBounds;
         position = Vector2.Zero;
         LoadContent(texture);
-        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI, pipeTexture, true, block);
+        Generate gen = new Generate(game, texture, enemy, BlockTexture, textureI, pipeTexture, block, level);
     }
    
     public void Draw(SpriteBatch spriteBatch)

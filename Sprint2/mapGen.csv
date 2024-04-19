@@ -54,6 +54,7 @@ block,MusBlock,360,120
 block,pipe,1000,350
 enemy,Goomba,600,366
 enemy,Goomba,2048,366
+item,DFlower,232,260
 item,Coin,950,200
 item,Coin,1000,200
 item,Coin,1050,200
