@@ -62,28 +62,6 @@ public class DrawManager
             I.Draw(spriteBatch);
         }
     }
-    public void Level2Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
-    {
-        map.Draw(spriteBatch);
-        game.player.Draw(spriteBatch);
-        game.player2.Draw(spriteBatch);
-        foreach (ISprite e in enemie)
-        {
-            e.Draw(spriteBatch);
-        }
-        foreach (IProjectiles pro in game.projectiles)
-        {
-            pro.Draw(spriteBatch);
-        }
-        foreach (IBlock b in block)
-        {
-            b.Draw(spriteBatch);
-        }
-        foreach (ISprite I in Item)
-        {
-            I.Draw(spriteBatch);
-        }
-    }
     public void Level3Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         //game.player.Draw(spriteBatch);

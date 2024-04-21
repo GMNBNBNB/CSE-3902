@@ -9,7 +9,9 @@ public enum MarioState
     Big,
     Small,
     Dead,
-    Crouch
+    Crouch,
+    invincibleB,
+    invincibleS
 }
 
 public interface IPlayer
@@ -44,8 +46,11 @@ public interface IPlayer
 
     void setMarioState(MarioState state);
 
+
     void SetFireBall();
 
     void setJumpSpeed(float speed);
+
+    int index();
 }
 

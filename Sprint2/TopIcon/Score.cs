@@ -78,11 +78,6 @@ namespace Sprint2.Icon
             score_point--;
         }
         
-        public void SetInvincible()
-        {
-            isInvincible = true;
-        }
-
         public void UpdateItemScore(GameTime gameTime, IPlayer player_mario, ISprite coin)
         {
             // eat the coin, increases updates

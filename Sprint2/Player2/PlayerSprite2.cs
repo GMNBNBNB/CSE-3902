@@ -28,6 +28,8 @@ namespace Player2
         private Rectangle[] rightJumpFrames;
         private Rectangle[] leftWalkFrames;
         private Rectangle[] rightWalkFrames;
+        private Rectangle[] leftWalkFramesI;
+        private Rectangle[] rightWalkFramesI;
 
         private Rectangle[] bigLeftFrames;
         private Rectangle[] bigRightFrames;
@@ -37,6 +39,8 @@ namespace Player2
         private Rectangle[] bigRightCrouchFrames;
         private Rectangle[] bigLeftWalkFrames;
         private Rectangle[] bigRightWalkFrames;
+        private Rectangle[] bigLeftWalkFramesI;
+        private Rectangle[] bigRightWalkFramesI;
 
         public float velocity;
         private double damagedAnimationTime;
@@ -51,7 +55,7 @@ namespace Player2
         block block;
 
         Boolean incave;
-        
+
         private MarioState currentState;
         private TimeSpan lastDamagedTime;
         private TimeSpan invincibleDuration;
@@ -78,6 +82,8 @@ namespace Player2
             rightJumpFrames = new Rectangle[3];
             leftWalkFrames = new Rectangle[3];
             rightWalkFrames = new Rectangle[3];
+            leftWalkFramesI = new Rectangle[3];
+            rightWalkFramesI = new Rectangle[3];
 
             currentState = MarioState.Small;
 
@@ -104,6 +110,14 @@ namespace Player2
             rightWalkFrames[1] = new Rectangle(320, 105, 16, 16);
             rightWalkFrames[2] = new Rectangle(290, 105, 16, 16);
 
+            leftWalkFramesI[0] = new Rectangle(175, 105, 16, 16);
+            leftWalkFramesI[1] = new Rectangle(0, 170, 16, 16);
+            leftWalkFramesI[2] = new Rectangle(207, 105, 16, 16);
+
+            rightWalkFramesI[0] = new Rectangle(0, 170, 16, 16);
+            rightWalkFramesI[1] = new Rectangle(320, 105, 16, 16);
+            rightWalkFramesI[2] = new Rectangle(290, 105, 16, 16);
+
             bigLeftFrames = new Rectangle[3];
             bigRightFrames = new Rectangle[3];
             bigLeftJumpFrames = new Rectangle[3];
@@ -112,6 +126,8 @@ namespace Player2
             bigRightCrouchFrames = new Rectangle[3];
             bigLeftWalkFrames = new Rectangle[3];
             bigRightWalkFrames = new Rectangle[3];
+            bigLeftWalkFramesI = new Rectangle[3];
+            bigRightWalkFramesI = new Rectangle[3];
 
             bigLeftFrames[0] = new Rectangle(237, 62, 20, 34);
             bigLeftFrames[1] = new Rectangle(237, 62, 20, 34);
@@ -143,6 +159,14 @@ namespace Player2
             bigRightWalkFrames[0] = new Rectangle(294, 62, 20, 34);
             bigRightWalkFrames[1] = new Rectangle(312, 62, 17, 34);
             bigRightWalkFrames[2] = new Rectangle(330, 62, 19, 35);
+
+            bigLeftWalkFramesI[0] = new Rectangle(201, 62, 18, 33);
+            bigLeftWalkFramesI[1] = new Rectangle(183, 62, 16, 35);
+            bigLeftWalkFramesI[2] = new Rectangle(0, 170, 16, 16);
+
+            bigRightWalkFramesI[0] = new Rectangle(294, 62, 20, 34);
+            bigRightWalkFramesI[1] = new Rectangle(312, 62, 10, 34);
+            bigRightWalkFramesI[2] = new Rectangle(0, 170, 16, 16);
 
             facingRight = true;
             frames = rightFrames;

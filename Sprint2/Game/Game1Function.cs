@@ -296,11 +296,11 @@ namespace Sprint0
             player.reset();
             player2.reset();
             enemies.Clear();
-            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
+            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
+            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks2));
+            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             projectiles.Clear();
         }
 
