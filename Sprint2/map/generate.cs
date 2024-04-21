@@ -143,6 +143,9 @@ public class Generate
             case "FlyTortoiseEnemy":
                 game.AddEnemy(new FlyTortoiseEnemy(enemy, position, game.GetMap(), game, block), level);
                 break;
+            case "FlowerEnemy":
+                game.AddEnemy(new FlowerEnemy(enemy, position, game.GetMap(), game, block), level);
+                break;
         }
     }
 }

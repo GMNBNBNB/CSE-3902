@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sprint0;
 
-public class FlowerEmeny : ISprite
+public class FlowerEnemy : ISprite
 {
     private Texture2D texture;
     private Vector2 position;
@@ -15,13 +16,13 @@ public class FlowerEmeny : ISprite
     private Rectangle[] frames;
 
 
-    public FlowerEmeny(Texture2D texture, Vector2 position)
+    public FlowerEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
         frames = new Rectangle[2];
-        frames[0] = new Rectangle(125, 178, 18, 25);
-        frames[1] = new Rectangle(142, 178, 18, 25);
+        frames[0] = new Rectangle(389, 29, 17, 25);
+        frames[1] = new Rectangle(420, 29, 17, 25);
         currentFrame = 0;
         timeSinceLastFrame = 0;
     }
@@ -41,7 +42,7 @@ public class FlowerEmeny : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
     {
@@ -50,8 +51,8 @@ public class FlowerEmeny : ISprite
             Rectangle bounds = new Rectangle(
                 (int)position.X,
                 (int)position.Y ,
-                frames[currentFrame].Width *3,
-                frames[currentFrame].Height *3
+                frames[currentFrame].Width *2,
+                frames[currentFrame].Height *2
             );
 
             return bounds;
