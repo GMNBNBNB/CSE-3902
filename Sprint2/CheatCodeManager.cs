@@ -131,7 +131,8 @@ namespace Sprint2
                         player2.setJumpSpeed(float.Parse(value));
                         break;
                     case "Invin":
-                        game.mario_health.SetInvincible();
+                        game.mario_health.SetInvincible(player);
+                        game.mario_health.SetInvincible(player2);
                         break;
                 }
             }

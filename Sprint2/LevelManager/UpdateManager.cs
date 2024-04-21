@@ -140,11 +140,9 @@ public class UpdateManager
             foreach (ISprite e in enemie)
             {
                 e.Update(gameTime, game.player);
-                game.mario_health.Update(gameTime, game.player, e);
-                game.score_point.UpdateEnemyScore(gameTime, game.player, e);
-
                 e.Update(gameTime, game.player2);
-                game.mario_health.Update(gameTime, game.player2, e);
+                game.mario_health.Update(gameTime, game.player, game.player2, e);
+                game.score_point.UpdateEnemyScore(gameTime, game.player, e);
                 game.score_point.UpdateEnemyScore(gameTime, game.player2, e);
 
             }
