@@ -6,6 +6,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Sprint2;
 using System.Collections.Generic;
 using Sprint2.Icon;
+using Sprint2.Block;
 
 namespace Sprint0
 {
@@ -20,23 +21,27 @@ namespace Sprint0
 
         public void reStart()
         {
-            coin_count = new CoinCount(textureI, font, this);
-            mario_health = new Health(texture, font, this);
+            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
             music.startMusic();
+            enemies.Clear();
+            blocks.Clear();
+            blocks2.Clear();
+            Items.Clear();
+            Items2.Clear();
+            enemies1.Clear();
+            enemies2.Clear();
+            projectiles.Clear();
+            controllerList.Add(new KeyboardController(this));
+            mario_health = new Health(texture, font, this);
+            coin_count = new CoinCount(textureI, font, this);
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
-            enemies.Clear();
-            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
-            controllerList.Add(new KeyboardController(this));
-            blocks.Clear();
-            Items.Clear();
-            enemies1.Clear();
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
             Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
-            projectiles.Clear();
+            Items2.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
         }
 
         public void ChangeSprite(ISprite newSprite)
