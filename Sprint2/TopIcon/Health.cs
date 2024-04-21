@@ -13,7 +13,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace Sprint2.Icon
 {
     // draw the mario sprite symbol + the number of lifes
-    public class Life
+    public class Health
     {
         //var
         private Game1 game;
@@ -35,7 +35,7 @@ namespace Sprint2.Icon
         CollisionHelper.CollisionDirection collisionDirection;
 
         // constructor
-        public Life(Texture2D texture, SpriteFont font, Game1 game)
+        public Health(Texture2D texture, SpriteFont font, Game1 game)
         {
             this.game = game;
 
