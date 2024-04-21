@@ -18,9 +18,11 @@ namespace Sprint2.Block
         private bool GetMus = false;
         private Game1 game;
         private ISprite mushroom;
+        private bool activeSound;
 
         public MusBlock(Texture2D texture, Vector2 position, Texture2D textureItem, Game1 game)
         {
+            activeSound = true;
             this.game = game;
             texture2 = texture;
             textureI = textureItem;
@@ -54,6 +56,15 @@ namespace Sprint2.Block
                 {
                     currentFrame = 3;
                     GetMus = true;
+                    if (activeSound)
+                    {
+                        game.music.playPower();
+                        activeSound = false;
+                    }
+                    else
+                    {
+                        game.music.playKick();
+                    }
                 }
             }
             if (GetMus)

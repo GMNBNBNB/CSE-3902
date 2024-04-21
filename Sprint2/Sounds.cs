@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprint2.Block;
+using System;
+using System.Diagnostics;
+
 
 public class Sounds
 {
@@ -16,9 +20,13 @@ public class Sounds
     private SoundEffect pipe;
     private SoundEffect big;
     private SoundEffect stomp;
+    private SoundEffect kick;
+    private SoundEffect power;
     private Song music;
     private Song gameOver;
     private Song ending;
+    private Stopwatch stopwatchKick, stopwatchPower;
+    private const int ThrottleInterval = 100;
 
     public Sounds(ContentManager Content)
     {
@@ -31,10 +39,17 @@ public class Sounds
         pipe = Content.Load<SoundEffect>("sounds/smb_pipe");
         big = Content.Load<SoundEffect>("sounds/smb_vine");
         stomp = Content.Load<SoundEffect>("sounds/smb_stomp");
+        kick = Content.Load<SoundEffect>("sounds/smb_kick");
+        power = Content.Load<SoundEffect>("sounds/smb_powerup_appears");
 
         music = Content.Load<Song>("sounds/01-main-theme-overworld");
         gameOver = Content.Load<Song>("sounds/10-game-over-2");
         ending = Content.Load<Song>("sounds/12-ending");
+
+        stopwatchKick = new Stopwatch();
+        stopwatchPower = new Stopwatch();
+        stopwatchKick.Start();
+        stopwatchPower.Start();
     }
 
     public void startMusic()
@@ -52,6 +67,24 @@ public class Sounds
     {
         MediaPlayer.Play(ending);
         MediaPlayer.IsRepeating = true;
+    }
+
+    public void playKick()
+    {
+        if (stopwatchKick.ElapsedMilliseconds >= ThrottleInterval)
+        {
+            kick.Play();
+            stopwatchKick.Restart(); // 重置计时器
+        }
+    }
+
+    public void playPower()
+    {
+        if (stopwatchPower.ElapsedMilliseconds >= ThrottleInterval)
+        {
+            power.Play();
+            stopwatchPower.Restart(); // 重置计时器
+        }
     }
 
     public void playBig()

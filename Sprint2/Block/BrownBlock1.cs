@@ -52,11 +52,13 @@ namespace Sprint2.Block
                                     currentBlockRect = new Rectangle(304, 111, 16, 16);
                                     state = BlockState.Cracked;
                                     cooldownTimer = CooldownPeriod;
+                                    game.music.playKick();
                                 }
                                 else if (state == BlockState.Cracked)
                                 {
                                     state = BlockState.Disappeared;
                                     cooldownTimer = CooldownPeriod;
+                                    game.music.playKick();
                                 }
                             }
                         }

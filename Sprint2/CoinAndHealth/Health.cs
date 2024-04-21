@@ -31,6 +31,7 @@ namespace Sprint2.Icon
         float scale_font;
         private bool isInvincible;
         private double InvincibleTime;
+        CollisionHelper.CollisionDirection collisionDirection;
 
         // constructor
         public Health(Texture2D texture, SpriteFont font, Game1 game)
@@ -84,7 +85,11 @@ namespace Sprint2.Icon
                 if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
                 {
                     //player_mario.setPosition(new_position);
-                    player_mario.damaged(gameTime);
+                    collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario.Bounds);
+                    if (collisionDirection != CollisionHelper.CollisionDirection.Bottom)
+                    {
+                        player_mario.damaged(gameTime);
+                    }
                     UpdateHealthString();
                 }
                 if (health == 0)

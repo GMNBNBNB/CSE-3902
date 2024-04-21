@@ -235,6 +235,7 @@ namespace Player
             jumpSpeed = 0;
             jumpSpeed += gravity;
             position.Y += Math.Min(jumpSpeed, collisionDepthY);
+            game.music.playKick();
         }
 
         public void IfCollisionBot(Rectangle rectA, Rectangle rectB)
