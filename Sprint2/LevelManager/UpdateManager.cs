@@ -230,6 +230,34 @@ public class UpdateManager
     }
     public void Level3Update(GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
+        //foreach (IController controller in game.controllerList)
+        //{
+        //    controller.Update(gameTime);
+        //}
+        //foreach (IProjectiles pro in game.projectiles)
+        //{
+        //    pro.Update(gameTime, enemie, game.player, block);
+        //    pro.Update(gameTime, enemie, game.player2, block);
+        //}
+        //if (game.enemies.Count > 0)
+        //{
+        //    game.enemies[0].Update(gameTime, game.player);
+        //    if (CollisionDetector.DetectCollision(game.player.Bounds, enemie[0].Bounds))
+        //    {
+        //        game.player.damaged(gameTime);
+        //        game.player2.damaged(gameTime);
+        //    }
+        //    game.enemies[0].Update(gameTime, game.player2);
+        //    if (CollisionDetector.DetectCollision(game.player2.Bounds, enemie[0].Bounds))
+        //    {
+        //        game.player.damaged(gameTime);
+        //        game.player2.damaged(gameTime);
+        //    }
+        //}
+        //game.player.Update(gameTime);
+        //game.block.Update(gameTime, game.player);
+        //game.player2.Update(gameTime);
+        //game.block.Update(gameTime, game.player2);
         foreach (IController controller in game.controllerList)
         {
             controller.Update(gameTime);
