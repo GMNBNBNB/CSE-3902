@@ -123,8 +123,13 @@ public class UpdateManager
         {
             I.Update(gameTime, game.player);
             game.coin_count.Update(gameTime, game.player, I);
+            game.score_point.UpdateItemScore(gameTime, game.player, I);
+
+
             I.Update(gameTime, game.player2);
             game.coin_count.Update(gameTime, game.player2, I);
+            game.score_point.UpdateItemScore(gameTime, game.player2, I);
+
         }
         if (enemie.Count > 0)
         {
@@ -133,8 +138,12 @@ public class UpdateManager
 
                 e.Update(gameTime, game.player);
                 game.mario_health.Update(gameTime, game.player, e);
+                game.score_point.UpdateEnemyScore(gameTime, game.player, e);
+
                 e.Update(gameTime, game.player2);
                 game.mario_health.Update(gameTime, game.player2, e);
+                game.score_point.UpdateEnemyScore(gameTime, game.player2, e);
+
             }
             foreach (ISprite e in game.DestroyEnemies)
             {

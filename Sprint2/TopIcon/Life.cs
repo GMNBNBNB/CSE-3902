@@ -12,7 +12,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace Sprint2.Icon
 {
     // draw the mario sprite symbol + the number of lifes
-    public class Health
+    public class Life
     {
         //var
         private Game1 game;
@@ -34,7 +34,7 @@ namespace Sprint2.Icon
         CollisionHelper.CollisionDirection collisionDirection;
 
         // constructor
-        public Health(Texture2D texture, SpriteFont font, Game1 game)
+        public Life(Texture2D texture, SpriteFont font, Game1 game)
         {
             this.game = game;
 
@@ -77,8 +77,8 @@ namespace Sprint2.Icon
         public void Update(GameTime gameTime, IPlayer player_mario, ISprite enemies) // need to add EnemyFireball enemyAttack later
         {   //PlayerSprite player_mario
 
-            Vector2 current_position = player_mario.getPosition();
-            Vector2 new_position = new Vector2(current_position.X, current_position.Y + 50);
+            //Vector2 current_position = player_mario.getPosition();
+            //Vector2 new_position = new Vector2(current_position.X, current_position.Y + 50);
 
             if (!isInvincible)
             {
@@ -117,7 +117,7 @@ namespace Sprint2.Icon
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Matrix.Identity); // Draw Begin
 
             sb.Draw(texture, mario_position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale_mario, SpriteEffects.None, 0f);
-            sb.DrawString(font, health_string, font_position, Color.Black, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
+            sb.DrawString(font, health_string, font_position, Color.White, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
             //spriteBatch.Draw(spriteTexture, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             sb.End(); // Draw End
