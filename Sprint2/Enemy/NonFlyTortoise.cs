@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint0;
 using Sprint2.Block;
 using System.Collections.Generic;
+using static CollisionHelper;
 
 public class NonFlyTortoise : ISprite
 {
@@ -20,11 +21,14 @@ public class NonFlyTortoise : ISprite
 
     private float moveRangeStart;
     private float moveRangeEnd;
+    CollisionHelper.CollisionDirection collisionDirection;
+    private Game1 game;
     public NonFlyTortoise(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
         this.block = block;
+        this.game = game;
         leftFrames = new Rectangle[3];
         rightFrames = new Rectangle[3];
         leftFrames[0] = new Rectangle(86, 89, 21, 24);
@@ -88,6 +92,18 @@ public class NonFlyTortoise : ISprite
         if (!collisionOccurred)
         {
             position.X = nextX; 
+        }
+
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+            {
+                p.CheckCollisionWithEnemy(true);
+                p.jump();
+                game.DestroyEnemy(this);
+                game.music.playStomp();
+            }
         }
 
         if (timeSinceLastFrame >= 200)
