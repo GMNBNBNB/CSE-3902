@@ -32,8 +32,11 @@ namespace Sprint0
             enemies2.Clear();
             projectiles.Clear();
             controllerList.Add(new KeyboardController(this));
+
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
+            score_point = new Score(font, this);    
+
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
