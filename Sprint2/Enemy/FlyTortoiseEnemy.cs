@@ -53,7 +53,7 @@ public class FlyTortoiseEnemy : ISprite
             nextX = screenBounds.Right - 200;
             frames = leftFrames;
         }
-        if (timeSinceLastFrame >= 100.0)
+        if (timeSinceLastFrame >= 200)
         {
             currentFrame++;
             if (currentFrame >= frames.Length)

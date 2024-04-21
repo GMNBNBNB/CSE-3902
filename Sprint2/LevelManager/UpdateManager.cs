@@ -80,7 +80,7 @@ public class UpdateManager
         }
     }
 
-    public void Level1Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level1Update(GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         game.item.Update(gameTime, game.player);
         game.item.Update(gameTime, game.player2);
@@ -146,7 +146,7 @@ public class UpdateManager
             Item.Remove(I);
         }
     }
-    public void Level2Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level2Update(GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         game.item.Update(gameTime, game.player);
         game.item.Update(gameTime, game.player2);
@@ -158,7 +158,6 @@ public class UpdateManager
         {
             game._camera.Update(game.player2.getPosition(), game.currentState);
         }
-
         foreach (IController controller in game.controllerList)
         {
             controller.Update(gameTime);
@@ -214,7 +213,7 @@ public class UpdateManager
             Item.Remove(I);
         }
     }
-    public void Level3Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level3Update(GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         foreach (IController controller in game.controllerList)
         {

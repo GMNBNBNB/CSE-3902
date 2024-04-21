@@ -47,14 +47,12 @@ block,BrownBlock1,2632,166
 block,BrownBlock1,2400,230
 block,BrownBlock1,2432,230
 block,MusBlock,2048,100
-block,StarBlock,400,120
-block,MusBlock,2144,100
+block,FlowerBlock,2144,100
 block,MusBlock,1530,100
-block,MusBlock,360,120
+block,StarBlock,360,120
 block,pipe,1000,350
 enemy,Goomba,600,366
 enemy,Goomba,2048,366
-item,DFlower,232,260
 item,Coin,950,200
 item,Coin,1000,200
 item,Coin,1050,200

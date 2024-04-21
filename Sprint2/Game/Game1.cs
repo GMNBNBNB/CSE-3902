@@ -27,7 +27,7 @@ namespace Sprint0
         Vector2 EnemyPosition;
         Vector2 BlockPosition;
 
-        ISprite sprite;
+        public ISprite sprite;
         public List<object> controllerList;
         public IPlayer player;
         public IPlayer player2;
@@ -143,6 +143,7 @@ namespace Sprint0
             caveTexture = Content.Load<Texture2D>("cave");
             textureQiGan = Content.Load<Texture2D>("ganzi");
             textureQiZi = Content.Load<Texture2D>("flag");
+            font = Content.Load<SpriteFont>("File");
             _camera = new Camera(GraphicsDevice.Viewport, mapTexture);
 
 
@@ -151,7 +152,6 @@ namespace Sprint0
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
-            font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
             reStart();
@@ -172,15 +172,15 @@ namespace Sprint0
 
                 if (gameIndex == 0)
                 {
-                    updateManager.Level1Update(gameIndex, gameTime, Items, blocks, enemies1);
+                    updateManager.Level1Update(gameTime, Items, blocks, enemies1);
                 }
                 else if (gameIndex == 1)
                 {
-                    updateManager.Level2Update(gameIndex, gameTime, Items2, blocks2, enemies2);
+                    updateManager.Level2Update(gameTime, Items2, blocks2, enemies2);
                 }
                 else
                 {
-                    updateManager.Level3Update(gameIndex, gameTime, Items2, blocks, enemies2);
+                    updateManager.Level3Update(gameTime, Items2, blocks, enemies2);
                 }
             }
             else if (currentState == GameState.Paused)

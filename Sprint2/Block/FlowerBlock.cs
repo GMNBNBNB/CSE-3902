@@ -18,9 +18,11 @@ namespace Sprint2.Block
         private bool GetFlower = false;
         private Game1 game;
         private ISprite flower;
+        private bool activeSound;
 
         public FlowerBlock(Texture2D texture, Vector2 position, Texture2D textureItem, Game1 game)
         {
+            activeSound = true;
             this.game = game;
             texture2 = texture;
             textureI = textureItem;
@@ -38,7 +40,7 @@ namespace Sprint2.Block
         public void Update(GameTime gameTime, IPlayer player)
         {
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timeSinceLastFrame >= 300 && currentFrame != 3)
+            if (timeSinceLastFrame >= 600 && currentFrame != 3)
             {
                 currentFrame++;
                 if (currentFrame >= 2)
@@ -54,6 +56,16 @@ namespace Sprint2.Block
                 {
                     currentFrame = 3;
                     GetFlower = true;
+                    if (activeSound)
+                    {
+                        game.music.playPower();
+                        activeSound = false;
+                    }
+                    else
+                    {
+                        game.music.playKick();
+                    }
+                    
                 }
             }
             if (GetFlower)

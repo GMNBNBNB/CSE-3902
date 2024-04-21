@@ -63,7 +63,7 @@ public class Goomba : ISprite
             }
         }
 
-        if (timeSinceLastFrame >= 100.0)
+        if (timeSinceLastFrame >= 200)
         {
             currentFrame++;
             if (currentFrame >= frames.Length)
