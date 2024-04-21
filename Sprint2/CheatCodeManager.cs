@@ -15,12 +15,12 @@ namespace Sprint2
         private KeyboardState previousKeyboardState;
         private IPlayer player;
         private IPlayer player2;
-        private Life health;
+        private Health health;
         private Game1 game;
 
         public bool IsActive { get => isActive; private set => isActive = value; }
 
-        public CheatCodeManager(SpriteFont font, IPlayer player, IPlayer player2, Life health, Game1 game) {
+        public CheatCodeManager(SpriteFont font, IPlayer player, IPlayer player2, Health health, Game1 game) {
             this.font = font;
             isActive = false;
             this.player = player;

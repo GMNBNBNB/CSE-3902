@@ -21,6 +21,7 @@ namespace Sprint0
 
         public void reStart()
         {
+            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
             music.startMusic();
             enemies.Clear();
             blocks.Clear();
@@ -31,9 +32,11 @@ namespace Sprint0
             enemies2.Clear();
             projectiles.Clear();
             controllerList.Add(new KeyboardController(this));
-            mario_health = new Life(texture, font, this);
-            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
+
+            mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
+            score_point = new Score(font, this);    
+
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
@@ -293,11 +296,11 @@ namespace Sprint0
             player.reset();
             player2.reset();
             enemies.Clear();
-            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
+            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
+            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks2));
+            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             projectiles.Clear();
         }
 
