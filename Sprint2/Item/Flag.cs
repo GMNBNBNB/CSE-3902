@@ -11,8 +11,6 @@ public class Flag : ISprite
 {
     private Texture2D textureQigan, textureQizi;
     private Vector2 position,position2;
-    private int currentFrame;
-    private double timeSinceLastFrame;
     private Rectangle[] frames;
     private Game1 game;
     public bool beginMove;
@@ -28,8 +26,6 @@ public class Flag : ISprite
         frames = new Rectangle[2];
         frames[0] = new Rectangle(12, 2, 16, 167);
         frames[1] = new Rectangle(0, 0, 16, 15);
-        currentFrame = 0;
-        timeSinceLastFrame = 0;
         beginMove = false;
         over = false;
     }

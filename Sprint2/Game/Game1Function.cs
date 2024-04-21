@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Player;
+using Player2;
 using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Sprint2;
@@ -20,15 +21,17 @@ namespace Sprint0
         {
             music.startMusic();
             player = new PlayerSprite(this, GetScreenBounds());
+            player2 = new PlayerSprite2(this, GetScreenBounds());
             enemies.Clear();
             CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
+            CheatCodeManager = new CheatCodeManager(font, player2, mario_health, this);
             controllerList.Add(new KeyboardController(this));
             blocks.Clear();
             Items.Clear();
             enemies1.Clear();
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,1);
-            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,2);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,0);
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
+            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
             Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             projectiles.Clear();
@@ -125,6 +128,7 @@ namespace Sprint0
         public void takeDamage(GameTime gameTime)
         {
             player.damaged(gameTime);
+            player2.damaged(gameTime);
         }
 
         public void shotFireBall()
@@ -132,8 +136,8 @@ namespace Sprint0
             object f = player.fireball();
             if (f != null)
             {
-            projectiles.Add(player.fireball());
-        }
+                projectiles.Add(player.fireball());
+            }
         }
 
         public void jump()
@@ -171,6 +175,50 @@ namespace Sprint0
             player.moveRightStop();
         }
 
+        public void shotFireBall2()
+        {
+            object f = player2.fireball();
+            if (f != null)
+            {
+                projectiles.Add(player2.fireball());
+            }
+        }
+
+        public void jump2()
+        {
+            player2.jump();
+        }
+
+        public void crouch2()
+        {
+            player2.crouch();
+        }
+
+        public void crouchStop2()
+        {
+            player2.crouchStop();
+        }
+
+        public void moveLeft2()
+        {
+            player2.moveLeft();
+        }
+
+        public void moveRight2()
+        {
+            player2.moveRight();
+        }
+
+        public void leftStop2()
+        {
+            player2.moveLeftStop();
+        }
+
+        public void rightStop2()
+        {
+            player2.moveRightStop();
+        }
+
         public Vector2 initialPosition()
         {
             return new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
@@ -195,11 +243,11 @@ namespace Sprint0
             else if (level == 2)
             {
                 blocks2.Add(block);
-            }else
+            } else
             {
                 blocksC.Add(block);
             }
-            
+
         }
         public void DestroyBlocks(IBlock block, Boolean world)
         {
@@ -207,14 +255,14 @@ namespace Sprint0
         }
         public void AddItem(ISprite item, int level)
         {
-            if (level == 1) 
-            { 
+            if (level == 1)
+            {
                 Items.Add(item);
             }
-            else if(level == 2)
+            else if (level == 2)
             {
                 Items2.Add(item);
-            }else
+            } else
             {
                 ItemsC.Add(item);
             }
@@ -227,9 +275,16 @@ namespace Sprint0
         {
             DestroyEnemies.Add(enemies);
         }
+        public void back()
+        {
+            player.reset();
+            player2.reset();
+        }
+
         public void reset()
         {
             player.reset();
+            player2.reset();
             enemies.Clear();
             enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));

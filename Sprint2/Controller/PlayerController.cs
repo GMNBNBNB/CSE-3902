@@ -134,11 +134,20 @@ public class KeyboardController : IController
             {
                 game.shotFireBall();
             }
+            if (state.IsKeyDown(Keys.Space) && !previousKeyboardState.IsKeyDown(Keys.Space))
+            {
+                game.shotFireBall2();
+            }
 
             // W for jump
-            if ((state.IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W)) || (state.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up)))
+            if (state.IsKeyDown(Keys.W) && !previousKeyboardState.IsKeyDown(Keys.W))
             {
                 game.jump();
+            }
+
+            if (state.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up))
+            {
+                game.jump2();
             }
 
             if ((state.IsKeyDown(Keys.M) && !previousKeyboardState.IsKeyDown(Keys.M)))
@@ -156,9 +165,9 @@ public class KeyboardController : IController
             }
 
             // S for crouch
-            if (previousKeyboardState.IsKeyDown(Keys.S) || previousKeyboardState.IsKeyDown(Keys.Down))
+            if (previousKeyboardState.IsKeyDown(Keys.S))
             {
-                if (state.IsKeyUp(Keys.S) && state.IsKeyUp(Keys.Down))
+                if (state.IsKeyUp(Keys.S))
                 {
                     game.crouchStop();
                 }
@@ -167,10 +176,21 @@ public class KeyboardController : IController
                     game.crouch();
                 }
             }
-
-            if (previousKeyboardState.IsKeyDown(Keys.Left) || previousKeyboardState.IsKeyDown(Keys.A))
+            if (previousKeyboardState.IsKeyDown(Keys.Down))
             {
-                if (state.IsKeyUp(Keys.Left) && state.IsKeyUp(Keys.A))
+                if (state.IsKeyUp(Keys.Down))
+                {
+                    game.crouchStop2();
+                }
+                else
+                {
+                    game.crouch2();
+                }
+            }
+
+            if ( previousKeyboardState.IsKeyDown(Keys.A))
+            {
+                if (state.IsKeyUp(Keys.A))
                 {
                     game.leftStop();
                 }
@@ -179,10 +199,35 @@ public class KeyboardController : IController
                     game.moveLeft();
                 }
             }
-            //-> for move right
-            if (previousKeyboardState.IsKeyDown(Keys.Right) || previousKeyboardState.IsKeyDown(Keys.D))
+
+            if (previousKeyboardState.IsKeyDown(Keys.Left))
             {
-                if (state.IsKeyUp(Keys.Right) && state.IsKeyUp(Keys.D))
+                if (state.IsKeyUp(Keys.Left))
+                {
+                    game.leftStop2();
+                }
+                else
+                {
+                    game.moveLeft2();
+                }
+            }
+
+            //-> for move right
+            if (previousKeyboardState.IsKeyDown(Keys.Right))
+            {
+                if (state.IsKeyUp(Keys.Right))
+                {
+                    game.rightStop2();
+                }
+                else
+                {
+                    game.moveRight2();
+                }
+            }
+
+            if (previousKeyboardState.IsKeyDown(Keys.D))
+            {
+                if ( state.IsKeyUp(Keys.D))
                 {
                     game.rightStop();
                 }
@@ -190,8 +235,9 @@ public class KeyboardController : IController
                 {
                     game.moveRight();
                 }
-            }           
+            }
         }
+        
         previousKeyboardState = state;
     }
 }

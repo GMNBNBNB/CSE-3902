@@ -2,9 +2,9 @@
 using Sprint0;
 
 
-namespace Player
+namespace Player2
 {
-    public partial class PlayerSprite : IPlayer
+    public partial class PlayerSprite2 : IPlayer
     {
         public void Update(GameTime gameTime)
         {
@@ -23,7 +23,13 @@ namespace Player
 
                 if (damagedAnimationTime <= 0)
                 {
+                    currentFrame = 0;
+                    currentState = MarioState.Small;
+                    facingRight = true;
+                    frames = facingRight ? rightFrames : leftFrames;
+                    isInvincible = true;
                     lastDamagedTime = gameTime.TotalGameTime;
+                    damagedAnimationTime = 0;
                     game.back();
                     game.music.startMusic();
                 }

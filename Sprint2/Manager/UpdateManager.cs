@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Player;
+using Player2;
 using System;
 using Sprint0;
 using Sprint0.Controller;
@@ -55,6 +56,8 @@ public class UpdateManager
                 game.currentState = Game1.GameState.Cave;
                 game.player.inCave(true);
                 game.player.setPosition(playerPosition);
+                game.player2.inCave(true);
+                game.player2.setPosition(playerPosition);
             }
         }
         if (game.player.getPosition().X >= game._camera.Map.Width - 50)
@@ -63,7 +66,12 @@ public class UpdateManager
             game.music.stopMusic();
             game.music.startEnd();
         }
-
+        if (game.player2.getPosition().X >= game._camera.Map.Width - 50)
+        {
+            game.currentState = Game1.GameState.Vectory;
+            game.music.stopMusic();
+            game.music.startEnd();
+        }
         if (((Flag)(game.Items[game.Items.Count - 1])).over)
         {
             game.currentState = Game1.GameState.Vectory;
@@ -75,19 +83,31 @@ public class UpdateManager
     public void Level1Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         game.item.Update(gameTime, game.player);
-        game._camera.Update(game.player.getPosition(), game.currentState);
-
+        game.item.Update(gameTime, game.player2);
+        if (game.player.getPosition().X> game.player2.getPosition().X) {
+            game._camera.Update(game.player.getPosition(), game.currentState);
+        }
+        else
+        {
+            game._camera.Update(game.player2.getPosition(), game.currentState);
+        }
         foreach (IController controller in game.controllerList)
         {
             controller.Update(gameTime);
         }
         game.player.Update(gameTime);
+        game.player2.Update(gameTime);
         foreach (IBlock b in block)
         {
             b.Update(gameTime, game.player);
+            b.Update(gameTime, game.player2);
             if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
             {
                 game.blockCollision.Update(b, game.player);
+            }
+            if (CollisionDetector.DetectCollision(b.Bounds, game.player2.Bounds))
+            {
+                game.blockCollision.Update(b, game.player2);
             }
         }
         foreach (IBlock b in game.DestroyBlock)
@@ -97,11 +117,14 @@ public class UpdateManager
         foreach (IProjectiles pro in game.projectiles)
         {
             pro.Update(gameTime, enemie, game.player, block);
+            pro.Update(gameTime, enemie, game.player2, block);
         }
         foreach (ISprite I in Item)
         {
             I.Update(gameTime, game.player);
             game.coin_count.Update(gameTime, game.player, I);
+            I.Update(gameTime, game.player2);
+            game.coin_count.Update(gameTime, game.player2, I);
         }
         if (enemie.Count > 0)
         {
@@ -110,6 +133,8 @@ public class UpdateManager
 
                 e.Update(gameTime, game.player);
                 game.mario_health.Update(gameTime, game.player, e);
+                e.Update(gameTime, game.player2);
+                game.mario_health.Update(gameTime, game.player2, e);
             }
             foreach (ISprite e in game.DestroyEnemies)
             {
@@ -124,19 +149,33 @@ public class UpdateManager
     public void Level2Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         game.item.Update(gameTime, game.player);
-        game._camera.Update(game.player.getPosition(), game.currentState);
+        game.item.Update(gameTime, game.player2);
+        if (game.player.getPosition().X > game.player2.getPosition().X)
+        {
+            game._camera.Update(game.player.getPosition(), game.currentState);
+        }
+        else
+        {
+            game._camera.Update(game.player2.getPosition(), game.currentState);
+        }
 
         foreach (IController controller in game.controllerList)
         {
             controller.Update(gameTime);
         }
         game.player.Update(gameTime);
+        game.player2.Update(gameTime);
         foreach (IBlock b in block)
         {
             b.Update(gameTime, game.player);
+            b.Update(gameTime, game.player2);
             if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
             {
                 game.blockCollision.Update(b, game.player);
+            }
+            if (CollisionDetector.DetectCollision(b.Bounds, game.player2.Bounds))
+            {
+                game.blockCollision.Update(b, game.player2);
             }
         }
         foreach (IBlock b in game.DestroyBlock)
@@ -146,11 +185,14 @@ public class UpdateManager
         foreach (IProjectiles pro in game.projectiles)
         {
             pro.Update(gameTime, enemie, game.player, block);
+            pro.Update(gameTime, enemie, game.player2, block);
         }
         foreach (ISprite I in Item)
         {
             I.Update(gameTime, game.player);
             game.coin_count.Update(gameTime, game.player, I);
+            I.Update(gameTime, game.player2);
+            game.coin_count.Update(gameTime, game.player2, I);
         }
         if (enemie.Count > 0)
         {
@@ -159,6 +201,8 @@ public class UpdateManager
 
                 e.Update(gameTime, game.player);
                 game.mario_health.Update(gameTime, game.player, e);
+                e.Update(gameTime, game.player2);
+                game.mario_health.Update(gameTime, game.player2, e);
             }
             foreach (ISprite e in game.DestroyEnemies)
             {
@@ -179,6 +223,7 @@ public class UpdateManager
         foreach (IProjectiles pro in game.projectiles)
         {
             pro.Update(gameTime, enemie, game.player, block);
+            pro.Update(gameTime, enemie, game.player2, block);
         }
         if (game.enemies.Count > 0)
         {
@@ -186,10 +231,19 @@ public class UpdateManager
             if (CollisionDetector.DetectCollision(game.player.Bounds, enemie[0].Bounds))
             {
                 game.player.damaged(gameTime);
+                game.player2.damaged(gameTime);
+            }
+            game.enemies[0].Update(gameTime, game.player2);
+            if (CollisionDetector.DetectCollision(game.player2.Bounds, enemie[0].Bounds))
+            {
+                game.player.damaged(gameTime);
+                game.player2.damaged(gameTime);
             }
         }
         game.player.Update(gameTime);
         game.block.Update(gameTime, game.player);
+        game.player2.Update(gameTime);
+        game.block.Update(gameTime, game.player2);
     }
 
     public void PauseUpdate()
@@ -208,6 +262,8 @@ public class UpdateManager
             game.currentState = Game1.GameState.MainMenu;
             game.player.inCave(false);
             game.player.setPosition(playerPosition);
+            game.player2.inCave(false);
+            game.player2.setPosition(playerPosition);
         }
         if (game.blockCollision.pipeAbove())
         {
@@ -217,25 +273,42 @@ public class UpdateManager
                 game.music.playPipe();
                 game.player.inCave(false);
                 game.player.setPosition(new Vector2(1000, 300));
+                game.player2.inCave(false);
+                game.player2.setPosition(new Vector2(1000, 300));
             }
         }
         game.player.Update(gameTime);
-        game._camera.Update(game.player.getPosition(), game.currentState);
+        game.player2.Update(gameTime);
+        if (game.player.getPosition().X > game.player2.getPosition().X)
+        {
+            game._camera.Update(game.player.getPosition(), game.currentState);
+        }
+        else
+        {
+            game._camera.Update(game.player2.getPosition(), game.currentState);
+        }
         foreach (IBlock b in game.blocksC)
         {
             b.Update(gameTime, game.player);
+            b.Update(gameTime, game.player2);
             if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
             {
                 game.blockCollision.Update(b, game.player);
+            }
+            if (CollisionDetector.DetectCollision(b.Bounds, game.player2.Bounds))
+            {
+                game.blockCollision.Update(b, game.player2);
             }
         }
         foreach (ISprite I in game.ItemsC)
         {
             I.Update(gameTime, game.player);
+            I.Update(gameTime, game.player2);
         }
         foreach (IProjectiles pro in game.projectiles)
         {
             pro.Update(gameTime, game.enemies1, game.player, game.blocks);
+            pro.Update(gameTime, game.enemies1, game.player2, game.blocks);
         }
         foreach (IController controller in game.controllerList)
         {

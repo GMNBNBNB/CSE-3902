@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Player;
+using Player2;
 using System;
 using Sprint0.Controller;
 using Sprint2;
@@ -29,6 +30,7 @@ namespace Sprint0
         ISprite sprite;
         public List<object> controllerList;
         public IPlayer player;
+        public IPlayer player2;
         public List<object> projectiles;
         public List<ISprite> enemies;
         public List<ISprite> DestroyEnemies;
@@ -46,7 +48,7 @@ namespace Sprint0
         public block block;
 
         public ISprite item;
-        
+
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -145,10 +147,10 @@ namespace Sprint0
 
 
             block = new block(textureB, BlockPosition);
-            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,1);
-            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,2);
-            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks,0);
-            item = new Spring(textureI, positionI);          
+            map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
+            map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
+            cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
+            item = new Spring(textureI, positionI);
             font = Content.Load<SpriteFont>("File");
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
@@ -167,6 +169,7 @@ namespace Sprint0
             else if (currentState == GameState.Playing)
             {
                 updateManager.PlayUpdate(playerPosition);
+
                 if (gameIndex == 0)
                 {
                     updateManager.Level1Update(gameIndex, gameTime, Items, blocks, enemies1);
@@ -178,7 +181,7 @@ namespace Sprint0
                 else
                 {
                     updateManager.Level3Update(gameIndex, gameTime, Items2, blocks, enemies2);
-                }           
+                }
             }
             else if (currentState == GameState.Paused)
             {
@@ -210,11 +213,11 @@ namespace Sprint0
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin(transformMatrix: _camera.Transform);
-                if(gameIndex == 0)
+                if (gameIndex == 0)
                 {
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map, Items, blocks, enemies1);
-                }                  
-                else if(gameIndex == 1)
+                }
+                else if (gameIndex == 1)
                 {
                     drawManager.Level2Draw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
                 }

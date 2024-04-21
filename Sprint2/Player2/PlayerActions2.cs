@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static CollisionHelper;
 
-namespace Player
+namespace Player2
 {
-    public partial class PlayerSprite : IPlayer
+    public partial class PlayerSprite2 : IPlayer
     {
         public void moveLeft()
         {
@@ -192,7 +192,6 @@ namespace Player
             currentFrame = 0;
             timeSinceLastFrame = 0;
             damagedAnimationTime = 0;
-            isInvincible = true;
             facingRight = true;
         }
 
