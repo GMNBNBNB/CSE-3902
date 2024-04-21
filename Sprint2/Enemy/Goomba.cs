@@ -33,12 +33,12 @@ public class Goomba : ISprite
         this.block = block;
 
         frames = new Rectangle[2];
-        frames[0] = new Rectangle(0, 0, 18, 17);
-        frames[1] = new Rectangle(23, 0, 24, 18);
+        frames[0] = new Rectangle(0, 2, 18, 18);
+        frames[1] = new Rectangle(28, 2, 18, 18);
         currentFrame = 0;
 
         timeSinceLastFrame = 0;
-        this.velocity = 200f;
+        this.velocity = 150;
         this.screenBounds = screenBounds;
 
         moveRangeStart = position.X - 300;

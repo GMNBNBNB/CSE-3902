@@ -55,7 +55,12 @@ namespace Sprint2.Icon
         {
             count--;
         }
-        public void Update(GameTime gameTime, IPlayer player_mario, ISprite coin) // need to add EnemyFireball enemyAttack later
+        public void resetCoin()
+        {
+            count = 0;
+            UpdateCoinString();
+        }
+        public void Update(GameTime gameTime, IPlayer player_mario, ISprite coin) 
         { 
             if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) )
             {
@@ -70,7 +75,7 @@ namespace Sprint2.Icon
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Matrix.Identity); // Draw Begin
 
             sb.Draw(textureCoin, coin_position, sourceRectangle, Color.White, 0f, Vector2.Zero, scale_coin, SpriteEffects.None, 0f);
-            sb.DrawString(font, count_string, font_position, Color.Black, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
+            sb.DrawString(font, count_string, font_position, Color.White, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
             //spriteBatch.Draw(spriteTexture, position, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 
             sb.End(); // Draw End
