@@ -76,18 +76,25 @@ public class DrawManager
         //    pro.Draw(spriteBatch);
         //}
         //game.block.Draw(spriteBatch);
+        map.Draw(spriteBatch);
         game.player.Draw(spriteBatch);
         game.player2.Draw(spriteBatch);
-        if (game.enemies.Count > 0)
+        foreach (ISprite e in enemie)
         {
-            game.enemies[0].Draw(spriteBatch);
+            e.Draw(spriteBatch);
         }
-        game.item.Draw(spriteBatch);
         foreach (IProjectiles pro in game.projectiles)
         {
             pro.Draw(spriteBatch);
         }
-        game.block.Draw(spriteBatch);
+        foreach (IBlock b in block)
+        {
+            b.Draw(spriteBatch);
+        }
+        foreach (ISprite I in Item)
+        {
+            I.Draw(spriteBatch);
+        }
     }
 
     public void PauseDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int pauseIndex)

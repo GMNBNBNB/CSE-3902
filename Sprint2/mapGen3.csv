@@ -1,3 +1,8 @@
 type,name,x,y
-enemy,Goomba,100,366
-enemy,Goomba,2048,366
+block,BrownBlock1,554,260
+block,BrownBlock1,581,235
+enemy,NonFlyTortoise,600,372
+item,Coin,2231,255
+item,Coin,527,240
+item,Coin,554,215
+item,Coin,581,280

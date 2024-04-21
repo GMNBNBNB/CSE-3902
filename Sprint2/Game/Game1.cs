@@ -49,6 +49,7 @@ namespace Sprint0
 
         public List<ISprite> enemies3;
         public List <ISprite> Items3;
+        public List<IBlock> blocks3;
 
         public block block;
 
@@ -127,7 +128,8 @@ namespace Sprint0
             enemies2 = new List<ISprite>();
 
             Items3 = new List<ISprite>();
-            enemies3 = new List<ISprite>(); 
+            enemies3 = new List<ISprite>();
+            blocks3 = new List<IBlock>();
 
             blockCollision = new BlockCollision();
             menuController = new MenuController(this);
@@ -198,7 +200,7 @@ namespace Sprint0
                 }
                 else if (gameIndex == 2)
                 {
-                    updateManager.Level3Update(gameTime, Items3, blocks, enemies3);
+                    updateManager.Level1Update(gameTime, Items3, blocks3, enemies3);
                 }
             }
             else if (currentState == GameState.Paused)
@@ -241,7 +243,7 @@ namespace Sprint0
                 }
                 else if (gameIndex == 2) 
                 {
-                    drawManager.Level3Draw(_spriteBatch, gameIndex, map3, Items3, blocks, enemies3);
+                    drawManager.Level1Draw(_spriteBatch, gameIndex, map3, Items3, blocks3, enemies3);
                 }
                 _spriteBatch.End();
                 CheatCodeManager.Draw(_spriteBatch);
