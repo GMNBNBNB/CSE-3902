@@ -49,8 +49,7 @@ public class Goomba : ISprite
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-        foreach(IBlock block in block)
+        foreach (IBlock block in block)
         {
             if (nextX < moveRangeStart || nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
                 (int)nextX,
@@ -63,6 +62,7 @@ public class Goomba : ISprite
             }
         }
 
+
         if (timeSinceLastFrame >= 200)
         {
             currentFrame++;
@@ -71,8 +71,8 @@ public class Goomba : ISprite
 
             timeSinceLastFrame = 0;
         }
-
         position.X = nextX;
+
 
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {

@@ -68,7 +68,6 @@ namespace Sprint2.Icon
         public void SetInvincible()
         {
             isInvincible = true;
-            InvincibleTime = 0;
         }
 
         public void Update(GameTime gameTime, IPlayer player_mario, ISprite enemies) // need to add EnemyFireball enemyAttack later

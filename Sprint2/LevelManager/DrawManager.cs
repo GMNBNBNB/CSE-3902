@@ -62,21 +62,6 @@ public class DrawManager
             I.Draw(spriteBatch);
         }
     }
-    public void Level3Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
-    {
-        game.player.Draw(spriteBatch);
-        game.player2.Draw(spriteBatch);
-        if (game.enemies.Count > 0)
-        {
-            game.enemies[0].Draw(spriteBatch);
-        }
-        game.item.Draw(spriteBatch);
-        foreach (IProjectiles pro in game.projectiles)
-        {
-            pro.Draw(spriteBatch);
-        }
-        game.block.Draw(spriteBatch);
-    }
 
     public void PauseDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int pauseIndex)
     {
