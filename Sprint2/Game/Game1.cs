@@ -65,7 +65,7 @@ namespace Sprint0
         private MenuController menuController;
         private PauseMenuController pauseController;
         private VectoryController vectoryController;
-        public Health mario_health;
+        public Life mario_health;
 
         public CheatCodeManager CheatCodeManager;
         public enum GameState
@@ -94,6 +94,7 @@ namespace Sprint0
         public Vector2 positionQiZi;
 
         public CoinCount coin_count;
+        public Score score_point;
 
         protected override void Initialize()
         {
@@ -152,8 +153,12 @@ namespace Sprint0
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
-            mario_health = new Health(texture, font, this);
+            font = Content.Load<SpriteFont>("File");
+            mario_health = new Life(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
+            score_point = new Score(font, this);
+
+
             reStart();
         }
 
@@ -229,6 +234,7 @@ namespace Sprint0
                 CheatCodeManager.Draw(_spriteBatch);
                 mario_health.Draw(_spriteBatch);
                 coin_count.Draw(_spriteBatch);
+                score_point.Draw(_spriteBatch); 
             }
             else if (currentState == GameState.Paused)
             {
@@ -243,6 +249,9 @@ namespace Sprint0
                 _spriteBatch.Begin(transformMatrix: _camera.Transform);
                 drawManager.CaveDraw(_spriteBatch);
                 _spriteBatch.End();
+
+                mario_health.Draw(_spriteBatch);
+                coin_count.Draw(_spriteBatch);
             }
             else if (currentState == GameState.Vectory)
             {

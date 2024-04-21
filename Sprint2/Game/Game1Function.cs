@@ -21,7 +21,6 @@ namespace Sprint0
 
         public void reStart()
         {
-            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
             music.startMusic();
             enemies.Clear();
             blocks.Clear();
@@ -32,7 +31,8 @@ namespace Sprint0
             enemies2.Clear();
             projectiles.Clear();
             controllerList.Add(new KeyboardController(this));
-            mario_health = new Health(texture, font, this);
+            mario_health = new Life(texture, font, this);
+            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
             coin_count = new CoinCount(textureI, font, this);
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
