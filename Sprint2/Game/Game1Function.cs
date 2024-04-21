@@ -25,8 +25,7 @@ namespace Sprint0
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
             enemies.Clear();
-            CheatCodeManager = new CheatCodeManager(font, player, mario_health, this);
-            CheatCodeManager = new CheatCodeManager(font, player2, mario_health, this);
+            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
             controllerList.Add(new KeyboardController(this));
             blocks.Clear();
             Items.Clear();

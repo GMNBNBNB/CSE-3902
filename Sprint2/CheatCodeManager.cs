@@ -14,15 +14,17 @@ namespace Sprint2
         private bool isActive;
         private KeyboardState previousKeyboardState;
         private IPlayer player;
+        private IPlayer player2;
         private Health health;
         private Game1 game;
 
         public bool IsActive { get => isActive; private set => isActive = value; }
 
-        public CheatCodeManager(SpriteFont font, IPlayer player, Health health, Game1 game) {
+        public CheatCodeManager(SpriteFont font, IPlayer player, IPlayer player2, Health health, Game1 game) {
             this.font = font;
             isActive = false;
             this.player = player;
+            this.player2 = player2;
             this.health = health;
             this.game = game;   
         }
@@ -122,9 +124,11 @@ namespace Sprint2
                 {
                     case "speed":
                         player.setSpeed(float.Parse(value));
+                        player2.setSpeed(float.Parse(value));
                         break;
                     case "jumps":
                         player.setJumpSpeed(float.Parse(value));
+                        player2.setJumpSpeed(float.Parse(value));
                         break;
                     case "Invin":
                         game.mario_health.SetInvincible();
