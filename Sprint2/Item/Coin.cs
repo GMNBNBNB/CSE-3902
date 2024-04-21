@@ -33,7 +33,7 @@ public class Coin : ISprite
     public void Update(GameTime gameTime,IPlayer player)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-        if (timeSinceLastFrame >= 200)
+        if (timeSinceLastFrame >= 400)
         {
             currentFrame++;
             if (currentFrame >= frames.Length)

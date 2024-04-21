@@ -5,6 +5,7 @@ using System;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Sprint2;
 using System.Collections.Generic;
+using Sprint2.Icon;
 
 namespace Sprint0
 {
@@ -19,8 +20,8 @@ namespace Sprint0
 
         public void reStart()
         {
-            coin_count.resetCoin();
-            mario_health.resetHealth() ;
+            coin_count = new CoinCount(textureI, font, this);
+            mario_health = new Health(texture, font, this);
             music.startMusic();
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());

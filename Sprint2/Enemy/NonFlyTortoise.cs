@@ -37,7 +37,7 @@ public class NonFlyTortoise : ISprite
         frames = rightFrames;
         currentFrame = 0;
         timeSinceLastFrame = 0;
-        this.velocity = 250f;
+        velocity = 125f;
         this.screenBounds = screenBounds;
 
         moveRangeStart = position.X - 300;
@@ -56,37 +56,45 @@ public class NonFlyTortoise : ISprite
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+        bool collisionOccurred = false;
+
         foreach (IBlock block in block)
         {
-            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(new Rectangle(
-                    (int)nextX,
-                    (int)position.Y,
-                    frames[currentFrame].Width * 2,
-                    frames[currentFrame].Height * 2), block.Bounds))
+            Rectangle nextPosition = new Rectangle(
+                (int)nextX,
+                (int)position.Y,
+                frames[currentFrame].Width * 2,
+                frames[currentFrame].Height * 2);
+
+            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
             {
+                collisionOccurred = true;
+                velocity = -velocity;               
+            }else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            {
+                collisionOccurred = true;
                 velocity = -velocity;
+            }
+            if (velocity > 0)
+            {
                 frames = rightFrames;
             }
-            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
-                    (int)nextX,
-                    (int)position.Y,
-                    frames[currentFrame].Width * 2,
-                    frames[currentFrame].Height * 2), block.Bounds))
+            else
             {
-                velocity = -velocity;
                 frames = leftFrames;
             }
-            if (timeSinceLastFrame >= 50.0)
-            {
-                currentFrame++;
-                if (currentFrame >= frames.Length)
-                    currentFrame = 0;
-
-                timeSinceLastFrame = 0;
-            }
+            break;
+        }
+        if (!collisionOccurred)
+        {
+            position.X = nextX; 
         }
 
-        position.X = nextX;
+        if (timeSinceLastFrame >= 200)
+        {
+            currentFrame = (currentFrame + 1) % frames.Length;
+            timeSinceLastFrame = 0;
+        }
     }
 
     public void Draw(SpriteBatch spriteBatch)

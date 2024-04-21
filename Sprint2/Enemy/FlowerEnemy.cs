@@ -30,7 +30,7 @@ public class FlowerEnemy : ISprite
     public void Update(GameTime gameTime, IPlayer p)
     {
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-        if (timeSinceLastFrame >= 200)
+        if (timeSinceLastFrame >= 400)
         {
             currentFrame++;
             if (currentFrame >= frames.Length)

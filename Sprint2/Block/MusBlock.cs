@@ -40,7 +40,7 @@ namespace Sprint2.Block
         public void Update(GameTime gameTime, IPlayer player)
         {
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timeSinceLastFrame >= 300 && currentFrame !=3)
+            if (timeSinceLastFrame >= 600 && currentFrame !=3)
             {
                 currentFrame++;
                 if (currentFrame >= 2)

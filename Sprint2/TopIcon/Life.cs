@@ -5,6 +5,7 @@ using Player;
 using Sprint0;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 // using Microsoft.Xna.Framework;
@@ -64,11 +65,6 @@ namespace Sprint2.Icon
         {
             health--;
         }
-        public void resetHealth()
-        {
-            health = 3;
-            UpdateHealthString();
-        }
         public void SetInvincible()
         {
             isInvincible = true;
@@ -104,7 +100,7 @@ namespace Sprint2.Icon
                     game.DestroyEnemy(enemies);
                 }
                 InvincibleTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if( InvincibleTime > 20000 )
+                if( InvincibleTime > 10000 )
                 {
                     isInvincible = false;
                     InvincibleTime = 0;
