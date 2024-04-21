@@ -39,43 +39,61 @@ public class DrawManager
         spriteBatch.DrawString(font, "Select the level to enter the game", new Vector2(screen.Width / 2 - (font.MeasureString("Select the level to enter the game").X * 0.75f), screen.Height / 2 + 100), Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
     }
 
-    public void LevelDraw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level1Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
-        if (gameIndex == 0 || gameIndex == 1)
+        map.Draw(spriteBatch);
+        game.player.Draw(spriteBatch);
+        foreach (ISprite e in enemie)
         {
-            map.Draw(spriteBatch);
-            game.player.Draw(spriteBatch);
-            foreach (ISprite e in enemie)
-            {
-                e.Draw(spriteBatch);
-            }
-            foreach (IProjectiles pro in game.projectiles)
-            {
-                pro.Draw(spriteBatch);
-            }
-            foreach (IBlock b in block)
-            {
-                b.Draw(spriteBatch);
-            }
-            foreach (ISprite I in Item)
-            {
-                I.Draw(spriteBatch);
-            }
+            e.Draw(spriteBatch);
         }
-        else
+        foreach (IProjectiles pro in game.projectiles)
         {
-            game.player.Draw(spriteBatch);
-            if (game.enemies.Count > 0)
-            {
-                game.enemies[0].Draw(spriteBatch);
-            }
-            game.item.Draw(spriteBatch);
-            foreach (IProjectiles pro in game.projectiles)
-            {
-                pro.Draw(spriteBatch);
-            }
-            game.block.Draw(spriteBatch);
+            pro.Draw(spriteBatch);
         }
+        foreach (IBlock b in block)
+        {
+            b.Draw(spriteBatch);
+        }
+        foreach (ISprite I in Item)
+        {
+            I.Draw(spriteBatch);
+        }
+    }
+    public void Level2Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    {
+        map.Draw(spriteBatch);
+        game.player.Draw(spriteBatch);
+        foreach (ISprite e in enemie)
+        {
+            e.Draw(spriteBatch);
+        }
+        foreach (IProjectiles pro in game.projectiles)
+        {
+            pro.Draw(spriteBatch);
+        }
+        foreach (IBlock b in block)
+        {
+            b.Draw(spriteBatch);
+        }
+        foreach (ISprite I in Item)
+        {
+            I.Draw(spriteBatch);
+        }
+    }
+    public void Level3Draw(SpriteBatch spriteBatch, int gameIndex, Map map, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    {
+        game.player.Draw(spriteBatch);
+        if (game.enemies.Count > 0)
+        {
+            game.enemies[0].Draw(spriteBatch);
+        }
+        game.item.Draw(spriteBatch);
+        foreach (IProjectiles pro in game.projectiles)
+        {
+            pro.Draw(spriteBatch);
+        }
+        game.block.Draw(spriteBatch);
     }
 
     public void PauseDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int pauseIndex)

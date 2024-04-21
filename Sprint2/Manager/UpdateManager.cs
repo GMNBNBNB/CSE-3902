@@ -72,78 +72,124 @@ public class UpdateManager
         }
     }
 
-    public void LevelUpdate(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level1Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
-        if (gameIndex == 0 || gameIndex == 1)
+        game.item.Update(gameTime, game.player);
+        game._camera.Update(game.player.getPosition(), game.currentState);
+
+        foreach (IController controller in game.controllerList)
         {
-            game.item.Update(gameTime, game.player);
-            game._camera.Update(game.player.getPosition(), game.currentState);
-
-            foreach (IController controller in game.controllerList)
+            controller.Update(gameTime);
+        }
+        game.player.Update(gameTime);
+        foreach (IBlock b in block)
+        {
+            b.Update(gameTime, game.player);
+            if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
             {
-                controller.Update(gameTime);
-            }
-            game.player.Update(gameTime);
-            foreach (IBlock b in block)
-            {
-                b.Update(gameTime, game.player);
-                if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
-                {
-                    game.blockCollision.Update(b, game.player);
-                }
-            }
-            foreach (IBlock b in game.DestroyBlock)
-            {
-                block.Remove(b);
-            }
-            foreach (IProjectiles pro in game.projectiles)
-            {
-                pro.Update(gameTime, enemie, game.player, block);
-            }
-            foreach (ISprite I in Item)
-            {
-                I.Update(gameTime, game.player);
-                game.coin_count.Update(gameTime, game.player, I);
-            }
-            if (enemie.Count > 0)
-            {
-                foreach (ISprite e in enemie)
-                {
-
-                    e.Update(gameTime, game.player);
-                    game.mario_health.Update(gameTime, game.player, e);
-                }
-                foreach (ISprite e in game.DestroyEnemies)
-                {
-                    enemie.Remove(e);
-                }
-            }
-            foreach (ISprite I in game.DestroyItems)
-            {
-                Item.Remove(I);
+                game.blockCollision.Update(b, game.player);
             }
         }
-        else
+        foreach (IBlock b in game.DestroyBlock)
         {
-            foreach (IController controller in game.controllerList)
-            {
-                controller.Update(gameTime);
-            }
-            foreach (IProjectiles pro in game.projectiles)
-            {
-                pro.Update(gameTime, enemie, game.player, block);
-            }
-            if (game.enemies.Count > 0)
-            {
-                game.enemies[0].Update(gameTime, game.player);
-                if (CollisionDetector.DetectCollision(game.player.Bounds, enemie[0].Bounds))
-                {
-                    game.player.damaged(gameTime);
-                }
-            }
-            game.player.Update(gameTime);
-            game.block.Update(gameTime, game.player);
+            block.Remove(b);
         }
+        foreach (IProjectiles pro in game.projectiles)
+        {
+            pro.Update(gameTime, enemie, game.player, block);
+        }
+        foreach (ISprite I in Item)
+        {
+            I.Update(gameTime, game.player);
+            game.coin_count.Update(gameTime, game.player, I);
+        }
+        if (enemie.Count > 0)
+        {
+            foreach (ISprite e in enemie)
+            {
+
+                e.Update(gameTime, game.player);
+                game.mario_health.Update(gameTime, game.player, e);
+            }
+            foreach (ISprite e in game.DestroyEnemies)
+            {
+                enemie.Remove(e);
+            }
+        }
+        foreach (ISprite I in game.DestroyItems)
+        {
+            Item.Remove(I);
+        }
+    }
+    public void Level2Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    {
+        game.item.Update(gameTime, game.player);
+        game._camera.Update(game.player.getPosition(), game.currentState);
+
+        foreach (IController controller in game.controllerList)
+        {
+            controller.Update(gameTime);
+        }
+        game.player.Update(gameTime);
+        foreach (IBlock b in block)
+        {
+            b.Update(gameTime, game.player);
+            if (CollisionDetector.DetectCollision(b.Bounds, game.player.Bounds))
+            {
+                game.blockCollision.Update(b, game.player);
+            }
+        }
+        foreach (IBlock b in game.DestroyBlock)
+        {
+            block.Remove(b);
+        }
+        foreach (IProjectiles pro in game.projectiles)
+        {
+            pro.Update(gameTime, enemie, game.player, block);
+        }
+        foreach (ISprite I in Item)
+        {
+            I.Update(gameTime, game.player);
+            game.coin_count.Update(gameTime, game.player, I);
+        }
+        if (enemie.Count > 0)
+        {
+            foreach (ISprite e in enemie)
+            {
+
+                e.Update(gameTime, game.player);
+                game.mario_health.Update(gameTime, game.player, e);
+            }
+            foreach (ISprite e in game.DestroyEnemies)
+            {
+                enemie.Remove(e);
+            }
+        }
+        foreach (ISprite I in game.DestroyItems)
+        {
+            Item.Remove(I);
+        }
+    }
+    public void Level3Update(int gameIndex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    {
+        foreach (IController controller in game.controllerList)
+        {
+            controller.Update(gameTime);
+        }
+        foreach (IProjectiles pro in game.projectiles)
+        {
+            pro.Update(gameTime, enemie, game.player, block);
+        }
+        if (game.enemies.Count > 0)
+        {
+            game.enemies[0].Update(gameTime, game.player);
+            if (CollisionDetector.DetectCollision(game.player.Bounds, enemie[0].Bounds))
+            {
+                game.player.damaged(gameTime);
+            }
+        }
+        game.player.Update(gameTime);
+        game.block.Update(gameTime, game.player);
     }
 
     public void PauseUpdate()

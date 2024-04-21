@@ -168,9 +168,17 @@ namespace Sprint0
             {
                 updateManager.PlayUpdate(playerPosition);
                 if (gameIndex == 0)
-                    updateManager.LevelUpdate(gameIndex, gameTime,Items,blocks,enemies1);
-                if (gameIndex == 1)
-                    updateManager.LevelUpdate(gameIndex, gameTime, Items2, blocks2, enemies2);
+                {
+                    updateManager.Level1Update(gameIndex, gameTime, Items, blocks, enemies1);
+                }
+                else if (gameIndex == 1)
+                {
+                    updateManager.Level2Update(gameIndex, gameTime, Items2, blocks2, enemies2);
+                }
+                else
+                {
+                    updateManager.Level3Update(gameIndex, gameTime, Items2, blocks, enemies2);
+                }           
             }
             else if (currentState == GameState.Paused)
             {
@@ -203,9 +211,17 @@ namespace Sprint0
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin(transformMatrix: _camera.Transform);
                 if(gameIndex == 0)
-                    drawManager.LevelDraw(_spriteBatch, gameIndex, map, Items, blocks, enemies1);
-                if(gameIndex == 1)
-                    drawManager.LevelDraw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
+                {
+                    drawManager.Level1Draw(_spriteBatch, gameIndex, map, Items, blocks, enemies1);
+                }                  
+                else if(gameIndex == 1)
+                {
+                    drawManager.Level2Draw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
+                }
+                else
+                {
+                    drawManager.Level3Draw(_spriteBatch, gameIndex, map2, Items2, blocks, enemies1);
+                }
                 _spriteBatch.End();
                 CheatCodeManager.Draw(_spriteBatch);
                 mario_health.Draw(_spriteBatch);
