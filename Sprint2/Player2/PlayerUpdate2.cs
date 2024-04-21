@@ -19,17 +19,12 @@ namespace Player2
 
             if (currentState == MarioState.Dead)
             {
+                FireBallIsActive = false;
                 damagedAnimationTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (damagedAnimationTime <= 0)
                 {
-                    currentFrame = 0;
-                    currentState = MarioState.Small;
-                    facingRight = true;
-                    frames = facingRight ? rightFrames : leftFrames;
-                    isInvincible = true;
                     lastDamagedTime = gameTime.TotalGameTime;
-                    damagedAnimationTime = 0;
                     game.back();
                     game.music.startMusic();
                 }

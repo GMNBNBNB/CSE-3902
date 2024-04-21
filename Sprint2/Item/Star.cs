@@ -43,6 +43,7 @@ public class Star : ISprite
         }
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {
+            game.music.playBig();
             game.mario_health.SetInvincible();
             IsActive = false;
         }

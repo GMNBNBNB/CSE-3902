@@ -177,6 +177,7 @@ namespace Player
                 case MarioState.Small:
                     currentState = MarioState.Dead;
                     damagedAnimationTime = 2000;
+                    game.mario_health.decreaseHealth();
                     game.music.stopMusic();
                     game.music.playDie();
                     break;
@@ -186,6 +187,7 @@ namespace Player
         }
         public void reset()
         {
+            FireBallIsActive = false;
             currentState = MarioState.Small;
             position = game.initialPosition();
             frames = rightFrames;

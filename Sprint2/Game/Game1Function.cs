@@ -19,6 +19,8 @@ namespace Sprint0
 
         public void reStart()
         {
+            coin_count.resetCoin();
+            mario_health.resetHealth() ;
             music.startMusic();
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());

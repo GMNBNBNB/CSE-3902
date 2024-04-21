@@ -49,6 +49,7 @@ public class DFlower : ISprite
         }
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {
+            game.music.playBig();
             p.SetFireBall();
             IsActive = false;
         }

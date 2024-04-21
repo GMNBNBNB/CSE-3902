@@ -19,6 +19,7 @@ namespace Player
 
             if (currentState == MarioState.Dead)
             {
+                FireBallIsActive = false;
                 damagedAnimationTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (damagedAnimationTime <= 0)

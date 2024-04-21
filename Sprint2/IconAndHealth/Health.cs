@@ -42,7 +42,7 @@ namespace Sprint2.Icon
             sourceRectangle = new Rectangle(224, 44, 12, 16);
             scale_mario = 2f;
 
-            health = 100;
+            health = 3;
             this.font = font;
             scale_font = 1.5f;
             health_string = health.ToString();
@@ -59,6 +59,15 @@ namespace Sprint2.Icon
         {
             health++;
         }
+        public void decreaseHealth()
+        {
+            health--;
+        }
+        public void resetHealth()
+        {
+            health = 3;
+            UpdateHealthString();
+        }
         public void SetInvincible()
         {
             isInvincible = true;
@@ -74,7 +83,6 @@ namespace Sprint2.Icon
             {
                 if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
                 {
-                    health--;
                     //player_mario.setPosition(new_position);
                     player_mario.damaged(gameTime);
                     UpdateHealthString();

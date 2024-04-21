@@ -51,7 +51,15 @@ namespace Sprint2.Icon
         {
             count++;
         }
-
+        public void decreaseCoin()
+        {
+            count--;
+        }
+        public void resetCoin()
+        {
+            count = 0;
+            UpdateCoinString();
+        }
         public void Update(GameTime gameTime, IPlayer player_mario, ISprite coin) // need to add EnemyFireball enemyAttack later
         { 
             if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) )
