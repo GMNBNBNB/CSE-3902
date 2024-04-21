@@ -30,8 +30,10 @@ namespace Sprint2.Icon
         private SpriteFont font;
         private Vector2 font_position;
         float scale_font;
-        private bool isInvincible;
-        private double InvincibleTime;
+        private bool isInvincible1;
+        private bool isInvincible2;
+        private double InvincibleTime1;
+        private double InvincibleTime2;
         CollisionHelper.CollisionDirection collisionDirection;
 
         // constructor
@@ -50,8 +52,10 @@ namespace Sprint2.Icon
             health_string = health.ToString();
             font_position = new Vector2(60, 20);
 
-            isInvincible = false;
-            InvincibleTime = 0;
+            isInvincible1 = false;
+            isInvincible2 = false;
+            InvincibleTime1 = 0;
+            InvincibleTime2 = 0;
         }
         private void UpdateHealthString()
         {
@@ -65,26 +69,32 @@ namespace Sprint2.Icon
         {
             health--;
         }
-        public void SetInvincible()
+        public void SetInvincible(IPlayer player)
         {
-            isInvincible = true;
+            if (player.index() == 1)
+            {
+                isInvincible1 = true;
+            }
+            else if (player.index() == 2)
+            {
+                isInvincible2 = true;
+            }
         }
-
-        public void Update(GameTime gameTime, IPlayer player_mario, ISprite enemies) // need to add EnemyFireball enemyAttack later
+        public void Update(GameTime gameTime, IPlayer player_mario1, IPlayer player_mario2, ISprite enemies) // need to add EnemyFireball enemyAttack later
         {   //PlayerSprite player_mario
 
             //Vector2 current_position = player_mario.getPosition();
             //Vector2 new_position = new Vector2(current_position.X, current_position.Y + 50);
 
-            if (!isInvincible)
+            if (!isInvincible1)
             {
-                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario1.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
                 {
                     //player_mario.setPosition(new_position);
-                    collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario.Bounds);
+                    collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario1.Bounds);
                     if (collisionDirection != CollisionHelper.CollisionDirection.Bottom)
                     {
-                        player_mario.damaged(gameTime);
+                        player_mario1.damaged(gameTime);
                     }
                     UpdateHealthString();
                 }
@@ -92,21 +102,88 @@ namespace Sprint2.Icon
                 {
                     //game.reStart(); 
                 }
+
             }
             else
             {
-                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario.Bounds))
+                if (player_mario1.GetMarioState() == MarioState.Small)
+                {
+                    player_mario1.setMarioState(MarioState.invincibleS);
+                }
+                else if(player_mario1.GetMarioState() == MarioState.Big)
+                {
+                    player_mario1.setMarioState(MarioState.invincibleB);
+                }
+                    
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario1.Bounds))
                 {
                     game.DestroyEnemy(enemies);
                 }
-                InvincibleTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if( InvincibleTime > 10000 )
+                InvincibleTime1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if( InvincibleTime1 > 10000 )
                 {
-                    isInvincible = false;
-                    InvincibleTime = 0;
+                    isInvincible1 = false;
+                    InvincibleTime1 = 0;
+                    if (player_mario1.GetMarioState() == MarioState.invincibleS)
+                    {
+                        player_mario1.setMarioState(MarioState.Small);
+                    }
+                    else if (player_mario1.GetMarioState() == MarioState.invincibleB)
+                    {
+                        player_mario1.setMarioState(MarioState.Big);
+                    }
                 }
             }
-            
+
+            if (!isInvincible2)
+            {
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario2.Bounds) && health != 0) // player_mario.GetMarioState() != MarioState.Dead
+                {
+                    //player_mario.setPosition(new_position);
+                    collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario2.Bounds);
+                    if (collisionDirection != CollisionHelper.CollisionDirection.Bottom)
+                    {
+                        player_mario2.damaged(gameTime);
+                    }
+                    UpdateHealthString();
+                }
+                if (health == 0)
+                {
+                    //game.reStart(); 
+                }
+
+            }
+            else
+            {
+                if (player_mario2.GetMarioState() == MarioState.Small)
+                {
+                    player_mario2.setMarioState(MarioState.invincibleS);
+                }
+                else if (player_mario2.GetMarioState() == MarioState.Big)
+                {
+                    player_mario2.setMarioState(MarioState.invincibleB);
+                }
+
+                if (CollisionDetector.DetectCollision(enemies.Bounds, player_mario2.Bounds))
+                {
+                    game.DestroyEnemy(enemies);
+                }
+                InvincibleTime2 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (InvincibleTime2 > 10000)
+                {
+                    isInvincible2 = false;
+                    InvincibleTime2 = 0;
+                    if (player_mario2.GetMarioState() == MarioState.invincibleS)
+                    {
+                        player_mario2.setMarioState(MarioState.Small);
+                    }
+                    else if (player_mario2.GetMarioState() == MarioState.invincibleB)
+                    {
+                        player_mario2.setMarioState(MarioState.Big);
+                    }
+                }
+            }
+
         }
         public void Draw(SpriteBatch sb) //, Texture2D texture
         {

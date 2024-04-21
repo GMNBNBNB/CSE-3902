@@ -77,7 +77,7 @@ namespace Player
                 }
             }
 
-            if (frames == leftWalkFrames || frames == rightWalkFrames)
+            if (frames == leftWalkFrames || frames == rightWalkFrames || frames == leftWalkFramesI || frames == rightWalkFramesI)
             {
                 if (!incave)
                 {
@@ -114,7 +114,7 @@ namespace Player
 
             }
 
-            if (frames == bigLeftWalkFrames || frames == bigRightWalkFrames)
+            if (frames == bigLeftWalkFrames || frames == bigRightWalkFrames || frames == bigLeftWalkFramesI || frames == bigRightWalkFramesI)
             {
                 if (!incave)
                 {

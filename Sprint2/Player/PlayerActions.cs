@@ -21,6 +21,14 @@ namespace Player
                 {
                     frames = leftWalkFrames;
                 }
+                else if (currentState == MarioState.invincibleB)
+                {
+                    frames = bigLeftWalkFramesI;
+                }
+                else if(currentState == MarioState.invincibleS)
+                {
+                    frames = leftWalkFramesI;
+                }
                 facingRight = false;
             }
         }
@@ -32,6 +40,14 @@ namespace Player
                 frames = bigLeftFrames;
             }
             else if (currentState == MarioState.Small)
+            {
+                frames = leftFrames;
+            }
+            else if (currentState == MarioState.invincibleB)
+            {
+                frames = bigLeftFrames;
+            }
+            else if (currentState == MarioState.invincibleS)
             {
                 frames = leftFrames;
             }
@@ -50,6 +66,14 @@ namespace Player
                 {
                     frames = rightWalkFrames;
                 }
+                else if (currentState == MarioState.invincibleB)
+                {
+                    frames = bigRightWalkFramesI;
+                }
+                else if (currentState == MarioState.invincibleS)
+                {
+                    frames = rightWalkFramesI;
+                }
                 facingRight = true;
             }
         }
@@ -60,6 +84,14 @@ namespace Player
                 frames = bigRightFrames;
             }
             else if (currentState == MarioState.Small)
+            {
+                frames = rightFrames;
+            }
+            else if (currentState == MarioState.invincibleB)
+            {
+                frames = bigRightFrames;
+            }
+            else if (currentState == MarioState.invincibleS)
             {
                 frames = rightFrames;
             }
@@ -121,7 +153,7 @@ namespace Player
 
         public void crouch()
         {
-            if (currentState != MarioState.Dead)
+            if (currentState != MarioState.Dead && currentState != MarioState.invincibleS && currentState != MarioState.invincibleB)
             {
                 if (currentState == MarioState.Big)
                 {
@@ -283,6 +315,11 @@ namespace Player
         public void SetFireBall()
         {
             FireBallIsActive = true;
+        }
+
+        public int index()
+        {
+            return 1;
         }
     }
 }
