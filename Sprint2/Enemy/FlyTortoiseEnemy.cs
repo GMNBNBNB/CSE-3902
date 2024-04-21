@@ -13,7 +13,7 @@ public class FlyTortoiseEnemy : ISprite
     private Rectangle[] frames;
     private Rectangle[] leftFrames;
     private Rectangle[] rightFrames;
-    float velocity;
+    private float velocity;
     private Rectangle screenBounds;
     public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {

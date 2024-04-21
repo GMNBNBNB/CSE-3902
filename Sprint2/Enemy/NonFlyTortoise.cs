@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
+using Sprint2.Block;
 using System.Collections.Generic;
 
 public class NonFlyTortoise : ISprite
@@ -15,10 +16,15 @@ public class NonFlyTortoise : ISprite
     private Rectangle[] rightFrames;
     float velocity;
     private Rectangle screenBounds;
+    List<IBlock> block;
+
+    private float moveRangeStart;
+    private float moveRangeEnd;
     public NonFlyTortoise(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
+        this.block = block;
         leftFrames = new Rectangle[3];
         rightFrames = new Rectangle[3];
         leftFrames[0] = new Rectangle(86, 89, 21, 24);
@@ -31,8 +37,11 @@ public class NonFlyTortoise : ISprite
         frames = rightFrames;
         currentFrame = 0;
         timeSinceLastFrame = 0;
-        this.velocity = 200f;
+        this.velocity = 250f;
         this.screenBounds = screenBounds;
+
+        moveRangeStart = position.X - 300;
+        moveRangeEnd = position.X + 300;
     }
 
     public NonFlyTortoise(Texture2D enemyAttack, Vector2 enemyPosition, Rectangle rectangle)
@@ -47,25 +56,34 @@ public class NonFlyTortoise : ISprite
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+        foreach (IBlock block in block)
+        {
+            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(new Rectangle(
+                    (int)nextX,
+                    (int)position.Y,
+                    frames[currentFrame].Width * 2,
+                    frames[currentFrame].Height * 2), block.Bounds))
+            {
+                velocity = -velocity;
+                frames = rightFrames;
+            }
+            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
+                    (int)nextX,
+                    (int)position.Y,
+                    frames[currentFrame].Width * 2,
+                    frames[currentFrame].Height * 2), block.Bounds))
+            {
+                velocity = -velocity;
+                frames = leftFrames;
+            }
+            if (timeSinceLastFrame >= 50.0)
+            {
+                currentFrame++;
+                if (currentFrame >= frames.Length)
+                    currentFrame = 0;
 
-        if (nextX < screenBounds.Left + 300)
-        {
-            velocity = -velocity;
-            frames = rightFrames;
-        }
-        else if (nextX > screenBounds.Right - 200)
-        {
-            velocity = -velocity;
-            nextX = screenBounds.Right - 200;
-            frames = leftFrames;
-        }
-        if (timeSinceLastFrame >= 50.0)
-        {
-            currentFrame++;
-            if (currentFrame >= frames.Length)
-                currentFrame = 0;
-
-            timeSinceLastFrame = 0;
+                timeSinceLastFrame = 0;
+            }
         }
 
         position.X = nextX;
@@ -73,7 +91,7 @@ public class NonFlyTortoise : ISprite
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+        spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds
     {
@@ -82,8 +100,8 @@ public class NonFlyTortoise : ISprite
             Rectangle bounds = new Rectangle(
                 (int)position.X,
                 (int)position.Y,
-                frames[currentFrame].Width * 3,
-                frames[currentFrame].Height * 3
+                frames[currentFrame].Width * 2,
+                frames[currentFrame].Height * 2
             );
 
             return bounds;

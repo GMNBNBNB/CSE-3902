@@ -94,7 +94,7 @@ namespace Player
         {
             if (currentState != MarioState.Dead && (jumpSpeed == 0 || hasCollidedWithEnemy))
             {
-                jumpSpeed = -18;
+                jumpSpeed = -JumpSpeed;
                 hasCollidedWithEnemy = false;
                 if (frames == leftFrames)
                 {
@@ -206,6 +206,10 @@ namespace Player
         public void setSpeed(float speed)
         {
             velocity = speed;
+        }
+        public void setJumpSpeed(float speed)
+        {
+            JumpSpeed = speed;
         }
         public void inCave(Boolean incaveS)
         {

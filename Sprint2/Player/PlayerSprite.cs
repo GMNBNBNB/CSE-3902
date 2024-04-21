@@ -43,8 +43,9 @@ namespace Player
         private bool facingRight;
         private bool hasCollidedWithEnemy = false;
 
-        float gravity = 0.8f;
-        float jumpSpeed;
+        private float gravity = 0.8f;
+        private float jumpSpeed;
+        private float JumpSpeed;
         Texture2D MapTexture;
         Texture2D caveTexture;
         block block;
@@ -148,6 +149,7 @@ namespace Player
             currentFrame = 0;
             timeSinceLastFrame = 0;
             this.velocity = 300f;
+            this.JumpSpeed = 18;
             this.MapTexture = game.mapTexture;
             damagedAnimationTime = 0;
             isInvincible = false;

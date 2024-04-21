@@ -45,5 +45,7 @@ public interface IPlayer
     void setMarioState(MarioState state);
 
     void SetFireBall();
+
+    void setJumpSpeed(float speed);
 }
 

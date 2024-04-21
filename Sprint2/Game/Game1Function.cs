@@ -231,7 +231,7 @@ namespace Sprint0
         {
             player.reset();
             enemies.Clear();
-            enemies.Add(new FlowerEmeny(texture, EnemyPosition));
+            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
             enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks2));
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));

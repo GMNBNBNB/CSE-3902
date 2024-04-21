@@ -123,7 +123,8 @@ namespace Sprint2
                     case "speed":
                         player.setSpeed(float.Parse(value));
                         break;
-                    case "jumpS":
+                    case "jumps":
+                        player.setJumpSpeed(float.Parse(value));
                         break;
                     case "Invin":
                         game.mario_health.SetInvincible();
