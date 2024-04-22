@@ -135,4 +135,30 @@ public class DrawManager
             spriteBatch.DrawString(font, text, new Vector2(screen.Width / 2 - font.MeasureString(text).X / 2, screen.Height / 2 - 100 + 50 * 1), Color.Yellow);
         }
     }
+    public void GameOverDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int vectoryIndex)
+    {
+        spriteBatch.DrawString(font, "You Die !!!!", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X, screen.Height / 2 - 200), Color.Red, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
+        if (vectoryIndex != 0)
+        {
+            string text = "Restart";
+            spriteBatch.DrawString(font, text, new Vector2(screen.Width / 2 - font.MeasureString(text).X / 2, screen.Height / 2 - 100 + 50 * 0), Color.White);
+        }
+        else
+        {
+            string text = "Restart";
+            spriteBatch.DrawString(font, text, new Vector2(screen.Width / 2 - font.MeasureString(text).X / 2, screen.Height / 2 - 100 + 50 * 0), Color.Yellow);
+        }
+
+
+        if (vectoryIndex != 1)
+        {
+            string text = "Back to menu";
+            spriteBatch.DrawString(font, text, new Vector2(screen.Width / 2 - font.MeasureString(text).X / 2, screen.Height / 2 - 100 + 50 * 1), Color.White);
+        }
+        else
+        {
+            string text = "Back to menu";
+            spriteBatch.DrawString(font, text, new Vector2(screen.Width / 2 - font.MeasureString(text).X / 2, screen.Height / 2 - 100 + 50 * 1), Color.Yellow);
+        }
+    }
 }

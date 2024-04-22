@@ -71,6 +71,7 @@ namespace Sprint0
         private MenuController menuController;
         private PauseMenuController pauseController;
         private VectoryController vectoryController;
+        private GameOverController gameoverController;
         public Health mario_health;
         public TimeBlock timer;
 
@@ -81,7 +82,8 @@ namespace Sprint0
             Playing,
             Paused,
             Cave,
-            Vectory
+            Vectory,
+            GameOver
         }
         private int gameIndex = 0;
         private int pauseIndex = 0;
@@ -139,6 +141,7 @@ namespace Sprint0
             menuController = new MenuController(this);
             pauseController = new PauseMenuController(this);
             vectoryController = new VectoryController(this);
+            gameoverController = new GameOverController(this);
             updateManager = new UpdateManager(this);
             drawManager = new DrawManager(this);
 
@@ -216,6 +219,10 @@ namespace Sprint0
             {
                 vectoryController.Update(gameTime);
             }
+            else if (currentState == GameState.GameOver)
+            {
+                gameoverController.Update(gameTime);
+            }
             else if (currentState == GameState.Cave)
             {
                 updateManager.CaveUpdate(cavePosition, gameTime, previousS);
@@ -282,6 +289,12 @@ namespace Sprint0
             {
                 _spriteBatch.Begin();
                 drawManager.VectoryDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
+                _spriteBatch.End();
+            }
+            else if (currentState == GameState.GameOver)
+            {
+                _spriteBatch.Begin();
+                drawManager.GameOverDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
                 _spriteBatch.End();
             }
 

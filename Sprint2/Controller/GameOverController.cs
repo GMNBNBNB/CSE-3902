@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Sprint0.Controller;
 
-public class VectoryController : IController
+public class GameOverController : IController
 {
     private Game1 game;
     private KeyboardState previousKeyboardState;
     private MouseState previousMouseState;
 
 
-    public VectoryController(Game1 game)
+    public GameOverController(Game1 game)
     {
         this.game = game;
     }
@@ -46,7 +46,6 @@ public class VectoryController : IController
             }
         }
 
-        //new Vector2(GetScreenBounds().Width / 2 - font.MeasureString(text).X/2, GetScreenBounds().Height / 2 - 100 + 50 * i)
         if (mouseState.X > game.GetScreenBounds().Width / 2 - game.font.MeasureString("Restart").X / 2 && mouseState.X < game.GetScreenBounds().Width / 2 + game.font.MeasureString("Back to menu").X / 2)
         {
 

@@ -100,7 +100,7 @@ namespace Sprint2.Icon
                 }
                 if (health == 0)
                 {
-                    //game.reStart(); 
+                    game.currentState = Game1.GameState.GameOver;
                 }
 
             }

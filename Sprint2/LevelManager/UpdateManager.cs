@@ -66,19 +66,18 @@ public class UpdateManager
             game.music.stopMusic();
             game.music.startEnd();
         }
-        if (((Flag)(game.Items[game.Items.Count - 1])).over)
+        if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over|| ((Flag)(game.Items3[game.Items3.Count - 1])).over)
         {
             game.currentState = Game1.GameState.Vectory;
             game.music.stopMusic();
             game.music.startEnd();
         }
     }
-
     public void Level1Update(int gameindex,GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
         if(gameindex == 2)
         {
-            game.timer.Update(gameTime);
+            game.timer.Update(gameTime,game);
         }
         game.item.Update(gameTime, game.player);
         game.item.Update(gameTime, game.player2);

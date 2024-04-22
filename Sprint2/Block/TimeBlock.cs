@@ -22,7 +22,7 @@ namespace Sprint2.Block
             time_left = 120;
             this.font = font;
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime,Game1 game)
         {
 
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -30,6 +30,10 @@ namespace Sprint2.Block
             {
                 time_left -= 1;
                 timeSinceLastFrame = 0;
+            }
+            if(time_left <= 0)
+            {
+                game.reStart();
             }
         }
         public void Draw(SpriteBatch spriteBatch)
