@@ -39,9 +39,9 @@ namespace Sprint2.Icon
         
         // point score 
         private int coin_point = 100;
-        private int item_point = 1000;
+        //private int item_point = 1000;
         private int enemy_point = 1000;
-        private int time_point = 1;
+        //private int time_point = 1;
 
 
         // constructor
@@ -81,7 +81,7 @@ namespace Sprint2.Icon
         public void UpdateItemScore(GameTime gameTime, IPlayer player_mario, ISprite coin)
         {
             // eat the coin, increases updates
-            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds))
+            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) && coin is Coin)
             {
                 score_point = score_point + coin_point;
                 //player_mario.damaged(gameTime);
@@ -96,7 +96,7 @@ namespace Sprint2.Icon
             {
                 //player_mario.setPosition(new_position);
                 collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario.Bounds);
-                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom && enemies is not FireEmemy && enemies is not FlowerEnemy) 
                 {
                     score_point = score_point + enemy_point;
                 }

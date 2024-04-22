@@ -62,7 +62,7 @@ namespace Sprint2.Icon
         }
         public void Update(GameTime gameTime, IPlayer player_mario, ISprite coin) 
         { 
-            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) )
+            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) && coin is Coin)
             {
                 count++;
                 //player_mario.damaged(gameTime);
