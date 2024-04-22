@@ -16,7 +16,9 @@ namespace Sprint2
         int tileSize;
         int mapHeight;
         int mapWidth;
-        public FogEffect(GraphicsDevice _GraphicsDevice) 
+        int screenWidth;
+        int screenHeight;
+        public FogEffect(GraphicsDevice _GraphicsDevice, Rectangle screenBounds) 
         {
 
             fogTexture = new Texture2D(_GraphicsDevice, 1, 1);
@@ -25,15 +27,11 @@ namespace Sprint2
             tileSize = 10;
             mapHeight = 300;
             mapWidth = 3000;
+            screenWidth = screenBounds.Width;
+            screenHeight = screenBounds.Height;
 
             fogOfWarVisible = new bool[mapWidth, mapHeight];
-            for (int x = 0; x < mapWidth; x++)
-            {
-                for (int y = 0; y < mapHeight; y++)
-                {
-                    fogOfWarVisible[x, y] = false;
-                }
-            }
+            reset();
         }
 
          public void Update(Vector2 playerPosition)
@@ -41,7 +39,7 @@ namespace Sprint2
             int playerX = (int)playerPosition.X / tileSize;
             int playerY = (int)playerPosition.Y / tileSize;
 
-            int fogRadius = 3; // 3 tiles radius of clear fog
+            int fogRadius = 3; 
             for (int x = -fogRadius; x <= fogRadius; x++)
             {
                 for (int y = -fogRadius; y <= fogRadius; y++)
@@ -52,13 +50,17 @@ namespace Sprint2
                     }
                 }
             }
-         }
-        public void Draw(SpriteBatch spriteBatch)
+        }
+        public void Draw(SpriteBatch spriteBatch, Vector2 cameraPosition)
         {
+            int startX = (int)cameraPosition.X / tileSize;
+            int startY = (int)cameraPosition.Y / tileSize;
+            int endX = Math.Min(startX + screenWidth / tileSize, mapWidth) + 50;
+            int endY = Math.Min(startY + screenHeight / tileSize, mapHeight);
 
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = startX; x < endX; x++)
             {
-                for (int y = 0; y < mapHeight; y++)
+                for (int y = startY; y < endY; y++)
                 {
                     if (!fogOfWarVisible[x, y])
                     {
@@ -70,13 +72,7 @@ namespace Sprint2
 
         public void reset()
         {
-            for (int x = 0; x < mapWidth; x++)
-            {
-                for (int y = 0; y < mapHeight; y++)
-                {
-                    fogOfWarVisible[x, y] = false;
-                }
-            }
+            Array.Clear(fogOfWarVisible, 0, fogOfWarVisible.Length);
         }
     }
 }

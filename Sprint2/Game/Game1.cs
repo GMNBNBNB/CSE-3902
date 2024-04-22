@@ -141,7 +141,6 @@ namespace Sprint0
             vectoryController = new VectoryController(this);
             updateManager = new UpdateManager(this);
             drawManager = new DrawManager(this);
-            fogEffect = new FogEffect(GraphicsDevice);
 
             music = new Sounds(Content);
             base.Initialize();
@@ -175,7 +174,7 @@ namespace Sprint0
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
             score_point = new Score(font, this);
-
+            fogEffect = new FogEffect(GraphicsDevice, GetScreenBounds());
 
             reStart();
         }
@@ -246,7 +245,7 @@ namespace Sprint0
                 else if (gameIndex == 1)
                 {
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
-                    fogEffect.Draw(_spriteBatch);
+                    fogEffect.Draw(_spriteBatch, _camera.Position);
                 }
                 else if(gameIndex == 2)
                 {
