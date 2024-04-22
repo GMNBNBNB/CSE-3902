@@ -42,12 +42,6 @@ public class UpdateManager
             game.music.stopMusic();
             game.music.playPause();
         }
-        else if (Keyboard.GetState().IsKeyDown(Keys.C))
-        {
-            game.currentState = Game1.GameState.Paused;
-            game.music.stopMusic();
-            game.music.playPause();
-        }
         if (game.blockCollision.pipeAbove())
         {
             if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))

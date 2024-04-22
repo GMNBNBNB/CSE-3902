@@ -236,6 +236,12 @@ public class KeyboardController : IController
                     game.moveRight();
                 }
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            {
+                game.currentState = Game1.GameState.Paused;
+                game.music.stopMusic();
+                game.music.playPause();
+            }
         }
         
         previousKeyboardState = state;

@@ -115,7 +115,12 @@ namespace Sprint2
             {
                 health.increaseHealth();
             }
-            if (code.Length >= 5)
+            else if (code == "invin")
+            {
+                game.mario_health.SetInvincible(player);
+                game.mario_health.SetInvincible(player2);
+            }
+            if (code.Length > 5)
             {
                 string firstFiveChars = code.Substring(0, 5);
                 string value = code.Substring(6);
@@ -129,11 +134,7 @@ namespace Sprint2
                     case "jumps":
                         player.setJumpSpeed(float.Parse(value));
                         player2.setJumpSpeed(float.Parse(value));
-                        break;
-                    case "Invin":
-                        game.mario_health.SetInvincible(player);
-                        game.mario_health.SetInvincible(player2);
-                        break;
+                        break;                
                 }
             }
         }

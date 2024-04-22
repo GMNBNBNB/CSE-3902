@@ -20,8 +20,7 @@ namespace Sprint0
         }
 
         public void reStart()
-        {
-            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
+        {           
             music.startMusic();
             enemies.Clear();
             blocks.Clear();
@@ -36,7 +35,6 @@ namespace Sprint0
             enemies2.Clear();
             enemies3.Clear();
             projectiles.Clear();
-            controllerList.Add(new KeyboardController(this));
             fogEffect.reset();
 
             mario_health = new Health(texture, font, this);
@@ -45,6 +43,8 @@ namespace Sprint0
 
             player = new PlayerSprite(this, GetScreenBounds());
             player2 = new PlayerSprite2(this, GetScreenBounds());
+            CheatCodeManager = new CheatCodeManager(font, player, player2, mario_health, this);
+            controllerList.Add(new KeyboardController(this));
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
             map3 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 3);
