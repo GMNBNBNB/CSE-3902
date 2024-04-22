@@ -33,7 +33,7 @@ public class UpdateManager
         }
     }
 
-    public void PlayUpdate(Vector2 playerPosition)
+    public void PlayUpdate(Vector2 playerPosition, KeyboardState previousS)
     {
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
         {
@@ -50,7 +50,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
             {
                 game.music.playPipe();
                 game.currentState = Game1.GameState.Cave;
@@ -166,7 +166,7 @@ public class UpdateManager
         }
     }
 
-    public void CaveUpdate(Vector2 playerPosition, GameTime gameTime)
+    public void CaveUpdate(Vector2 playerPosition, GameTime gameTime, KeyboardState previousS)
     {
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
         {
@@ -178,7 +178,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
             {
                 game.currentState = Game1.GameState.Playing;
                 game.music.playPipe();

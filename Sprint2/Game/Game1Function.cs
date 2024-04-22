@@ -27,14 +27,17 @@ namespace Sprint0
             blocks.Clear();
             blocks2.Clear();
             blocks3.Clear();
+            blocksC.Clear();
             Items.Clear();
             Items2.Clear();
             Items3.Clear();
+            ItemsC.Clear();
             enemies1.Clear();
             enemies2.Clear();
             enemies3.Clear();
             projectiles.Clear();
             controllerList.Add(new KeyboardController(this));
+            fogEffect.reset();
 
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);

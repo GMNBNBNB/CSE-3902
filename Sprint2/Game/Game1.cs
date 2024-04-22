@@ -103,6 +103,9 @@ namespace Sprint0
         public CoinCount coin_count;
         public Score score_point;
 
+        FogEffect fogEffect;
+        KeyboardState previousS;
+
         protected override void Initialize()
         {
             position = new Vector2(_graphics.PreferredBackBufferWidth / 2 - 300, _graphics.PreferredBackBufferHeight / 2);
@@ -138,6 +141,7 @@ namespace Sprint0
             vectoryController = new VectoryController(this);
             updateManager = new UpdateManager(this);
             drawManager = new DrawManager(this);
+            fogEffect = new FogEffect(GraphicsDevice);
 
             music = new Sounds(Content);
             base.Initialize();
@@ -187,7 +191,7 @@ namespace Sprint0
             }
             else if (currentState == GameState.Playing)
             {
-                updateManager.PlayUpdate(playerPosition);
+                updateManager.PlayUpdate(playerPosition, previousS);
 
                 if (gameIndex == 0)
                 {
@@ -196,6 +200,8 @@ namespace Sprint0
                 else if (gameIndex == 1)
                 {
                     updateManager.Level1Update(gameIndex,gameTime, Items2, blocks2, enemies2);
+                    fogEffect.Update(player.getPosition());
+                    fogEffect.Update(player2.getPosition());
                 }
                 else if(gameIndex == 2)
                 {
@@ -213,8 +219,9 @@ namespace Sprint0
             }
             else if (currentState == GameState.Cave)
             {
-                updateManager.CaveUpdate(cavePosition, gameTime);
+                updateManager.CaveUpdate(cavePosition, gameTime, previousS);
             }
+            previousS = Keyboard.GetState();
             base.Update(gameTime);
         }
 
@@ -239,6 +246,7 @@ namespace Sprint0
                 else if (gameIndex == 1)
                 {
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
+                    fogEffect.Draw(_spriteBatch);
                 }
                 else if(gameIndex == 2)
                 {
