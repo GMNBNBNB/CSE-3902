@@ -26,8 +26,10 @@ namespace Sprint0
             enemies.Clear();
             blocks.Clear();
             blocks2.Clear();
+            blocks3.Clear();
             Items.Clear();
             Items2.Clear();
+            Items3.Clear();
             enemies1.Clear();
             enemies2.Clear();
             enemies3.Clear();
@@ -45,6 +47,7 @@ namespace Sprint0
             map3 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 3);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
+            timer = new TimeBlock(textureB,font);
             Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             Items2.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
         }
@@ -249,6 +252,7 @@ namespace Sprint0
             {
                 enemies3.Add(enemy);
             }
+
         }
         public void AddBlock(IBlock block, int level)
         {
@@ -259,7 +263,7 @@ namespace Sprint0
             else if (level == 2)
             {
                 blocks2.Add(block);
-            } 
+            }
             else if (level == 3)
             {
                 blocks3.Add(block);
@@ -317,6 +321,7 @@ namespace Sprint0
             enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
             enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
             enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
+            enemies.Add(new FireEmemy(enemyAttack, EnemyPosition));
             projectiles.Clear();
         }
 

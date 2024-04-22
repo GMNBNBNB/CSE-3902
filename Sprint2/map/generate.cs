@@ -18,9 +18,7 @@ public class Generate
     private string csvU;
     private string csvM;
     private string csvM2;
-    
-    private string csvM3;   
-
+    private string csvM3;
     private string csvC;
     private int level;
     private Texture2D BlockTexture;
@@ -37,9 +35,7 @@ public class Generate
         this.pipeTexture = pipeTexture;
         csvM = @"..\..\..\mapGen.csv";
         csvM2 = @"..\..\..\mapGen2.csv";
-
         csvM3 = @"..\..\..\mapGen3.csv";
-
         csvC = @"..\..\..\cavGen.csv";
         this.level = level;
         if (level == 1)
@@ -50,7 +46,7 @@ public class Generate
         {
             csvU = csvM2;
         }
-        else if(level == 3)
+        else if (level == 3)
         {
             csvU = csvM3;
         }
@@ -156,6 +152,9 @@ public class Generate
                 break;
             case "FlowerEnemy":
                 game.AddEnemy(new FlowerEnemy(enemy, position, game.GetMap(), game, block), level);
+                break;
+            case "FireEmemy":
+                game.AddEnemy(new FireEmemy(enemy, position), level);
                 break;
         }
     }
