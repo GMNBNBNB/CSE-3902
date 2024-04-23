@@ -44,7 +44,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
+            if ((Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S)) || (Keyboard.GetState().IsKeyDown(Keys.Down) && !previousS.IsKeyDown(Keys.Down)))
             {
                 game.music.playPipe();
                 game.currentState = Game1.GameState.Gointopipe;
@@ -172,7 +172,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
+            if ((Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S)) || (Keyboard.GetState().IsKeyDown(Keys.Down) && !previousS.IsKeyDown(Keys.Down)))
             {
                 game.currentState = Game1.GameState.Gointopipe;
                 game.music.playPipe();
