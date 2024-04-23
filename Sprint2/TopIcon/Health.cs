@@ -57,7 +57,7 @@ namespace Sprint2.Icon
             InvincibleTime1 = 0;
             InvincibleTime2 = 0;
         }
-        private void UpdateHealthString()
+        public void UpdateHealthString()
         {
             health_string = health.ToString();
         }

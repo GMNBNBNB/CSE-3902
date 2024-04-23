@@ -26,14 +26,17 @@ namespace Sprint0
             blocks.Clear();
             blocks2.Clear();
             blocks3.Clear();
+            blocks4.Clear();
             blocksC.Clear();
             Items.Clear();
             Items2.Clear();
             Items3.Clear();
+            Items4.Clear();
             ItemsC.Clear();
             enemies1.Clear();
             enemies2.Clear();
             enemies3.Clear();
+            enemies4.Clear();
             projectiles.Clear();
             fogEffect.reset();
 
@@ -48,6 +51,7 @@ namespace Sprint0
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 2);
             map3 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 3);
+            map4 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 4);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
             timer = new TimeBlock(textureB,font);
@@ -256,6 +260,10 @@ namespace Sprint0
             {
                 enemies3.Add(enemy);
             }
+            if (level == 4)
+            {
+                enemies4.Add(enemy);
+            }
 
         }
         public void AddBlock(IBlock block, int level)
@@ -271,6 +279,10 @@ namespace Sprint0
             else if (level == 3)
             {
                 blocks3.Add(block);
+            }
+            else if (level == 4)
+            {
+                blocks4.Add(block);
             }
             else
             {
@@ -296,6 +308,10 @@ namespace Sprint0
             {
                 Items3.Add(item);
             }
+            else if (level == 4)
+            {
+                Items4.Add(item);
+            }
             else
             {
                 ItemsC.Add(item);
@@ -320,12 +336,6 @@ namespace Sprint0
             player.reset();
             player2.reset();
             enemies.Clear();
-            enemies.Add(new FlowerEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new FlyTortoiseEnemy(texture, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new TortoiseEnemy(this, enemyAttack, EnemyPosition, GetScreenBounds(), projectiles));
-            enemies.Add(new Goomba(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new NonFlyTortoise(enemyAttack, EnemyPosition, GetScreenBounds(), this, blocks));
-            enemies.Add(new FireEmemy(enemyAttack, EnemyPosition));
             projectiles.Clear();
         }
 

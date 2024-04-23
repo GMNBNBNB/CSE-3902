@@ -11,7 +11,6 @@ public class FireEmemy : ISprite
     private Texture2D texture;
     private Vector2 position;
     private int currentFrame;
-    private double timeSinceLastFrame;
     private Rectangle[] frames;
 
 
@@ -23,7 +22,7 @@ public class FireEmemy : ISprite
         frames[0] = new Rectangle(0, 154, 15, 16);
         frames[1] = new Rectangle(61, 154, 15, 16);
         currentFrame = 0;
-        timeSinceLastFrame = 0;
+
     }
 
     public void Update(GameTime gameTime, IPlayer p)

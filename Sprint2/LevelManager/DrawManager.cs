@@ -23,7 +23,7 @@ public class DrawManager
     {
         game.map.Draw(spriteBatch);
         spriteBatch.DrawString(font, "Super Mario", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X, screen.Height / 2 - 200), Color.White, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
 
             if (i != gameIndex)

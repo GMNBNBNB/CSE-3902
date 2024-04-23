@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Sprint0;
 using Sprint2;
+using Sprint2.Icon;
 
 public class EnemyFireball : IProjectiles
 {
@@ -69,12 +70,28 @@ public class EnemyFireball : IProjectiles
 
     public void Update(GameTime gameTime, List<ISprite> enemies, IPlayer player, List<IBlock> blocks)
     {
+        if (!IsActive)
+        {
+            return;
+        }
+
         Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (enemyFireballCollision.EnemyFireballHitMario(player))
         {
             player.damaged(gameTime);
+            game.music.playFireworks();
+            game.mario_health.UpdateHealthString();
+            IsActive = false;
         }
+        else if (enemyFireballCollision.EnemyFireballHitMario(game.player2))
+        {
+            game.player2.damaged(gameTime);
+            game.music.playFireworks();
+            game.mario_health.UpdateHealthString();
+            IsActive = false;
+        }
+
         foreach (IBlock b in blocks)
         {
             if (enemyFireballCollision.EnemyFireballHitBlock(b))
