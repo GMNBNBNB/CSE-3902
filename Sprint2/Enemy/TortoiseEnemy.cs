@@ -19,7 +19,12 @@ public class TortoiseEnemy : ISprite
     private List<object> projectiles;
     private Game1 game;
 
-    public TortoiseEnemy(Game1 game, Texture2D enemyAttack, Vector2 position, Rectangle screenBounds, List<object> projectiles)
+    List<IBlock> block;
+    private float moveRangeStart;
+    private float moveRangeEnd;
+    CollisionHelper.CollisionDirection collisionDirection;
+
+    public TortoiseEnemy(Game1 game, Texture2D enemyAttack, Vector2 position, Rectangle screenBounds, List<IBlock> block, List<object> projectiles)
     {
         this.game = game;
         this.enemyAttack = enemyAttack;
@@ -39,42 +44,119 @@ public class TortoiseEnemy : ISprite
         frames = rightFrames;
         currentFrame = 0;
         timeSinceLastFrame = 0;
-        this.velocity = 100f;
+        this.velocity = 50;
         this.screenBounds = screenBounds;
+
+        this.block = block;
+        moveRangeStart = position.X - 100;
+        moveRangeEnd = position.X + 100;
     }
 
+
+
+    public TortoiseEnemy(Texture2D enemyAttack, Vector2 enemyPosition, Rectangle rectangle)
+    {
+        EnemyAttack = enemyAttack;
+        EnemyPosition = enemyPosition;
+        Rectangle = rectangle;
+    }
 
     public void Update(GameTime gameTime, IPlayer p)
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-        if (nextX < screenBounds.Left + 300)
-        {
-            velocity = -velocity;
-            frames = rightFrames;
-            FireSpeed = new Vector2(-300, 0);
-            EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
-            projectiles.Add(newEnemyFireball);
-        }
-        else if (nextX > screenBounds.Right - 200)
-        {
-            velocity = -velocity;
-            nextX = screenBounds.Right - 200;
-            frames = leftFrames;
-            FireSpeed = new Vector2(300, 0);
-            EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
-            projectiles.Add(newEnemyFireball);
-        }
-        if (timeSinceLastFrame >= 200.0)
-        {
-            currentFrame++;
-            if (currentFrame >= frames.Length)
-                currentFrame = 0;
 
+        bool collisionOccurred = false;
+
+        foreach (IBlock block in block)
+        {
+            Rectangle nextPosition = new Rectangle(
+                (int)nextX,
+                (int)position.Y,
+                frames[currentFrame].Width * 2,
+                frames[currentFrame].Height * 2);
+
+            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            {
+                collisionOccurred = true;
+                velocity = -velocity;
+                //frames = rightFrames;
+                FireSpeed = new Vector2(-300, 0);
+                EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
+                projectiles.Add(newEnemyFireball);
+            }
+            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            {
+                collisionOccurred = true;
+                velocity = -velocity;
+                nextX = screenBounds.Right - 100;
+                //frames = leftFrames;
+                FireSpeed = new Vector2(300, 0);
+                EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
+                projectiles.Add(newEnemyFireball);
+            }
+            if (velocity > 0)
+            {
+                frames = rightFrames;
+            }
+            else
+            {
+                frames = leftFrames;
+            }
+            break;
+        }
+        if (!collisionOccurred)
+        {
+            position.X = nextX;
+        }
+
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+            {
+                p.CheckCollisionWithEnemy(true);
+                p.jump();
+                game.DestroyEnemy(this);
+                game.music.playStomp();
+            }
+        }
+
+        if (timeSinceLastFrame >= 200)
+        {
+            currentFrame = (currentFrame + 1) % frames.Length;
             timeSinceLastFrame = 0;
         }
-        position.X = nextX;
+        // above new code
+
+        // old code below
+        //if (nextX < screenBounds.Left + 300)
+        //{
+        //    velocity = -velocity;
+        //    frames = rightFrames;
+        //    FireSpeed = new Vector2(-300, 0);
+        //    EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
+        //    projectiles.Add(newEnemyFireball);
+        //}
+        //else if (nextX > screenBounds.Right - 200)
+        //{
+        //    velocity = -velocity;
+        //    nextX = screenBounds.Right - 200;
+        //    frames = leftFrames;
+        //    FireSpeed = new Vector2(300, 0);
+        //    EnemyFireball newEnemyFireball = new EnemyFireball(game, enemyAttack, position, FireSpeed, screenBounds);
+        //    projectiles.Add(newEnemyFireball);
+        //}
+        //if (timeSinceLastFrame >= 200.0)
+        //{
+        //    currentFrame++;
+        //    if (currentFrame >= frames.Length)
+        //        currentFrame = 0;
+
+        //    timeSinceLastFrame = 0;
+        //}
+        //position.X = nextX;
     }
 
     public void Draw(SpriteBatch spriteBatch)
@@ -88,11 +170,16 @@ public class TortoiseEnemy : ISprite
             Rectangle bounds = new Rectangle(
                  (int)position.X,
                  (int)position.Y,
-                 frames[currentFrame].Width * 3,
-                 frames[currentFrame].Height * 3
+                 frames[currentFrame].Width * 2,
+                 frames[currentFrame].Height * 2
              );
 
             return bounds;
         }
     }
+
+    public Texture2D EnemyAttack { get; }
+    public Vector2 EnemyPosition { get; }
+    public Rectangle Rectangle { get; }
+
 }

@@ -25,7 +25,7 @@ public class Sounds
     private Song music;
     private Song gameOver;
     private Song ending;
-    private Stopwatch stopwatchKick, stopwatchPower;
+    private Stopwatch stopwatchKick, stopwatchPower, stopwatchFire;
     private const int ThrottleInterval = 100;
 
     public Sounds(ContentManager Content)
@@ -48,8 +48,10 @@ public class Sounds
 
         stopwatchKick = new Stopwatch();
         stopwatchPower = new Stopwatch();
+        stopwatchFire = new Stopwatch();
         stopwatchKick.Start();
         stopwatchPower.Start();
+        stopwatchFire.Start();
     }
 
     public void startMusic()
@@ -74,7 +76,7 @@ public class Sounds
         if (stopwatchKick.ElapsedMilliseconds >= ThrottleInterval)
         {
             kick.Play();
-            stopwatchKick.Restart(); // 重置计时器
+            stopwatchKick.Restart();
         }
     }
 
@@ -83,7 +85,7 @@ public class Sounds
         if (stopwatchPower.ElapsedMilliseconds >= ThrottleInterval)
         {
             power.Play();
-            stopwatchPower.Restart(); // 重置计时器
+            stopwatchPower.Restart();
         }
     }
 
@@ -114,7 +116,11 @@ public class Sounds
 
     public void playFireworks()
     {
-        fireworks.Play();
+        if (stopwatchFire.ElapsedMilliseconds >= ThrottleInterval)
+        {
+            fireworks.Play();
+            stopwatchFire.Restart();
+        }
     }
 
     public void playDie()

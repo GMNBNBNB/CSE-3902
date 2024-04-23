@@ -50,6 +50,11 @@ namespace Sprint0
         public List<ISprite> enemies3;
         public List<IBlock> blocks3;
         public List<ISprite> Items3;
+
+        public List<ISprite> enemies4;
+        public List<IBlock> blocks4;
+        public List<ISprite> Items4;
+
         public block block;
 
         public ISprite item;
@@ -63,6 +68,7 @@ namespace Sprint0
         public Map map;
         public Map map2;
         public Map map3;
+        public Map map4;
         public Cave cave;
         public BlockCollision blockCollision;
 
@@ -137,6 +143,10 @@ namespace Sprint0
             blocks3 = new List<IBlock>();
             enemies3 = new List<ISprite>();
 
+            Items4 = new List<ISprite>();
+            blocks4 = new List<IBlock>();
+            enemies4 = new List<ISprite>();
+
             blockCollision = new BlockCollision();
             menuController = new MenuController(this);
             pauseController = new PauseMenuController(this);
@@ -170,6 +180,7 @@ namespace Sprint0
             map = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 1);
             map2 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks2, 2);
             map3 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks3, 3);
+            map4 = new Map(mapTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks4, 4);
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
             font = Content.Load<SpriteFont>("File");
@@ -208,6 +219,10 @@ namespace Sprint0
                 else if(gameIndex == 2)
                 {
                     updateManager.Level1Update(gameIndex,gameTime, Items3, blocks3, enemies3);
+                }
+                else if (gameIndex == 3)
+                {
+                    updateManager.Level1Update(gameIndex, gameTime, Items4, blocks4, enemies4);
                 }
             }
             else if (currentState == GameState.Paused)
@@ -257,6 +272,10 @@ namespace Sprint0
                 else if(gameIndex == 2)
                 {
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map3, Items3, blocks3, enemies3);
+                }
+                else if (gameIndex == 3)
+                {
+                    drawManager.Level1Draw(_spriteBatch, gameIndex, map4, Items4, blocks4, enemies4);
                 }
                 _spriteBatch.End();
                 CheatCodeManager.Draw(_spriteBatch);

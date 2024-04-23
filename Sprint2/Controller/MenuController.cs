@@ -68,7 +68,12 @@ public class MenuController : IController
             {
                 game.focusLevel(2);
             }
-            
+            else if (mouseState.Y > game.GetScreenBounds().Height / 2 + 50 &&
+         mouseState.Y < game.GetScreenBounds().Height / 2 + 100)
+            {
+                game.focusLevel(3);
+            }
+
             if (mouseState.LeftButton == ButtonState.Released && previousMouseState.LeftButton == ButtonState.Pressed)
             {
                 game.currentState = Game1.GameState.Playing;
