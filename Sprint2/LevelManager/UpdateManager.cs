@@ -44,7 +44,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
+            if ((Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S)) || (Keyboard.GetState().IsKeyDown(Keys.Down) && !previousS.IsKeyDown(Keys.Down)))
             {
                 game.music.playPipe();
                 game.currentState = Game1.GameState.Gointopipe;
@@ -66,7 +66,9 @@ public class UpdateManager
             game.music.stopMusic();
             game.music.startEnd();
         }
-        if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over || ((Flag)(game.Items3[game.Items3.Count - 1])).over)
+        if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over 
+            || ((Flag)(game.Items3[game.Items3.Count - 1])).over 
+            || ((Flag)(game.Items4[game.Items4.Count - 1])).over)
         {
             game.currentState = Game1.GameState.Vectory;
             game.music.stopMusic();
@@ -172,7 +174,7 @@ public class UpdateManager
         }
         if (game.blockCollision.pipeAbove())
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
+            if ((Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S)) || (Keyboard.GetState().IsKeyDown(Keys.Down) && !previousS.IsKeyDown(Keys.Down)))
             {
                 game.currentState = Game1.GameState.Gointopipe;
                 game.music.playPipe();

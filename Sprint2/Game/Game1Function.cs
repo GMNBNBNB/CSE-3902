@@ -58,6 +58,7 @@ namespace Sprint0
             Items.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             Items2.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
             Items3.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
+            Items4.Add(new Flag(this, textureQiGan, textureQiZi, positionQiZi));
         }
 
         public void ChangeSprite(ISprite newSprite)

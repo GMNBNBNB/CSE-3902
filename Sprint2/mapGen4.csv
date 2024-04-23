@@ -14,7 +14,7 @@ enemy,FlowerEnemy,1600,370
 enemy,FlowerEnemy,1650,370
 enemy,FlowerEnemy,1800,370
 enemy,FlowerEnemy,1850,370
-block,BrownBlock1,1950,372
+block,BrownBlock1,1950,322
 enemy,Goomba,2150,366
 enemy,Goomba,2250,366
 enemy,Goomba,2350,366

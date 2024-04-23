@@ -348,6 +348,23 @@ namespace Sprint0
                 mario_health.Draw(_spriteBatch);
                 coin_count.Draw(_spriteBatch);
             }
+            else if (currentState == GameState.Gointopipe)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                _spriteBatch.Begin();
+                if (check)
+                {
+                    _spriteBatch.DrawString(font, "go into pipe", new Vector2(GraphicsDevice.Viewport.Width - 150, GraphicsDevice.Viewport.Height - 30), Color.White);
+                }
+                else
+                {
+                    _spriteBatch.DrawString(font, "out pipe", new Vector2(GraphicsDevice.Viewport.Width - 150, GraphicsDevice.Viewport.Height - 30), Color.White);
+                }
+                _spriteBatch.End();
+
+                mario_health.Draw(_spriteBatch);
+                coin_count.Draw(_spriteBatch);
+            }
             else if (currentState == GameState.Vectory)
             {
                 _spriteBatch.Begin();
@@ -356,6 +373,7 @@ namespace Sprint0
             }
             else if (currentState == GameState.GameOver)
             {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin();
                 drawManager.GameOverDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
                 _spriteBatch.End();
