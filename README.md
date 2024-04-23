@@ -1,7 +1,7 @@
 3902 team 6 project
 
 
-We have designed three levels, where level 1 and level 2 are adventure levels, and level 3 is a test room.
+We have designed three levels, where level 1 and level 2 are adventure levels, and level 3 and level 4 is extra levels.
 
 for MainMenu, PauseMenu and VictoryMenu:
 
