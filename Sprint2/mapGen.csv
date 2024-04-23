@@ -51,7 +51,7 @@ block,FlowerBlock,2144,100
 block,MusBlock,1530,100
 block,StarBlock,360,120
 block,pipe,1000,350
-enemy,Goomba,600,366
+enemy,FlyTortoiseEnemy,600,350
 enemy,Goomba,2048,366
 item,Coin,950,200
 item,Coin,1000,200
