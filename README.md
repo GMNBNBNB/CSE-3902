@@ -3,12 +3,14 @@
 
 We have designed three levels, where level 1 and level 2 are adventure levels, and level 3 is a time level.(we delete test room)
 
-for MainMenu, PauseMenu and VictoryMenu:
+for MainMenu, PauseMenu, GameOver and VictoryMenu:
 
 We created three pages, including the main page, the pause page and the Victory page. 
 The main page contains three levels, and players can choose from any of the three levels. 
 After entering the game, you can switch to the pause page by pressing C, the pause page includes returning to the main menu and continuing the game. 
 After completing the level, the Victory screen appears, which includes a restart and return to the main menu.
+If you die more than 3 times, you will enter game over menu, you can choose restart or back to mainmenu.
+(tip: we use m to mute sound and type again to open)
 
 For level 1:
 We achieved collisions with enemies and blocks. Implements interaction with items and blocks. 
@@ -33,3 +35,5 @@ For CheatCode:
 The game has added cheaters, which currently include increasing the player's health through "increase health". 
 Transforms the player into the invincible state "invin". Change the player's speed "speed"
 Then enter the speed number you want, and the "jumps" to change player's jump ability
+
+
