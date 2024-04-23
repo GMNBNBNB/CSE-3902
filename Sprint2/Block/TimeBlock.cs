@@ -14,13 +14,17 @@ namespace Sprint2.Block
         private int time_left;
         private double timeSinceLastFrame;
 
+        float scale_font;
+
         public TimeBlock(Texture2D texture, SpriteFont font)
         {
             texture2 = texture;
-            position = new Vector2(400, 0);
-            p2 = position + new Vector2(100, 0);
+            position = new Vector2(400, 20);
+            p2 = position + new Vector2(130, 0);
             time_left = 120;
             this.font = font;
+
+            scale_font = 1.3f;
         }
         public void Update(GameTime gameTime,Game1 game)
         {
@@ -39,8 +43,9 @@ namespace Sprint2.Block
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Matrix.Identity);
-            spriteBatch.DrawString(font, "Time left:", position, Color.Black);
-            spriteBatch.DrawString(font, time_left.ToString(), p2, Color.Black);
+            spriteBatch.DrawString(font, "Time left:", position, Color.White, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, time_left.ToString(), p2, Color.White, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
+            //sb.DrawString(font, score_point_string, point_font_position, Color.White, 0f, Vector2.Zero, scale_font, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
         public Rectangle Bounds
