@@ -54,18 +54,6 @@ public class UpdateManager
                 game.player2.setPosition(playerPosition);
             }
         }
-        if (game.player.getPosition().X >= game._camera.Map.Width - 50)
-        {
-            game.currentState = Game1.GameState.Vectory;
-            game.music.stopMusic();
-            game.music.startEnd();
-        }
-        if (game.player2.getPosition().X >= game._camera.Map.Width - 50)
-        {
-            game.currentState = Game1.GameState.Vectory;
-            game.music.stopMusic();
-            game.music.startEnd();
-        }
         if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over|| ((Flag)(game.Items3[game.Items3.Count - 1])).over)
         {
             game.currentState = Game1.GameState.Vectory;
