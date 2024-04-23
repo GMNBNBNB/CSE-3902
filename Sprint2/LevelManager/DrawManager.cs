@@ -111,7 +111,7 @@ public class DrawManager
 
     public void VectoryDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int vectoryIndex)
     {
-        spriteBatch.DrawString(font, "Vectory", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X, screen.Height / 2 - 200), Color.White, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
+        spriteBatch.DrawString(font, "V ict o ry", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X + 50, screen.Height / 2 - 180), Color.White, 0, new Vector2(0, 0), 1.75f, SpriteEffects.None, 0);
         if (vectoryIndex != 0)
         {
             string text = "Restart";
@@ -137,7 +137,7 @@ public class DrawManager
     }
     public void GameOverDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int vectoryIndex)
     {
-        spriteBatch.DrawString(font, " You Die !!!!", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X, screen.Height / 2 - 200), Color.Red, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
+        spriteBatch.DrawString(font, " You Die !!!!", new Vector2(screen.Width / 2 - font.MeasureString("Main Menu").X, screen.Height / 2 - 180), Color.Red, 0, new Vector2(0, 0), 2, SpriteEffects.None, 0);
         if (vectoryIndex != 0)
         {
             string text = "Restart";
