@@ -89,7 +89,8 @@ namespace Sprint0
             Paused,
             Cave,
             Vectory,
-            GameOver
+            GameOver,
+            Gointopipe
         }
         private int gameIndex = 0;
         private int pauseIndex = 0;
@@ -113,6 +114,8 @@ namespace Sprint0
 
         FogEffect fogEffect;
         KeyboardState previousS;
+        float delayTimer;
+        Boolean check;
 
         protected override void Initialize()
         {
@@ -142,6 +145,8 @@ namespace Sprint0
             Items3 = new List<ISprite>();
             blocks3 = new List<IBlock>();
             enemies3 = new List<ISprite>();
+            delayTimer = 1.0f;
+            check = true;
 
             Items4 = new List<ISprite>();
             blocks4 = new List<IBlock>();
@@ -184,7 +189,7 @@ namespace Sprint0
             cave = new Cave(caveTexture, enemyAttack, GetScreenBounds(), this, textureB, textureI, pipeTexture, blocks, 0);
             item = new Spring(textureI, positionI);
             font = Content.Load<SpriteFont>("File");
-            timer = new TimeBlock(textureB,font);
+            timer = new TimeBlock(textureB, font);
             mario_health = new Health(texture, font, this);
             coin_count = new CoinCount(textureI, font, this);
             score_point = new Score(font, this);
@@ -208,17 +213,17 @@ namespace Sprint0
 
                 if (gameIndex == 0)
                 {
-                    updateManager.Level1Update(gameIndex,gameTime, Items, blocks, enemies1);
+                    updateManager.Level1Update(gameIndex, gameTime, Items, blocks, enemies1);
                 }
                 else if (gameIndex == 1)
                 {
-                    updateManager.Level1Update(gameIndex,gameTime, Items2, blocks2, enemies2);
+                    updateManager.Level1Update(gameIndex, gameTime, Items2, blocks2, enemies2);
                     fogEffect.Update(player.getPosition());
                     fogEffect.Update(player2.getPosition());
                 }
-                else if(gameIndex == 2)
+                else if (gameIndex == 2)
                 {
-                    updateManager.Level1Update(gameIndex,gameTime, Items3, blocks3, enemies3);
+                    updateManager.Level1Update(gameIndex, gameTime, Items3, blocks3, enemies3);
                 }
                 else if (gameIndex == 3)
                 {
@@ -237,6 +242,27 @@ namespace Sprint0
             else if (currentState == GameState.GameOver)
             {
                 gameoverController.Update(gameTime);
+            }
+            else if (currentState == GameState.Gointopipe)
+            {
+                if (delayTimer > 0)
+                {
+                    delayTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                else
+                {
+                    if (check)
+                    {
+                        currentState = GameState.Cave;
+                        check = false;
+                    }
+                    else
+                    {
+                        currentState = GameState.Playing;
+                        check = true;
+                    }
+                    delayTimer = 1.0f;
+                }
             }
             else if (currentState == GameState.Cave)
             {
@@ -269,7 +295,7 @@ namespace Sprint0
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map2, Items2, blocks2, enemies2);
                     fogEffect.Draw(_spriteBatch, _camera.Position);
                 }
-                else if(gameIndex == 2)
+                else if (gameIndex == 2)
                 {
                     drawManager.Level1Draw(_spriteBatch, gameIndex, map3, Items3, blocks3, enemies3);
                 }
@@ -303,6 +329,24 @@ namespace Sprint0
 
                 mario_health.Draw(_spriteBatch);
                 coin_count.Draw(_spriteBatch);
+                score_point.Draw(_spriteBatch);
+            }
+            else if (currentState == GameState.Gointopipe)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                _spriteBatch.Begin();
+                if (check)
+                {
+                    _spriteBatch.DrawString(font, "go into pipe", new Vector2(GraphicsDevice.Viewport.Width - 150, GraphicsDevice.Viewport.Height - 30), Color.White);
+                }
+                else
+                {
+                    _spriteBatch.DrawString(font, "out pipe", new Vector2(GraphicsDevice.Viewport.Width - 150, GraphicsDevice.Viewport.Height - 30), Color.White);
+                }
+                _spriteBatch.End();
+
+                mario_health.Draw(_spriteBatch);
+                coin_count.Draw(_spriteBatch);
             }
             else if (currentState == GameState.Vectory)
             {
@@ -312,7 +356,6 @@ namespace Sprint0
             }
             else if (currentState == GameState.GameOver)
             {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin();
                 drawManager.GameOverDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
                 _spriteBatch.End();

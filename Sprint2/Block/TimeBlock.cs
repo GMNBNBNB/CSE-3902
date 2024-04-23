@@ -6,7 +6,6 @@ namespace Sprint2.Block
 {
     public class TimeBlock
     {
-        private int currentBlockIndex = 0;
         private Rectangle currentBlockRect;
         private Texture2D texture2;
         private Vector2 position, p2;
@@ -16,6 +15,7 @@ namespace Sprint2.Block
 
         public TimeBlock(Texture2D texture, SpriteFont font)
         {
+            currentBlockRect = new Rectangle(271, 112, 16, 16);
             texture2 = texture;
             position = new Vector2(400, 0);
             p2 = position + new Vector2(100, 0);

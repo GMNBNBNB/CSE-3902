@@ -34,7 +34,6 @@ block,BrownBlock1,1080,300
 block,BrownBlock1,1110,300
 block,BrownBlock1,1110,270
 block,BrownBlock1,960,270
-enemy,FlowerEnemy,1000,245
 block,BrownBlock1,1260,150
 block,BrownBlock1,1290,150
 block,BrownBlock1,1320,150
@@ -43,7 +42,6 @@ block,BrownBlock1,1380,150
 block,BrownBlock1,1410,150
 block,BrownBlock1,1410,120
 block,BrownBlock1,1260,120
-enemy,FlowerEnemy,1300,95
 block,BrownBlock1,1530,88
 block,BrownBlock1,1560,88
 block,BrownBlock1,1590,118

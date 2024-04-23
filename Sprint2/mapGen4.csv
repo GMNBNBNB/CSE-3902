@@ -1,5 +1,5 @@
 type,name,x,y
-enemy,TortoiseEnemy,400,372
+enemy,TortoiseEnemy,900,360
 enemy,FlyTortoiseEnemy,750,280
 enemy,FlyTortoiseEnemy,950,280
 enemy,NonFlyTortoise,700,372

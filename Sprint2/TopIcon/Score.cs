@@ -32,9 +32,6 @@ namespace Sprint2.Icon
         private string score_point_string;
         private Vector2 point_font_position;
 
-        // other variables 
-        private bool isInvincible;
-        private double InvincibleTime;
         CollisionHelper.CollisionDirection collisionDirection;
         
         // point score 
@@ -61,9 +58,6 @@ namespace Sprint2.Icon
             score_point_string = score_point.ToString();
             point_font_position = new Vector2(320, 20);
 
-            // other variables
-            isInvincible = false;
-            InvincibleTime = 0;
         }
         private void UpdateScoreString()
         {

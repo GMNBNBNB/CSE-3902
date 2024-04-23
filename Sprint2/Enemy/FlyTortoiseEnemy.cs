@@ -2,9 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
-using System.Collections.Generic;
-
 using Sprint2.Block;
+using System.Collections.Generic;
+using static CollisionHelper;
+
 
 public class FlyTortoiseEnemy : ISprite
 {
@@ -83,7 +84,6 @@ public class FlyTortoiseEnemy : ISprite
     {
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
 
         bool collisionOccurred = false;
 
