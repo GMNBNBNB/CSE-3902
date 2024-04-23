@@ -26,6 +26,9 @@ In level 3:
 Level 3 is a time-limited level, which states that the player must complete it by a specified time, or they will fail. 
 These include very difficult fireball attacks and blocking blocks.
 
+In level 4:
+Level 4 is a muti-enemies level, which has a 5 types enemies and can have an enemy can shoot fireball.
+
 For Block:
 We added a variety of different blocks, including the mushroom block, which Mario bumps into will pop up the mushroom, 
 and Mario can eat the mushroom to become bigger and gain a life. Star block: When Mario hits a block, a star will pop out, and Mario can be invincible for 10 seconds if he eats the star. 
@@ -33,7 +36,19 @@ Flower block, Mario hit the block will pop flowers, Mario eat the flower can cau
 
 For CheatCode:
 The game has added cheaters, which currently include increasing the player's health through "increase health". 
-Transforms the player into the invincible state "invin". Change the player's speed "speed"
-Then enter the speed number you want, and the "jumps" to change player's jump ability
+Change the player's speed using "speed X"(X is integer)
+Change the player's jump ability using "jumps X"(X is integer)
 
 
+For player Control:
+
+player1:
+using "W A S D" to move
+using "num 1" to shoot fireball
+
+player2:
+using "Arrows on the keyboard" to move
+using "space" to shoot fireball
+
+keyboard "r" can reset player
+keyboard "e" can damage player
