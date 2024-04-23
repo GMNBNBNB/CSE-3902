@@ -310,6 +310,7 @@ namespace Sprint0
 
                 mario_health.Draw(_spriteBatch);
                 coin_count.Draw(_spriteBatch);
+                score_point.Draw(_spriteBatch);
             }
             else if (currentState == GameState.Gointopipe)
             {
