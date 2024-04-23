@@ -293,6 +293,7 @@ namespace Sprint0
             }
             else if (currentState == GameState.GameOver)
             {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
                 _spriteBatch.Begin();
                 drawManager.GameOverDraw(_spriteBatch, GetScreenBounds(), font, vectoryIndex);
                 _spriteBatch.End();
