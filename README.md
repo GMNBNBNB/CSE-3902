@@ -18,7 +18,7 @@ There are dungeon levels, where Mario can enter the dungeon by pressing the S ke
 
 for level 2:
 Based on level 1, we added more monsters and plants, and Mario can get bigger after eating the flowers and add 1 health. 
-And the larger Mario can send fireballs.
+And we added fog, which brightens the area when Mario has explored it. To make it easier, we didn't make the fog particularly dark.
 
 In level 3:
 Level 3 is a time-limited level, which states that the player must complete it by a specified time, or they will fail. 
