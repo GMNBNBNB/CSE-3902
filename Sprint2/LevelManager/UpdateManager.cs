@@ -47,29 +47,42 @@ public class UpdateManager
             if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
             {
                 game.music.playPipe();
-                game.currentState = Game1.GameState.Cave;
+                game.currentState = Game1.GameState.Gointopipe;
                 game.player.inCave(true);
                 game.player.setPosition(playerPosition);
                 game.player2.inCave(true);
                 game.player2.setPosition(playerPosition);
             }
         }
-        if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over|| ((Flag)(game.Items3[game.Items3.Count - 1])).over)
+        if (game.player.getPosition().X >= game._camera.Map.Width - 50)
+        {
+            game.currentState = Game1.GameState.Vectory;
+            game.music.stopMusic();
+            game.music.startEnd();
+        }
+        if (game.player2.getPosition().X >= game._camera.Map.Width - 50)
+        {
+            game.currentState = Game1.GameState.Vectory;
+            game.music.stopMusic();
+            game.music.startEnd();
+        }
+        if (((Flag)(game.Items[game.Items.Count - 1])).over || ((Flag)(game.Items2[game.Items2.Count - 1])).over || ((Flag)(game.Items3[game.Items3.Count - 1])).over)
         {
             game.currentState = Game1.GameState.Vectory;
             game.music.stopMusic();
             game.music.startEnd();
         }
     }
-    public void Level1Update(int gameindex,GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
+    public void Level1Update(int gameindex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
-        if(gameindex == 2)
+        if (gameindex == 2)
         {
-            game.timer.Update(gameTime,game);
+            game.timer.Update(gameTime, game);
         }
         game.item.Update(gameTime, game.player);
         game.item.Update(gameTime, game.player2);
-        if (game.player.getPosition().X> game.player2.getPosition().X) {
+        if (game.player.getPosition().X > game.player2.getPosition().X)
+        {
             game._camera.Update(game.player.getPosition(), game.currentState);
         }
         else
@@ -161,7 +174,7 @@ public class UpdateManager
         {
             if (Keyboard.GetState().IsKeyDown(Keys.S) && !previousS.IsKeyDown(Keys.S))
             {
-                game.currentState = Game1.GameState.Playing;
+                game.currentState = Game1.GameState.Gointopipe;
                 game.music.playPipe();
                 game.player.inCave(false);
                 game.player.setPosition(new Vector2(1000, 300));

@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
+using Sprint2.Block;
 using System.Collections.Generic;
+using static CollisionHelper;
 
 public class FlyTortoiseEnemy : ISprite
 {
@@ -15,25 +17,36 @@ public class FlyTortoiseEnemy : ISprite
     private Rectangle[] rightFrames;
     private float velocity;
     private Rectangle screenBounds;
+
+    private float moveRangeStart;
+    private float moveRangeEnd;
+    CollisionHelper.CollisionDirection collisionDirection;
+    List<IBlock> block;
+    private Game1 game;
     public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
         this.position = position;
+        this.screenBounds = screenBounds;
+        this.game = game;
+        this.block = block;
         leftFrames = new Rectangle[4];
         rightFrames = new Rectangle[4];
-        leftFrames[0] = new Rectangle(237, 205, 18, 25);
-        leftFrames[1] = new Rectangle(218, 205, 18, 25);
-        leftFrames[2] = new Rectangle(198, 205, 18, 25);
-        leftFrames[3] = new Rectangle(179, 205, 18, 25);
-        rightFrames[0] = new Rectangle(256, 205, 18, 25);
-        rightFrames[1] = new Rectangle(276, 205, 18, 25);
-        rightFrames[2] = new Rectangle(296, 205, 18, 25);
-        rightFrames[3] = new Rectangle(314, 205, 18, 25);
+        leftFrames[0] = new Rectangle(178, 0, 18, 25);
+        leftFrames[1] = new Rectangle(147, 0, 18, 25);
+        leftFrames[2] = new Rectangle(116, 0, 18, 25);
+        leftFrames[3] = new Rectangle(88, 0, 18, 25);
+        rightFrames[0] = new Rectangle(208, 0, 18, 25);
+        rightFrames[1] = new Rectangle(238, 0, 18, 25);
+        rightFrames[2] = new Rectangle(267, 0, 18, 25);
+        rightFrames[3] = new Rectangle(298, 0, 18, 25);
         frames = rightFrames;
         currentFrame = 0;
         timeSinceLastFrame = 0;
         this.velocity = 200f;
         this.screenBounds = screenBounds;
+        moveRangeStart = position.X - 300;
+        moveRangeEnd = position.X + 300;
     }
 
     public void Update(GameTime gameTime, IPlayer p)
@@ -41,28 +54,58 @@ public class FlyTortoiseEnemy : ISprite
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+        bool collisionOccurred = false;
 
-        if (nextX < screenBounds.Left + 300)
+        foreach (IBlock block in block)
         {
-            velocity = -velocity;
-            frames = rightFrames;
+            Rectangle nextPosition = new Rectangle(
+                (int)nextX,
+                (int)position.Y,
+                frames[currentFrame].Width * 2,
+                frames[currentFrame].Height * 2);
+
+            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            {
+                collisionOccurred = true;
+                velocity = -velocity;
+            }
+            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            {
+                collisionOccurred = true;
+                velocity = -velocity;
+            }
+            if (velocity > 0)
+            {
+                frames = rightFrames;
+            }
+            else
+            {
+                frames = leftFrames;
+            }
+            break;
         }
-        else if (nextX > screenBounds.Right - 200)
+        if (!collisionOccurred)
         {
-            velocity = -velocity;
-            nextX = screenBounds.Right - 200;
-            frames = leftFrames;
+            position.X = nextX;
         }
+
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        {
+            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+            {
+                p.CheckCollisionWithEnemy(true);
+                p.jump();
+                game.DestroyEnemy(this);
+                game.music.playStomp();
+            }
+        }
+
         if (timeSinceLastFrame >= 200)
         {
-            currentFrame++;
-            if (currentFrame >= frames.Length)
-                currentFrame = 0;
-
+            currentFrame = (currentFrame + 1) % frames.Length;
             timeSinceLastFrame = 0;
         }
-
-        position.X = nextX;
     }
 
     public void Draw(SpriteBatch spriteBatch)
@@ -83,4 +126,4 @@ public class FlyTortoiseEnemy : ISprite
             return bounds;
         }
     }
-    }
+}
