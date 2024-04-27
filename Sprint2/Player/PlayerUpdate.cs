@@ -148,18 +148,14 @@ namespace Player
                     timeSinceLastFrame = 0;
                 }
             }
-            if (jumpSpeed != 0 || position.Y <= GetScreenBounds.Height - this.Bounds.Height - 60)
+
+            jumpSpeed += gravity;
+            position.Y += jumpSpeed;
+
+            if (position.Y > GetScreenBounds.Height - this.Bounds.Height)
             {
-                jumpSpeed += gravity;
-                position.Y += jumpSpeed;
-
-                if (position.Y >= GetScreenBounds.Height - this.Bounds.Height - 60)
-                {
-                    position.Y = GetScreenBounds.Height - this.Bounds.Height - 60;
-                    jumpSpeed = 0;
-                }
+                game.currentState = Game1.GameState.GameOver;
             }
-
         }
     }
 }
