@@ -70,7 +70,6 @@ public class FlyTortoiseEnemy : ISprite
     {
         Random rand = new Random();
         float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        verticalMoveRangeStart = rand.Next(100, 450);
         float nextY = position.Y + verticalVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -127,6 +126,7 @@ public class FlyTortoiseEnemy : ISprite
 
         if (timeSinceLastFrame >= 300)
         {
+            verticalMoveRangeStart = rand.Next(100, 450);
             currentFrame = (currentFrame + 1) % frames.Length;
             timeSinceLastFrame = 0;
         }      
