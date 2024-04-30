@@ -26,7 +26,8 @@ public class Goomba : ISprite
     CollisionHelper.CollisionDirection collisionDirection;
     private List<IBlock> block;
     private float FixHight;
-
+    private double deathAnimationDuration = 1000;
+    private double deathAnimationTime;
     private enum State
     {
         Walking,
@@ -61,59 +62,55 @@ public class Goomba : ISprite
 
     public void Update(GameTime gameTime, IPlayer p)
     {
-        float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-        foreach (IBlock block in block)
+        
+        if (currentState == State.Dying)
         {
-            if (nextX < moveRangeStart || nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
-                (int)nextX,
-                (int)position.Y,
-                frames[currentFrame].Width * 3,
-                frames[currentFrame].Height * 3), block.Bounds))
+            deathAnimationTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (deathAnimationTime >= deathAnimationDuration)
             {
-                velocity = -velocity;
-                nextX = MathHelper.Clamp(nextX, moveRangeStart, moveRangeEnd);
+                game.DestroyEnemy(this);
+                return;
             }
         }
-
-
-        if (currentState == State.Walking)
+        else
         {
+            float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
+            foreach (IBlock block in block)
+            {
+                if (nextX < moveRangeStart || nextX > moveRangeEnd || CollisionDetector.DetectCollision(new Rectangle(
+                    (int)nextX,
+                    (int)position.Y,
+                    frames[currentFrame].Width * 3,
+                    frames[currentFrame].Height * 3), block.Bounds))
+                {
+                    velocity = -velocity;
+                    nextX = MathHelper.Clamp(nextX, moveRangeStart, moveRangeEnd);
+                }
+            }
+            position.X = nextX;
             if (timeSinceLastFrame >= 200)
             {
                 currentFrame++;
                 if (currentFrame >= frames.Length - 1)
-                    currentFrame = 0;
-
-                timeSinceLastFrame = 0;
-            }
-        }
-        else if (currentState == State.Dying)
-        {          
-            if (timeSinceLastFrame >= 200)
-            {
-                currentFrame++;
-                if (currentFrame >= frames.Length)
                 {
-                    game.DestroyEnemy(this);
                     currentFrame = 0;
-                }             
+                }
                 timeSinceLastFrame = 0;
             }
-        }
-
-        position.X = nextX;
-
-
+        }     
+        
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {
             collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
             if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
             {
+                currentFrame = 2;
                 currentState = State.Dying;
                 p.CheckCollisionWithEnemy(true);
                 p.jump();
                 game.music.playStomp();
+                position.Y += FixHight;
             }
         }
 

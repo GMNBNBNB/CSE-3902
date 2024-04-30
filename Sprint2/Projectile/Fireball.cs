@@ -40,7 +40,7 @@ public class Fireball : IProjectiles
         fireballCollision = new FireballCollision(this);
         moveRangeL = position.X - 300;
         moveRangeR = position.X + 300;
-        gravity = 98f;
+        gravity = 300f;
         bounceFactor = 1f;
     }
 

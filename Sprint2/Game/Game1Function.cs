@@ -37,6 +37,7 @@ namespace Sprint0
             enemies2.Clear();
             enemies3.Clear();
             enemies4.Clear();
+            scoreNeed.Clear();
             projectiles.Clear();
             fogEffect.reset();
 

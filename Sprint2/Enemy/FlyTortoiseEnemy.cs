@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprint0;
 using Sprint2.Block;
+using System;
 using System.Collections.Generic;
 using static CollisionHelper;
 
@@ -16,6 +17,7 @@ public class FlyTortoiseEnemy : ISprite
     private Rectangle[] frames;
     private Rectangle[] leftFrames;
     private Rectangle[] rightFrames;
+    private Rectangle[] DideFrames;
     private float velocity;
     private Rectangle screenBounds;
 
@@ -25,6 +27,20 @@ public class FlyTortoiseEnemy : ISprite
     CollisionHelper.CollisionDirection collisionDirection;
     private Game1 game;
 
+    private float verticalVelocity;
+    private float verticalMoveRangeStart;
+    private float verticalMoveRangeEnd;
+    private enum State
+    {
+        Walking,
+        Dying
+    }
+
+    private State currentState;
+
+    private double deathAnimationDuration = 1000;
+    private double deathAnimationTime;
+
     public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
         this.texture = texture;
@@ -33,44 +49,31 @@ public class FlyTortoiseEnemy : ISprite
         leftFrames = new Rectangle[2];
         rightFrames = new Rectangle[2];
 
+        DideFrames = new Rectangle[2];
+
+        DideFrames[0] = new Rectangle(329, 63, 16, 16);
+        DideFrames[1] = new Rectangle(359, 64, 16, 16);
+
+
         leftFrames[0] = new Rectangle(88, 59, 18, 25);
         leftFrames[1] = new Rectangle(118, 59, 18, 25);
 
         rightFrames[0] = new Rectangle(298, 59, 18, 25);
         rightFrames[1] = new Rectangle(267, 59, 18, 25); // width, height
 
-
-        //leftFrames[0] = new Rectangle(237, 205, 18, 25);
-        //leftFrames[1] = new Rectangle(218, 205, 18, 25);
-        ////leftFrames[2] = new Rectangle(198, 205, 18, 25);
-        ////leftFrames[3] = new Rectangle(179, 205, 18, 25);
-
-        //rightFrames[0] = new Rectangle(256, 205, 18, 25);
-        //rightFrames[1] = new Rectangle(276, 205, 18, 25);
-
-        //rightFrames[2] = new Rectangle(296, 205, 18, 25);
-        //rightFrames[3] = new Rectangle(314, 205, 18, 25);
-        //leftFrames = new Rectangle[4];
-        //rightFrames = new Rectangle[4];
-        //leftFrames[0] = new Rectangle(237, 205, 18, 25);
-        //leftFrames[1] = new Rectangle(218, 205, 18, 25);
-        //leftFrames[2] = new Rectangle(198, 205, 18, 25);
-        //leftFrames[3] = new Rectangle(179, 205, 18, 25);
-        //rightFrames[0] = new Rectangle(256, 205, 18, 25);
-        //rightFrames[1] = new Rectangle(276, 205, 18, 25);
-        //rightFrames[2] = new Rectangle(296, 205, 18, 25);
-        //rightFrames[3] = new Rectangle(314, 205, 18, 25);
-
         frames = rightFrames;
         currentFrame = 0;
         timeSinceLastFrame = 0;
         this.velocity = 50f;
+        this.verticalVelocity = 30f;
         this.screenBounds = screenBounds;
 
         this.block = block;
         this.game = game;
         moveRangeStart = position.X - 150;
         moveRangeEnd = position.X + 150;
+      
+        verticalMoveRangeEnd = position.Y;
     }
 
 
@@ -82,105 +85,87 @@ public class FlyTortoiseEnemy : ISprite
     }
     public void Update(GameTime gameTime, IPlayer p)
     {
-        float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-        bool collisionOccurred = false;
-
-
-        foreach (IBlock block in block)
+        if (currentState == State.Dying)
         {
-            Rectangle nextPosition = new Rectangle((int)nextX, (int)position.Y, frames[currentFrame].Width * 2, frames[currentFrame].Height * 2); //
-
-            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            if (timeSinceLastFrame >= 300)
             {
-                collisionOccurred = true;
-                velocity = -velocity;
+                currentFrame = (currentFrame + 1) % frames.Length;
+                timeSinceLastFrame = 0;
             }
-            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
-            {
-                collisionOccurred = true;
-                velocity = -velocity;
-            }
-            if (velocity > 0)
-            {
-                frames = rightFrames;
-            }
-            else
-            {
-                frames = leftFrames;
-            }
-            break;
-        }
-
-        if (!collisionOccurred)
-        {
-            position.X = nextX;
-        }
-
-        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
-        {
-            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
-            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
-            {
-                p.CheckCollisionWithEnemy(true);
-                p.jump();
-                game.DestroyEnemy(this);
-                game.music.playStomp();
-            }
-        }
-
-        if (timeSinceLastFrame >= 300)
-        {
+            deathAnimationTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             currentFrame = (currentFrame + 1) % frames.Length;
-            timeSinceLastFrame = 0;
+            if (deathAnimationTime >= deathAnimationDuration)
+            {
+                game.DestroyEnemy(this);
+                return;
+            }
         }
+        else
+        {
+            Random rand = new Random();
+            float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float nextY = position.Y + verticalVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        //if (nextX < moveRangeStart )
-        //{
-        //    velocity = -velocity;
-        //    frames = rightFrames;
-        //}
-        //else if (nextX > moveRangeEnd)
-        //{
-        //    velocity = -velocity;
-        //    nextX = moveRangeEnd - 200;
-        //    frames = leftFrames;
-        //}
-        //if (timeSinceLastFrame >= 200)
-        //{
-        //    currentFrame++;
-        //    if (currentFrame >= frames.Length)
-        //        currentFrame = 0;
+            bool collisionOccurred = false;
 
-        //    timeSinceLastFrame = 0;
-        //}
+            foreach (IBlock block in block)
+            {
+                Rectangle nextPosition = new Rectangle((int)nextX, (int)position.Y, frames[currentFrame].Width * 2, frames[currentFrame].Height * 2); //
 
-        //position.X = nextX;
+                if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+                {
+                    collisionOccurred = true;
+                    velocity = -velocity;
+                }
+                else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+                {
+                    collisionOccurred = true;
+                    velocity = -velocity;
+                }
+                if (velocity > 0)
+                {
+                    frames = rightFrames;
+                }
+                else
+                {
+                    frames = leftFrames;
+                }
+                break;
+            }
 
+            if (nextY < verticalMoveRangeStart || nextY > verticalMoveRangeEnd)
+            {
+                verticalVelocity = -verticalVelocity;
+            }
 
-        //if (nextX < screenBounds.Left + 300)
-        //{
-        //    velocity = -velocity;
-        //    frames = rightFrames;
-        //}
-        //else if (nextX > screenBounds.Right - 200)
-        //{
-        //    velocity = -velocity;
-        //    nextX = screenBounds.Right - 200;
-        //    frames = leftFrames;
-        //}
-        //if (timeSinceLastFrame >= 200)
-        //{
-        //    currentFrame++;
-        //    if (currentFrame >= frames.Length)
-        //        currentFrame = 0;
+            if (!collisionOccurred)
+            {
+                position.X = nextX;
+                position.Y = nextY;
+            }          
+            if (timeSinceLastFrame >= 300)
+            {
+                verticalMoveRangeStart = rand.Next(100, 450);
+                currentFrame = (currentFrame + 1) % frames.Length;
+                timeSinceLastFrame = 0;
+            }
 
-        //    timeSinceLastFrame = 0;
-        //}
-
-        //position.X = nextX;
+            if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+            {
+                collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+                {
+                    frames = DideFrames;
+                    currentState = State.Dying;
+                    p.CheckCollisionWithEnemy(true);
+                    p.jump();
+                    game.music.playStomp();
+                }
+            }
+        }
     }
+
 
     public void Draw(SpriteBatch spriteBatch)
     {
