@@ -77,7 +77,7 @@ namespace Sprint2.Icon
             {
                 //player_mario.setPosition(new_position);
                 collisionDirection = CollisionHelper.DetermineCollisionDirection(enemies.Bounds, player_mario.Bounds);
-                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom && enemies is not FireEmemy && enemies is not FlowerEnemy) 
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom && player_mario.GetMarioState() != MarioState.Dead && enemies is not FireEmemy && enemies is not FlowerEnemy) 
                 {
                     score_point = score_point + enemy_point;
                 }
