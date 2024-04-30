@@ -18,7 +18,9 @@ namespace Sprint2.Block
         private bool GetCoin = false;
         private Game1 game;
         private ISprite Coin;
-        private bool activeSound;
+        private bool activeSound; private float originalY;
+        private bool isBumping = false;
+        private double bumpAnimationTimer = 0;
 
         public CoinBlock(Texture2D texture, Vector2 position, Texture2D textureItem, Game1 game)
         {
@@ -35,6 +37,7 @@ namespace Sprint2.Block
             frames[3] = new Rectangle(128, 111, 16, 16);
             currentItemRect = new Rectangle(125, 94, 12, 18);
             Coin = new Coin(game, textureItem, MusPosition);
+            originalY = position.Y;
 
         }
         public void Update(GameTime gameTime, IPlayer player)
@@ -45,8 +48,18 @@ namespace Sprint2.Block
                 currentFrame++;
                 if (currentFrame >= 2)
                     currentFrame = 0;
-
                 timeSinceLastFrame = 0;
+            }
+
+            if (isBumping)
+            {
+                bumpAnimationTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (bumpAnimationTimer >= 30)
+                {
+                    position.Y = originalY;
+                    isBumping = false;
+                    bumpAnimationTimer = 0;
+                }
             }
 
             if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
@@ -66,6 +79,10 @@ namespace Sprint2.Block
                         game.music.playKick();
                     }
 
+                    originalY = position.Y;
+                    position.Y -= 10;
+                    isBumping = true;
+                    bumpAnimationTimer = 0;
                 }
             }
             if (GetCoin)

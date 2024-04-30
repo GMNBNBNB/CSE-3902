@@ -19,9 +19,13 @@ namespace Sprint2.Block
         private Game1 game;
         private ISprite mushroom;
         private bool activeSound;
+        private float originalY;
+        private bool isBumping = false;
+        private double bumpAnimationTimer = 0;
 
         public MusBlock(Texture2D texture, Vector2 position, Texture2D textureItem, Game1 game)
         {
+            originalY = position.Y;
             activeSound = true;
             this.game = game;
             texture2 = texture;
@@ -40,13 +44,24 @@ namespace Sprint2.Block
         public void Update(GameTime gameTime, IPlayer player)
         {
             timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (timeSinceLastFrame >= 600 && currentFrame !=3)
+            if (timeSinceLastFrame >= 600 && currentFrame != 3)
             {
                 currentFrame++;
                 if (currentFrame >= 2)
                     currentFrame = 0;
 
                 timeSinceLastFrame = 0;
+            }
+
+            if (isBumping)
+            {
+                bumpAnimationTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (bumpAnimationTimer >= 30)
+                {
+                    position.Y = originalY;
+                    isBumping = false;
+                    bumpAnimationTimer = 0;
+                }
             }
 
             if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
@@ -65,6 +80,11 @@ namespace Sprint2.Block
                     {
                         game.music.playKick();
                     }
+
+                    originalY = position.Y;
+                    position.Y -= 10;
+                    isBumping = true;
+                    bumpAnimationTimer = 0;
                 }
             }
             if (GetMus)
