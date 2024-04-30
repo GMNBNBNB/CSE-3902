@@ -105,11 +105,11 @@ namespace Player
                 Vector2 fireballVelocity;
                 if (facingRight)
                 {
-                    fireballVelocity = new Vector2(350, 0);
+                    fireballVelocity = new Vector2(150, 0);
                 }
                 else
                 {
-                    fireballVelocity = new Vector2(-350, 0);
+                    fireballVelocity = new Vector2(-150, 0);
                 }
                 game.music.playFireball();
                 Fireball newFireball = new Fireball(game, texturePro, position, fireballVelocity, GetScreenBounds);

@@ -19,6 +19,9 @@ public class Fireball : IProjectiles
     private Game1 game;
     private float moveRangeL;
     private float moveRangeR;
+    private float gravity;
+    private float bounceFactor;
+    CollisionHelper.CollisionDirection collisionDirection;
 
     public Fireball(Game1 game, Texture2D texture, Vector2 position, Vector2 velocity, Rectangle screenBounds)
     {
@@ -37,6 +40,8 @@ public class Fireball : IProjectiles
         fireballCollision = new FireballCollision(this);
         moveRangeL = position.X - 300;
         moveRangeR = position.X + 300;
+        gravity = 98f;
+        bounceFactor = 1f;
     }
 
     public Rectangle Bounds
@@ -46,27 +51,45 @@ public class Fireball : IProjectiles
             Rectangle bounds = new Rectangle(
                 (int)Position.X,
                 (int)Position.Y,
-                frames[currentFrame].Width * 3,
-                frames[currentFrame].Height * 3
+                frames[currentFrame].Width*2,
+                frames[currentFrame].Height*2
             );
 
             return bounds;
         }
     }
 
-
-
     public void Update(GameTime gameTime, List<ISprite> enemies, IPlayer player, List<IBlock> blocks)
     {
-        Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (!IsActive)
+        {
+            return;
+        }
+        float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        Position += Velocity * deltaTime;
+        Velocity.Y += gravity * deltaTime;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
+        
+
+        foreach (IBlock b in blocks)
+        {
+            if (fireballCollision.FireballHitBlock(b))
+            {
+                collisionDirection = CollisionHelper.DetermineCollisionDirection(b.Bounds, this.Bounds);
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+                {
+                    Velocity.Y = -Velocity.Y * bounceFactor;
+                }
+                else
+                {
+                    IsActive = false;
+                }
+                break;
+            }
+        }
+
         if (enemies.Count > 0)
         {
-
-            if (!IsActive)
-            {
-                return;
-            }
             ISprite toRemove = null;
             foreach (ISprite e in enemies)
             {
@@ -78,20 +101,12 @@ public class Fireball : IProjectiles
                     break;
                 }
             }
-            foreach (IBlock b in blocks)
-            {
-                if (fireballCollision.FireballHitBlock(b))
-                {
-                    game.music.playFireworks();
-                    IsActive = false;
-                    break;
-                }
-            }
             if (toRemove != null)
             {
                 enemies.Remove(toRemove);
             }
         }
+
 
         if (Position.X < moveRangeL || Position.X > moveRangeR)
         {
@@ -113,7 +128,7 @@ public class Fireball : IProjectiles
     {
         if (IsActive)
         {
-            spriteBatch.Draw(texture, Position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, Position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
         }
     }
 }

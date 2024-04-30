@@ -281,7 +281,7 @@ block,BrownBlock1,2632,166
 block,BrownBlock1,2400,230
 block,BrownBlock1,2432,230
 block,MusBlock,2048,100
-block,FlowerBlock,2144,100
+block,FlowerBlock, 300,120
 block,MusBlock,1530,100
 block,StarBlock,360,120
 block,pipe,1000,350
