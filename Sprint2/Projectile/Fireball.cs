@@ -104,6 +104,7 @@ public class Fireball : IProjectiles
             if (toRemove != null)
             {
                 enemies.Remove(toRemove);
+                IsActive = false;
             }
         }
 

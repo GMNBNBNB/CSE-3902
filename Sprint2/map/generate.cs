@@ -129,6 +129,9 @@ public class Generate
             case "FlowerBlock":
                 game.AddBlock(new FlowerBlock(BlockTexture, position, textureI, game), level);
                 break;
+            case "CoinBlock":
+                game.AddBlock(new CoinBlock(BlockTexture, position, textureI, game), level);
+                break;
         }
     }
 

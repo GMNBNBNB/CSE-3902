@@ -158,6 +158,7 @@ public class FlyTortoiseEnemy : ISprite
                 {
                     frames = DideFrames;
                     currentState = State.Dying;
+                    game.score_point.increaseEnemyScore();
                     p.CheckCollisionWithEnemy(true);
                     p.jump();
                     game.music.playStomp();

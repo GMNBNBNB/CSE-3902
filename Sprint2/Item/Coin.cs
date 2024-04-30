@@ -15,6 +15,7 @@ public class Coin : ISprite
     private double timeSinceLastFrame;
     private Rectangle[] frames;
     private Game1 game;
+    private bool IsActive;
 
     public Coin(Game1 game,Texture2D texture, Vector2 position)
     {
@@ -28,10 +29,14 @@ public class Coin : ISprite
         frames[3] = new Rectangle(218, 93, 7, 18);
         currentFrame = 0;
         timeSinceLastFrame = 0;
+
+        IsActive = true;
     }
 
     public void Update(GameTime gameTime,IPlayer player)
     {
+        if (!IsActive) return;
+
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
         if (timeSinceLastFrame >= 400)
         {
@@ -44,12 +49,16 @@ public class Coin : ISprite
         if (CollisionDetector.DetectCollision(Bounds, player.Bounds))
         {          
             game.music.playCoin();
+            game.score_point.increaseCoinScore();
+            game.coin_count.increaseCoin();
+            IsActive = false;
             game.DestroyItem(this);
         }
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
+        if (!IsActive) return;
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
     }
     public Rectangle Bounds

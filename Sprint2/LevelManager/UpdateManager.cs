@@ -126,14 +126,7 @@ public class UpdateManager
         foreach (ISprite I in Item)
         {
             I.Update(gameTime, game.player);
-            game.coin_count.Update(gameTime, game.player, I);
-            game.score_point.UpdateItemScore(gameTime, game.player, I);
-
-
             I.Update(gameTime, game.player2);
-            game.coin_count.Update(gameTime, game.player2, I);
-            game.score_point.UpdateItemScore(gameTime, game.player2, I);
-
         }
         if (enemie.Count > 0)
         {
@@ -223,14 +216,6 @@ public class UpdateManager
         {
             I.Update(gameTime, game.player);
             I.Update(gameTime, game.player2);
-
-            // update coin and score in the cave for player 1
-            game.coin_count.Update(gameTime, game.player, I);
-            game.score_point.UpdateItemScore(gameTime, game.player, I);
-
-            // update coin and score in the cave for player 2
-            game.coin_count.Update(gameTime, game.player2, I);
-            game.score_point.UpdateItemScore(gameTime, game.player2, I);
         }
         foreach (IProjectiles pro in game.projectiles)
         {

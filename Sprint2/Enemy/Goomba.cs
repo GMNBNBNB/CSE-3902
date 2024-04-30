@@ -107,6 +107,7 @@ public class Goomba : ISprite
             {
                 currentFrame = 2;
                 currentState = State.Dying;
+                game.score_point.increaseEnemyScore();
                 p.CheckCollisionWithEnemy(true);
                 p.jump();
                 game.music.playStomp();

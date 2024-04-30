@@ -48,6 +48,7 @@ public class Mushroom : ISprite
         if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
         {
             p.ChangeCurrentState();
+            game.score_point.increaseItemScore();
             game.music.playBig();
             IsActive = false;
         }

@@ -100,6 +100,7 @@ public class NonFlyTortoise : ISprite
             if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
             {
                 p.CheckCollisionWithEnemy(true);
+                game.score_point.increaseEnemyScore();
                 p.jump();
                 game.DestroyEnemy(this);
                 game.music.playStomp();

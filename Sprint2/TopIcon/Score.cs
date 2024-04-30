@@ -11,37 +11,28 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Sprint2.Icon
 {
-    // draw the mario sprite symbol + the number of lifes
     public class Score
     {
 
-        //variables
 
-        // common variables for both string
         private Game1 game;
         float scale_font;
         private SpriteFont font;
         
 
-        // word "Score" drawing
         private string score_sprite;
         private Vector2 sprite_font_position;
 
-        // scroe number drawing variables
         private int score_point;
         private string score_point_string;
         private Vector2 point_font_position;
 
         CollisionHelper.CollisionDirection collisionDirection;
         
-        // point score 
         private int coin_point = 100;
-        //private int item_point = 1000;
         private int enemy_point = 1000;
-        //private int time_point = 1;
 
 
-        // constructor
         public Score(SpriteFont font, Game1 game)
         {
             // common variables
@@ -63,26 +54,22 @@ namespace Sprint2.Icon
         {
             score_point_string = score_point.ToString();
         }
-        public void increaseScore()
+        public void increaseCoinScore()
         {
-            score_point++;
+            score_point += 100;
+            UpdateScoreString();
         }
-        public void decreaseScore()
+        public void increaseItemScore()
         {
-            score_point--;
+            score_point += 500;
+            UpdateScoreString();
         }
-        
-        public void UpdateItemScore(GameTime gameTime, IPlayer player_mario, ISprite coin)
+        public void increaseEnemyScore()
         {
-            // eat the coin, increases updates
-            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) && coin is Coin)
-            {
-                score_point = score_point + coin_point;
-                //player_mario.damaged(gameTime);
-                UpdateScoreString();
-            }
+            score_point += 1000;
+            UpdateScoreString();
         }
-        
+
         public void UpdateEnemyScore(GameTime gameTime, IPlayer player_mario, ISprite enemies)
         {
             // stamp on the enemy, increases the score
@@ -97,9 +84,6 @@ namespace Sprint2.Icon
                 UpdateScoreString();
             }
         }
-
-        public void UpdateTimeScore(GameTime gameTime, IPlayer player_mario) { }
-
 
         public void Draw(SpriteBatch sb) //, Texture2D texture
         {

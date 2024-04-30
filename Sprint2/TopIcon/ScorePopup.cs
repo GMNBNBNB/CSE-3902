@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sprint2
+namespace Sprint2.TopIcon
 {
     public class ScorePopup
     {
         Vector2 positionN;
         private int score = 1000;
         private float timer = 1.0f;
-        Boolean active;
+        bool active;
         Game game;
         public ScorePopup(Game game)
         {
@@ -21,7 +21,7 @@ namespace Sprint2
             this.game = game;
         }
 
-        public void Update(GameTime gameTime, Boolean dead)
+        public void Update(GameTime gameTime, bool dead)
         {
             if (dead)
                 active = true;

@@ -280,6 +280,10 @@ block,BrownBlock1,2568,166
 block,BrownBlock1,2632,166
 block,BrownBlock1,2400,230
 block,BrownBlock1,2432,230
+block,CoinBlock,2700,230
+block,CoinBlock,2732,230
+block,CoinBlock,2764,230
+block,CoinBlock,2796,230
 block,MusBlock,2048,100
 block,FlowerBlock, 300,120
 block,MusBlock,1530,100

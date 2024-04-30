@@ -50,26 +50,13 @@ namespace Sprint2.Icon
         public void increaseCoin()
         {
             count++;
-        }
-        public void decreaseCoin()
-        {
-            count--;
+            UpdateCoinString();
         }
         public void resetCoin()
         {
             count = 0;
             UpdateCoinString();
-        }
-        public void Update(GameTime gameTime, IPlayer player_mario, ISprite coin) 
-        { 
-            if (CollisionDetector.DetectCollision(coin.Bounds, player_mario.Bounds) && coin is Coin)
-            {
-                count++;
-                //player_mario.damaged(gameTime);
-                UpdateCoinString();
-            }
-
-        }
+        }     
         public void Draw(SpriteBatch sb) //, Texture2D texture
         {
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Matrix.Identity); // Draw Begin
