@@ -100,7 +100,7 @@ public class Goomba : ISprite
             }
         }     
         
-        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+        if (CollisionDetector.DetectCollision(Bounds, p.Bounds) && p.GetMarioState() != MarioState.Dead)
         {
             collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
             if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
