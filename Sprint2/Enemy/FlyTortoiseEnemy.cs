@@ -17,6 +17,7 @@ public class FlyTortoiseEnemy : ISprite
     private Rectangle[] frames;
     private Rectangle[] leftFrames;
     private Rectangle[] rightFrames;
+    private Rectangle[] DideFrames;
     private float velocity;
     private Rectangle screenBounds;
 
@@ -29,6 +30,16 @@ public class FlyTortoiseEnemy : ISprite
     private float verticalVelocity;
     private float verticalMoveRangeStart;
     private float verticalMoveRangeEnd;
+    private enum State
+    {
+        Walking,
+        Dying
+    }
+
+    private State currentState;
+
+    private double deathAnimationDuration = 1000;
+    private double deathAnimationTime;
 
     public FlyTortoiseEnemy(Texture2D texture, Vector2 position, Rectangle screenBounds, Game1 game, List<IBlock> block)
     {
@@ -37,6 +48,12 @@ public class FlyTortoiseEnemy : ISprite
 
         leftFrames = new Rectangle[2];
         rightFrames = new Rectangle[2];
+
+        DideFrames = new Rectangle[2];
+
+        DideFrames[0] = new Rectangle(329, 63, 16, 16);
+        DideFrames[1] = new Rectangle(359, 64, 16, 16);
+
 
         leftFrames[0] = new Rectangle(88, 59, 18, 25);
         leftFrames[1] = new Rectangle(118, 59, 18, 25);
@@ -68,69 +85,87 @@ public class FlyTortoiseEnemy : ISprite
     }
     public void Update(GameTime gameTime, IPlayer p)
     {
-        Random rand = new Random();
-        float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-        float nextY = position.Y + verticalVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         timeSinceLastFrame += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-        bool collisionOccurred = false;
-
-
-        foreach (IBlock block in block)
+        if (currentState == State.Dying)
         {
-            Rectangle nextPosition = new Rectangle((int)nextX, (int)position.Y, frames[currentFrame].Width * 2, frames[currentFrame].Height * 2); //
-
-            if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+            if (timeSinceLastFrame >= 300)
             {
-                collisionOccurred = true;
-                velocity = -velocity;
+                currentFrame = (currentFrame + 1) % frames.Length;
+                timeSinceLastFrame = 0;
             }
-            else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
-            {
-                collisionOccurred = true;
-                velocity = -velocity;
-            }
-            if (velocity > 0)
-            {
-                frames = rightFrames;
-            }
-            else
-            {
-                frames = leftFrames;
-            }
-            break;
-        }
-
-        if (nextY < verticalMoveRangeStart || nextY > verticalMoveRangeEnd)
-        {
-            verticalVelocity = -verticalVelocity;
-        }
-
-        if (!collisionOccurred)
-        {
-            position.X = nextX;
-            position.Y = nextY;
-        }
-
-        if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
-        {
-            collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
-            if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
-            {
-                p.CheckCollisionWithEnemy(true);
-                p.jump();
-                game.DestroyEnemy(this);
-                game.music.playStomp();
-            }
-        }
-
-        if (timeSinceLastFrame >= 300)
-        {
-            verticalMoveRangeStart = rand.Next(100, 450);
+            deathAnimationTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             currentFrame = (currentFrame + 1) % frames.Length;
-            timeSinceLastFrame = 0;
-        }      
+            if (deathAnimationTime >= deathAnimationDuration)
+            {
+                game.DestroyEnemy(this);
+                return;
+            }
+        }
+        else
+        {
+            Random rand = new Random();
+            float nextX = position.X + velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float nextY = position.Y + verticalVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            bool collisionOccurred = false;
+
+            foreach (IBlock block in block)
+            {
+                Rectangle nextPosition = new Rectangle((int)nextX, (int)position.Y, frames[currentFrame].Width * 2, frames[currentFrame].Height * 2); //
+
+                if (nextX < moveRangeStart || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+                {
+                    collisionOccurred = true;
+                    velocity = -velocity;
+                }
+                else if (nextX > moveRangeEnd || CollisionDetector.DetectCollision(nextPosition, block.Bounds))
+                {
+                    collisionOccurred = true;
+                    velocity = -velocity;
+                }
+                if (velocity > 0)
+                {
+                    frames = rightFrames;
+                }
+                else
+                {
+                    frames = leftFrames;
+                }
+                break;
+            }
+
+            if (nextY < verticalMoveRangeStart || nextY > verticalMoveRangeEnd)
+            {
+                verticalVelocity = -verticalVelocity;
+            }
+
+            if (!collisionOccurred)
+            {
+                position.X = nextX;
+                position.Y = nextY;
+            }          
+            if (timeSinceLastFrame >= 300)
+            {
+                verticalMoveRangeStart = rand.Next(100, 450);
+                currentFrame = (currentFrame + 1) % frames.Length;
+                timeSinceLastFrame = 0;
+            }
+
+            if (CollisionDetector.DetectCollision(Bounds, p.Bounds))
+            {
+                collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
+                if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
+                {
+                    frames = DideFrames;
+                    currentState = State.Dying;
+                    p.CheckCollisionWithEnemy(true);
+                    p.jump();
+                    game.music.playStomp();
+                }
+            }
+        }
     }
+
 
     public void Draw(SpriteBatch spriteBatch)
     {

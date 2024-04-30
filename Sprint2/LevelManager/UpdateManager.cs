@@ -9,14 +9,17 @@ using Sprint0;
 using Sprint0.Controller;
 using Sprint2;
 using Sprint2.Block;
+using System.Linq;
 
 public class UpdateManager
 {
     private Game1 game;
+    private Boolean check;
 
     public UpdateManager(Game1 game)
     {
         this.game = game;
+        check = false;
     }
 
     public void MainMenuUpdate()
@@ -77,6 +80,7 @@ public class UpdateManager
     }
     public void Level1Update(int gameindex, GameTime gameTime, List<ISprite> Item, List<IBlock> block, List<ISprite> enemie)
     {
+        check = false;
         if (gameindex == 2)
         {
             game.timer.Update(gameTime, game);
@@ -144,6 +148,13 @@ public class UpdateManager
             }
             foreach (ISprite e in game.DestroyEnemies)
             {
+                if (!game.scoreNeed.Contains(e))
+                {
+                    game.scoreNeed.Add(e);
+                    check = true;
+                    game.enemySposition.X = e.Bounds.X;
+                    game.enemySposition.Y = e.Bounds.Y;
+                }
                 enemie.Remove(e);
             }
         }
@@ -151,6 +162,7 @@ public class UpdateManager
         {
             Item.Remove(I);
         }
+        game.scorePopup.Update(gameTime, check);
     }
 
     public void PauseUpdate()

@@ -80,7 +80,9 @@ namespace Sprint0
         private GameOverController gameoverController;
         public Health mario_health;
         public TimeBlock timer;
-
+        public ScorePopup scorePopup;
+        public List<ISprite> scoreNeed;
+        public Vector2 enemySposition;
         public CheatCodeManager CheatCodeManager;
         public enum GameState
         {
@@ -145,6 +147,7 @@ namespace Sprint0
             Items3 = new List<ISprite>();
             blocks3 = new List<IBlock>();
             enemies3 = new List<ISprite>();
+            scoreNeed = new List<ISprite>();
             delayTimer = 1.0f;
             check = true;
 
@@ -159,6 +162,7 @@ namespace Sprint0
             gameoverController = new GameOverController(this);
             updateManager = new UpdateManager(this);
             drawManager = new DrawManager(this);
+            scorePopup = new ScorePopup(this);
 
             music = new Sounds(Content);
             base.Initialize();

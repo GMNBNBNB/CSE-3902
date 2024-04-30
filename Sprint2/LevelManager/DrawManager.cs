@@ -61,6 +61,7 @@ public class DrawManager
         {
             I.Draw(spriteBatch);
         }
+        game.scorePopup.Draw(game.enemySposition, spriteBatch);
     }
 
     public void PauseDraw(SpriteBatch spriteBatch, Rectangle screen, SpriteFont font, int pauseIndex)

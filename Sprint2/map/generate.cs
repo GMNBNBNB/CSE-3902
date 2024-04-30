@@ -114,6 +114,9 @@ public class Generate
             case "BrownBlock1":
                 game.AddBlock(new BrownBlock1(BlockTexture, position, game), level);
                 break;
+            case "BrownBlock2":
+                game.AddBlock(new BrownBlock2(BlockTexture, position, game), level);
+                break;
             case "pipe":
                 game.AddBlock(new PipeEn(pipeTexture, position), level);
                 break;
