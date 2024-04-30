@@ -1,7 +1,8 @@
 3902 team 6 project
 
 
-We have designed three levels, where level 1 and level 2 are adventure levels, and level 3 is a time level.(we delete test room)
+We have designed three levels, where level 1 and level 2 are adventure levels, 
+and level 3 is a time level, level 4 is adventure level.(we delete test room)
 
 for MainMenu, PauseMenu, GameOver and VictoryMenu:
 
@@ -33,12 +34,17 @@ For Block:
 We added a variety of different blocks, including the mushroom block, which Mario bumps into will pop up the mushroom, 
 and Mario can eat the mushroom to become bigger and gain a life. Star block: When Mario hits a block, a star will pop out, and Mario can be invincible for 10 seconds if he eats the star. 
 Flower block, Mario hit the block will pop flowers, Mario eat the flower can cause a fireball.
+Coin block, after Mario hited this block, it will pop a cion, Mario eat it can increase score.
 
 For CheatCode:
 The game has added cheaters, which currently include increasing the player's health through "increase health". 
 Change the player's speed using "speed X"(X is integer)
 Change the player's jump ability using "jumps X"(X is integer)
 
+For Score:
+we desgin a coin is 100
+          a enemy is 1000
+          a item is 500
 
 For player Control:
 
