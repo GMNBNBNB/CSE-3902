@@ -152,7 +152,7 @@ namespace Player
             jumpSpeed += gravity;
             position.Y += jumpSpeed;
 
-            if (position.Y > GetScreenBounds.Height - this.Bounds.Height)
+            if (position.Y > GetScreenBounds.Height)
             {
                 damaged(gameTime);
                 game.mario_health.UpdateHealthString();
