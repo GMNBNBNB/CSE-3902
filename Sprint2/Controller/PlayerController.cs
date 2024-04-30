@@ -188,7 +188,7 @@ public class KeyboardController : IController
                 }
             }
 
-            if ( previousKeyboardState.IsKeyDown(Keys.A))
+            if (previousKeyboardState.IsKeyDown(Keys.A))
             {
                 if (state.IsKeyUp(Keys.A))
                 {
@@ -196,7 +196,33 @@ public class KeyboardController : IController
                 }
                 else
                 {
-                    game.moveLeft();
+                    if (state.IsKeyDown(Keys.LeftShift))
+                    {
+                        game.moveLeftS();
+                    }
+                    else
+                    {
+                        game.moveLeft();
+                    }
+                }
+            }
+
+            if (previousKeyboardState.IsKeyDown(Keys.D))
+            {
+                if (state.IsKeyUp(Keys.D))
+                {
+                    game.rightStop();
+                }
+                else
+                {
+                    if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
+                    {
+                        game.moveRightS();
+                    }
+                    else
+                    {
+                        game.moveRight();
+                    }
                 }
             }
 
@@ -208,11 +234,17 @@ public class KeyboardController : IController
                 }
                 else
                 {
-                    game.moveLeft2();
+                    if (state.IsKeyDown(Keys.RightShift))
+                    {
+                        game.moveLeftS2();
+                    }
+                    else
+                    {
+                        game.moveLeft2();
+                    }
                 }
             }
 
-            //-> for move right
             if (previousKeyboardState.IsKeyDown(Keys.Right))
             {
                 if (state.IsKeyUp(Keys.Right))
@@ -221,21 +253,17 @@ public class KeyboardController : IController
                 }
                 else
                 {
-                    game.moveRight2();
+                    if (state.IsKeyDown(Keys.RightShift))
+                    {
+                        game.moveRightS2();
+                    }
+                    else
+                    {
+                        game.moveRight2();
+                    }
                 }
             }
 
-            if (previousKeyboardState.IsKeyDown(Keys.D))
-            {
-                if ( state.IsKeyUp(Keys.D))
-                {
-                    game.rightStop();
-                }
-                else
-                {
-                    game.moveRight();
-                }
-            }
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
                 game.currentState = Game1.GameState.Paused;

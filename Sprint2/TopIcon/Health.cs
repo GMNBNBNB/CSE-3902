@@ -56,6 +56,7 @@ namespace Sprint2.Icon
             isInvincible2 = false;
             InvincibleTime1 = 0;
             InvincibleTime2 = 0;
+
         }
         public void UpdateHealthString()
         {
@@ -98,6 +99,7 @@ namespace Sprint2.Icon
                     }
                     UpdateHealthString();
                 }
+
                 if (health == 0)
                 {
                     game.currentState = Game1.GameState.GameOver;
@@ -147,6 +149,7 @@ namespace Sprint2.Icon
                     }
                     UpdateHealthString();
                 }
+
                 if (health == 0)
                 {
                     game.currentState = Game1.GameState.GameOver;

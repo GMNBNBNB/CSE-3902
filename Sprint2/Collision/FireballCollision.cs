@@ -8,7 +8,6 @@ namespace Sprint0
     public class FireballCollision
     {
         private Fireball fireball;
-        CollisionHelper.CollisionDirection collisionDirection;
 
         public FireballCollision(Fireball fb)
         {

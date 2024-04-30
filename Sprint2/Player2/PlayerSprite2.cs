@@ -47,7 +47,7 @@ namespace Player2
         private bool facingRight;
         private bool hasCollidedWithEnemy = false;
 
-        private float gravity = 0.8f;
+        private float gravity;
         private float jumpSpeed;
         private float JumpSpeed;
         Texture2D MapTexture;
@@ -62,6 +62,8 @@ namespace Player2
         public bool isInvincible { get; private set; }
         private bool FireBallIsActive;
 
+        bool isDead;
+
         private Game1 game;
 
         public PlayerSprite2(Game1 game, Rectangle GetScreenBounds)
@@ -75,6 +77,9 @@ namespace Player2
             this.GetScreenBounds = GetScreenBounds;
             this.cave = game.cave;
             this.caveTexture = game.caveTexture;
+
+            gravity = 0.8f;
+            isDead = false;
 
             leftFrames = new Rectangle[3];
             rightFrames = new Rectangle[3];

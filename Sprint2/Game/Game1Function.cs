@@ -184,9 +184,19 @@ namespace Sprint0
             player.moveLeft();
         }
 
+        public void moveLeftS()
+        {
+            player.moveLeftS();
+        }
+
         public void moveRight()
         {
             player.moveRight();
+        }
+
+        public void moveRightS()
+        {
+            player.moveRightS();
         }
 
         public void leftStop()
@@ -228,9 +238,19 @@ namespace Sprint0
             player2.moveLeft();
         }
 
+        public void moveLeftS2()
+        {
+            player2.moveLeftS();
+        }
+
         public void moveRight2()
         {
             player2.moveRight();
+        }
+
+        public void moveRightS2()
+        {
+            player2.moveRightS();
         }
 
         public void leftStop2()

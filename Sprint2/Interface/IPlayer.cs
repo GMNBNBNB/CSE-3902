@@ -21,8 +21,12 @@ public interface IPlayer
     Rectangle Bounds { get; }
     Fireball fireball();
     void damaged(GameTime gameTime);
+    void normalVelocity();
+    void sprintVelocity();
     void moveLeft();
+    void moveLeftS();
     void moveRight();
+    void moveRightS();
     void moveLeftStop();
     void moveRightStop();
     void jump();

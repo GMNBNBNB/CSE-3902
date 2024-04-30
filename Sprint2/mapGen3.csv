@@ -1,4 +1,8 @@
 type,name,x,y
+block,BrownBlock1,270,420
+block,BrownBlock1,300,420
+block,BrownBlock1,270,450
+block,BrownBlock1,300,450
 block,BrownBlock1,0,420
 block,BrownBlock1,30,420
 block,BrownBlock1,60,420

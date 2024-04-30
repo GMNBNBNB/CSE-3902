@@ -25,6 +25,7 @@ namespace Player2
                 if (damagedAnimationTime <= 0)
                 {
                     lastDamagedTime = gameTime.TotalGameTime;
+                    isDead = false;
                     game.back();
                     game.music.startMusic();
                 }
@@ -151,11 +152,16 @@ namespace Player2
             jumpSpeed += gravity;
             position.Y += jumpSpeed;
 
-            if (position.Y > GetScreenBounds.Height - this.Bounds.Height)
+
+            if ((position.Y > GetScreenBounds.Height - this.Bounds.Height) && !isDead)
             {
+                gravity = 0;
+                jumpSpeed = 0;
+                position.Y = GetScreenBounds.Height - this.Bounds.Height;
+                isDead = true;
+                currentState = MarioState.Small;
                 damaged(gameTime);
                 game.mario_health.UpdateHealthString();
-                game.reset();
             }
 
         }

@@ -9,10 +9,46 @@ namespace Player2
 {
     public partial class PlayerSprite2 : IPlayer
     {
+        public void normalVelocity()
+        {
+            velocity = 300f;
+        }
+
+        public void sprintVelocity()
+        {
+            velocity = 450f;
+        }
+
         public void moveLeft()
         {
             if (currentState != MarioState.Dead)
             {
+                normalVelocity();
+                if (currentState == MarioState.Big)
+                {
+                    frames = bigLeftWalkFrames;
+                }
+                else if (currentState == MarioState.Small)
+                {
+                    frames = leftWalkFrames;
+                }
+                else if (currentState == MarioState.invincibleB)
+                {
+                    frames = bigLeftWalkFramesI;
+                }
+                else if (currentState == MarioState.invincibleS)
+                {
+                    frames = leftWalkFramesI;
+                }
+                facingRight = false;
+            }
+        }
+
+        public void moveLeftS()
+        {
+            if (currentState != MarioState.Dead)
+            {
+                sprintVelocity();
                 if (currentState == MarioState.Big)
                 {
                     frames = bigLeftWalkFrames;
@@ -54,10 +90,12 @@ namespace Player2
             facingRight = false;
             currentFrame = 0;
         }
+
         public void moveRight()
         {
             if (currentState != MarioState.Dead)
             {
+                normalVelocity();
                 if (currentState == MarioState.Big)
                 {
                     frames = bigRightWalkFrames;
@@ -77,6 +115,32 @@ namespace Player2
                 facingRight = true;
             }
         }
+
+        public void moveRightS()
+        {
+            if (currentState != MarioState.Dead)
+            {
+                sprintVelocity();
+                if (currentState == MarioState.Big)
+                {
+                    frames = bigRightWalkFrames;
+                }
+                else if (currentState == MarioState.Small)
+                {
+                    frames = rightWalkFrames;
+                }
+                else if (currentState == MarioState.invincibleB)
+                {
+                    frames = bigRightWalkFramesI;
+                }
+                else if (currentState == MarioState.invincibleS)
+                {
+                    frames = rightWalkFramesI;
+                }
+                facingRight = true;
+            }
+        }
+
         public void moveRightStop()
         {
             if (currentState == MarioState.Big)
@@ -219,6 +283,7 @@ namespace Player2
         }
         public void reset()
         {
+            gravity = 0.8f;
             FireBallIsActive = false;
             currentState = MarioState.Small;
             position = game.initialPosition();

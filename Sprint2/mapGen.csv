@@ -1,4 +1,8 @@
 type,name,x,y
+block,BrownBlock1,270,420
+block,BrownBlock1,300,420
+block,BrownBlock1,270,450
+block,BrownBlock1,300,450
 block,BrownBlock1,0,420
 block,BrownBlock1,30,420
 block,BrownBlock1,60,420
@@ -53,8 +57,6 @@ block,BrownBlock1,1560,420
 block,BrownBlock1,1590,420
 block,BrownBlock1,1620,420
 block,BrownBlock1,1650,420
-block,BrownBlock1,1680,420
-block,BrownBlock1,1710,420
 block,BrownBlock1,1740,420
 block,BrownBlock1,1770,420
 block,BrownBlock1,1800,420
@@ -170,8 +172,6 @@ block,BrownBlock1,1560,450
 block,BrownBlock1,1590,450
 block,BrownBlock1,1620,450
 block,BrownBlock1,1650,450
-block,BrownBlock1,1680,450
-block,BrownBlock1,1710,450
 block,BrownBlock1,1740,450
 block,BrownBlock1,1770,450
 block,BrownBlock1,1800,450
