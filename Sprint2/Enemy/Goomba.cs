@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprint0;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 public class Goomba : ISprite
@@ -24,6 +25,15 @@ public class Goomba : ISprite
     private Game1 game;
     CollisionHelper.CollisionDirection collisionDirection;
     private List<IBlock> block;
+    private float FixHight;
+
+    private enum State
+    {
+        Walking,
+        Dying
+    }
+
+    private State currentState;
 
     public Goomba(Texture2D texture, Vector2 position, Rectangle screenBounds,Game1 game, List<IBlock> block)
     {
@@ -32,9 +42,10 @@ public class Goomba : ISprite
         this.game = game;
         this.block = block;
 
-        frames = new Rectangle[2];
+        frames = new Rectangle[3];
         frames[0] = new Rectangle(0, 2, 18, 18);
         frames[1] = new Rectangle(28, 2, 18, 18);
+        frames[2] = new Rectangle(59, 7, 16, 9);
         currentFrame = 0;
 
         timeSinceLastFrame = 0;
@@ -43,6 +54,9 @@ public class Goomba : ISprite
 
         moveRangeStart = position.X - 300;
         moveRangeEnd = position.X + 300;
+
+        FixHight = frames[0].Height * 3 - frames[2].Height * 3;
+        currentState = State.Walking;
     }
 
     public void Update(GameTime gameTime, IPlayer p)
@@ -63,14 +77,31 @@ public class Goomba : ISprite
         }
 
 
-        if (timeSinceLastFrame >= 200)
+        if (currentState == State.Walking)
         {
-            currentFrame++;
-            if (currentFrame >= frames.Length)
-                currentFrame = 0;
+            if (timeSinceLastFrame >= 200)
+            {
+                currentFrame++;
+                if (currentFrame >= frames.Length - 1)
+                    currentFrame = 0;
 
-            timeSinceLastFrame = 0;
+                timeSinceLastFrame = 0;
+            }
         }
+        else if (currentState == State.Dying)
+        {          
+            if (timeSinceLastFrame >= 200)
+            {
+                currentFrame++;
+                if (currentFrame >= frames.Length)
+                {
+                    game.DestroyEnemy(this);
+                    currentFrame = 0;
+                }             
+                timeSinceLastFrame = 0;
+            }
+        }
+
         position.X = nextX;
 
 
@@ -79,9 +110,9 @@ public class Goomba : ISprite
             collisionDirection = CollisionHelper.DetermineCollisionDirection(Bounds, p.Bounds);
             if (collisionDirection == CollisionHelper.CollisionDirection.Bottom)
             {
+                currentState = State.Dying;
                 p.CheckCollisionWithEnemy(true);
                 p.jump();
-                game.DestroyEnemy(this);
                 game.music.playStomp();
             }
         }
@@ -91,6 +122,7 @@ public class Goomba : ISprite
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(texture, position, frames[currentFrame], Color.White, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+
     }
     public Rectangle Bounds
     {

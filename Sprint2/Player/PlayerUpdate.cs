@@ -154,7 +154,10 @@ namespace Player
 
             if (position.Y > GetScreenBounds.Height - this.Bounds.Height)
             {
-                game.currentState = Game1.GameState.GameOver;
+                damaged(gameTime);
+                game.mario_health.UpdateHealthString();
+                game.reset();
+
             }
         }
     }

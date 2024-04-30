@@ -298,6 +298,7 @@ block,BrownBlock1,2070,358
 block,BrownBlock1,2100,358
 block,BrownBlock1,2130,388
 block,BrownBlock1,2160,388
+block,FlowerBlock, 130,200
 enemy,FireEmemy,300,0
 enemy,FireEmemy,400,-100
 enemy,FireEmemy,500,-200
