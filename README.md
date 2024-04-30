@@ -45,10 +45,12 @@ For player Control:
 player1:
 using "W A S D" to move
 using "num 1" to shoot fireball
+using "left shift" to sprint
 
 player2:
 using "Arrows on the keyboard" to move
 using "space" to shoot fireball
+using "right shift" to sprint
 
 keyboard "r" can reset player
 keyboard "e" can damage player
